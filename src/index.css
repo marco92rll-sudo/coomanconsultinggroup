@@ -2,99 +2,95 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap');
 
 /* Cooman Consulting Group Design System
-   Tone: Calm, confident, senior
-   Visual: Clean, modern, understated, McKinsey-like
+   Tone: Direct, confident, anti-agency
+   Visual: Dark, bold, high contrast
 */
 
 @layer base {
   :root {
-    /* Core Palette - Sophisticated Navy & Cream */
-    --background: 40 33% 98%;
+    /* Light mode - rarely used, but defined */
+    --background: 0 0% 100%;
     --foreground: 222 47% 11%;
-
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
-
-    /* Deep Slate Navy - Authority & Trust */
-    --primary: 222 47% 11%;
-    --primary-foreground: 40 33% 98%;
-
-    /* Warm Cream - Sophistication */
-    --secondary: 40 20% 94%;
+    --primary: 190 95% 50%;
+    --primary-foreground: 222 47% 8%;
+    --secondary: 220 20% 96%;
     --secondary-foreground: 222 47% 11%;
-
-    /* Muted Slate */
     --muted: 220 14% 96%;
     --muted-foreground: 220 9% 46%;
-
-    /* Subtle Warm Accent */
-    --accent: 35 30% 92%;
-    --accent-foreground: 222 47% 11%;
-
+    --accent: 190 95% 50%;
+    --accent-foreground: 222 47% 8%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 222 47% 11%;
-
-    --radius: 0.375rem;
-
-    /* Custom tokens for CCG */
-    --slate-deep: 222 47% 11%;
-    --slate-medium: 220 14% 35%;
-    --cream: 40 33% 98%;
-    --cream-dark: 40 20% 94%;
-    --warm-gray: 30 10% 60%;
-    --divider: 220 13% 88%;
-
-    /* Typography Scale */
-    --font-display: 'Playfair Display', Georgia, serif;
-    --font-body: 'Inter', system-ui, sans-serif;
-
-    /* Sidebar defaults */
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --ring: 190 95% 50%;
+    --radius: 0.5rem;
   }
 
-  .dark {
-    --background: 222 47% 8%;
-    --foreground: 40 33% 98%;
-    --card: 222 47% 11%;
-    --card-foreground: 40 33% 98%;
-    --popover: 222 47% 11%;
-    --popover-foreground: 40 33% 98%;
-    --primary: 40 33% 98%;
-    --primary-foreground: 222 47% 11%;
-    --secondary: 222 30% 18%;
-    --secondary-foreground: 40 33% 98%;
+  .dark,
+  :root {
+    /* Dark Navy Background */
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+
+    /* Cards - slightly lighter */
+    --card: 222 40% 10%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 40% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Electric Cyan - Primary accent */
+    --primary: 190 95% 50%;
+    --primary-foreground: 222 47% 6%;
+
+    /* Darker secondary for sections */
+    --secondary: 222 40% 12%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Muted grays */
     --muted: 222 30% 18%;
-    --muted-foreground: 220 14% 65%;
-    --accent: 222 30% 18%;
-    --accent-foreground: 40 33% 98%;
+    --muted-foreground: 215 20% 65%;
+
+    /* Accent - electric cyan */
+    --accent: 190 95% 50%;
+    --accent-foreground: 222 47% 6%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Warning/comparison - for agency trap */
+    --warning: 0 84% 60%;
+    --warning-foreground: 0 0% 100%;
+
     --border: 222 30% 18%;
     --input: 222 30% 18%;
-    --ring: 40 33% 90%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --ring: 190 95% 50%;
+
+    /* Custom tokens */
+    --navy-deep: 222 47% 6%;
+    --navy-medium: 222 40% 12%;
+    --cyan-glow: 190 95% 50%;
+    --cyan-muted: 190 50% 35%;
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    /* Sidebar */
+    --sidebar-background: 222 47% 6%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 190 95% 50%;
+    --sidebar-primary-foreground: 222 47% 6%;
+    --sidebar-accent: 222 40% 12%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 222 30% 18%;
+    --sidebar-ring: 190 95% 50%;
   }
 }
 
@@ -109,12 +105,12 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: var(--font-body);
+    font-family: 'Inter', system-ui, sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
-    @apply tracking-tight;
+    font-family: 'Inter', system-ui, sans-serif;
+    @apply font-bold tracking-tight;
   }
 }
 
@@ -134,20 +130,20 @@
   }
 
   .container-wide {
-    @apply max-w-6xl mx-auto px-6 md:px-8;
+    @apply max-w-7xl mx-auto px-6 md:px-8;
   }
 
   /* Typography styles */
   .heading-hero {
-    @apply text-4xl md:text-5xl lg:text-6xl font-medium leading-[1.1] tracking-tight;
+    @apply text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.05] tracking-tight;
   }
 
   .heading-section {
-    @apply text-3xl md:text-4xl font-medium leading-tight;
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold leading-tight;
   }
 
   .heading-subsection {
-    @apply text-xl md:text-2xl font-medium leading-snug;
+    @apply text-xl md:text-2xl font-semibold leading-snug;
   }
 
   .body-large {
@@ -158,13 +154,48 @@
     @apply text-base leading-relaxed text-muted-foreground;
   }
 
-  /* Elegant divider */
-  .section-divider {
-    @apply border-t border-divider;
+  /* Quote styling */
+  .quote-text {
+    @apply text-xl md:text-2xl font-medium italic leading-relaxed;
+    font-family: 'Instrument Serif', Georgia, serif;
   }
 
-  /* Manifesto-style statements */
-  .manifesto-text {
-    @apply text-lg md:text-xl font-medium leading-relaxed tracking-tight;
+  /* Cyan glow effect */
+  .glow-cyan {
+    box-shadow: 0 0 40px 0 hsl(190 95% 50% / 0.25);
+  }
+
+  /* Card hover effect */
+  .card-hover {
+    @apply transition-all duration-300 hover:border-primary/50 hover:shadow-lg;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary via-cyan-400 to-primary bg-clip-text text-transparent;
+  }
+
+  /* Border gradient */
+  .border-gradient {
+    position: relative;
+  }
+
+  .border-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(190 95% 50%), hsl(190 50% 35%));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
 }

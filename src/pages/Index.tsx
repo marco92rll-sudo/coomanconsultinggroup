@@ -1,13 +1,13 @@
 import Header from "@/components/landing/Header";
 import Hero from "@/components/landing/Hero";
-import Differentiation from "@/components/landing/Differentiation";
-import Problem from "@/components/landing/Problem";
-import WhyOptionsFail from "@/components/landing/WhyOptionsFail";
-import OurRole from "@/components/landing/OurRole";
-import Solution from "@/components/landing/Solution";
-import WhoThisIsFor from "@/components/landing/WhoThisIsFor";
-import Outcomes from "@/components/landing/Outcomes";
-import HowToStart from "@/components/landing/HowToStart";
+import AgencyTrap from "@/components/landing/AgencyTrap";
+import HowWeWork from "@/components/landing/HowWeWork";
+import WhoWeWorkWith from "@/components/landing/WhoWeWorkWith";
+import Deliverables from "@/components/landing/Deliverables";
+import CaseStudies from "@/components/landing/CaseStudies";
+import Manifesto from "@/components/landing/Manifesto";
+import Pricing from "@/components/landing/Pricing";
+import PipelineAudit from "@/components/landing/PipelineAudit";
 import Footer from "@/components/landing/Footer";
 
 const Index = () => {
@@ -16,14 +16,14 @@ const Index = () => {
       <Header />
       <main>
         <Hero />
-        <Differentiation />
-        <Problem />
-        <WhyOptionsFail />
-        <OurRole />
-        <Solution />
-        <WhoThisIsFor />
-        <Outcomes />
-        <HowToStart />
+        <AgencyTrap />
+        <HowWeWork />
+        <WhoWeWorkWith />
+        <Deliverables />
+        <CaseStudies />
+        <Manifesto />
+        <Pricing />
+        <PipelineAudit />
       </main>
       <Footer />
     </div>
