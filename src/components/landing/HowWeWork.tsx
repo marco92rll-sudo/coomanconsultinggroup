@@ -116,19 +116,6 @@ const HowWeWork = () => {
           </div>
         </div>
 
-        {/* Guarantee */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-16 bg-card border border-primary/30 rounded-xl p-8 text-center max-w-3xl mx-auto glow-cyan"
-        >
-          <p className="text-lg font-semibold text-foreground mb-2">Our Guarantee</p>
-          <p className="text-muted-foreground">
-            If we haven't built you a self-sufficient outbound system in 90 days, we keep working for free until we do.
-          </p>
-        </motion.div>
       </div>
     </section>
   );

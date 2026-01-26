@@ -120,16 +120,6 @@ const Pricing = () => {
           </div>
         </motion.div>
 
-        {/* Guarantee */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-center text-muted-foreground mt-8"
-        >
-          <strong className="text-foreground">Guarantee:</strong> If we don't deliver a functioning outbound system in 90 days, we keep working for free until we do.
-        </motion.p>
       </div>
     </section>
   );
