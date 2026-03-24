@@ -75,7 +75,7 @@ const OurProcess = () => {
             className="card-process p-8 md:p-11"
           >
             <span className="pill-badge mb-5 inline-block">F2F</span>
-            <h3 className="text-xl font-bold mb-3">Founder to Framework</h3>
+            <h3 className="text-xl font-bold mb-3">Founder to Framework™</h3>
             <p className="mb-8" style={{ fontSize: 14, color: "rgba(255,255,255,0.45)", lineHeight: 1.7 }}>
               We capture your sales DNA — the instincts, positioning, and edge that wins — and systematise it so your team can replicate it.
             </p>
