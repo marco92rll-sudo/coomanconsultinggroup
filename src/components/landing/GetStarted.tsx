@@ -49,7 +49,7 @@ const GetStarted = () => {
             <h2 className="heading-section mb-4">
               Pick your <span className="glow-text-sm">entry point.</span>
             </h2>
-            <p style={{ fontSize: 15, color: "rgba(255,255,255,0.45)" }}>
+            <p style={{ fontSize: 15, color: "rgba(255,255,255,0.6)" }}>
               Two ways in. Both get you clarity fast.
             </p>
           </motion.div>
@@ -65,7 +65,7 @@ const GetStarted = () => {
               className="card-process p-8"
             >
               <h3 className="text-lg font-bold mb-3">The 3-Minute Lead Leak Finder</h3>
-              <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.45)", lineHeight: 1.7 }}>
+              <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
                 A fast self-assessment that diagnoses exactly where your pipeline is leaking. Instant results. No call needed.
               </p>
               <button
@@ -118,7 +118,7 @@ const GetStarted = () => {
               </span>
 
               <h3 className="text-lg font-bold mb-3 mt-2">Virtual Coffee</h3>
-              <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.45)", lineHeight: 1.7 }}>
+              <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
                 Tell us your biggest challenge. We'll spend 30 minutes showing you exactly what we'd do about it.
               </p>
               <button
@@ -171,7 +171,7 @@ const GetStarted = () => {
               </button>
 
               <h3 className="text-xl font-bold mb-1">Reserve Your Spot</h3>
-              <p className="mb-6" style={{ fontSize: 13, color: "rgba(255,255,255,0.45)" }}>
+              <p className="mb-6" style={{ fontSize: 13, color: "rgba(255,255,255,0.6)" }}>
                 Tell us a bit about you and we'll set up your virtual coffee.
               </p>
 
