@@ -4,7 +4,7 @@ const stats = [
   { number: "80%", desc: "Win rate achieved on high-value enterprise pipeline" },
   { number: "40%", desc: "Pipeline increase delivered in under 90 days" },
   { number: "120+", desc: "Businesses supported through funding & growth stages" },
-  { number: "5yr+", desc: "HubSpot CRM implementation expertise" },
+  { number: "5yr+", desc: "CRM automation and hygiene expertise" },
 ];
 
 const fadeUp = {
