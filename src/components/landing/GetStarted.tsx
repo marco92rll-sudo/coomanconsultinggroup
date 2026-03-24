@@ -65,7 +65,7 @@ const GetStarted = () => {
               className="card-process p-8"
             >
               <h3 className="text-lg font-bold mb-3">The 3-Minute Lead Leak Finder</h3>
-              <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.45)", lineHeight: 1.7 }}>
+              <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
                 A fast self-assessment that diagnoses exactly where your pipeline is leaking. Instant results. No call needed.
               </p>
               <button
