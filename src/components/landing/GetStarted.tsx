@@ -49,7 +49,7 @@ const GetStarted = () => {
             <h2 className="heading-section mb-4">
               Pick your <span className="glow-text-sm">entry point.</span>
             </h2>
-            <p style={{ fontSize: 15, color: "rgba(255,255,255,0.45)" }}>
+            <p style={{ fontSize: 15, color: "rgba(255,255,255,0.6)" }}>
               Two ways in. Both get you clarity fast.
             </p>
           </motion.div>
