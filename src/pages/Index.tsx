@@ -1,29 +1,25 @@
 import Header from "@/components/landing/Header";
 import Hero from "@/components/landing/Hero";
-import AgencyTrap from "@/components/landing/AgencyTrap";
-import HowWeWork from "@/components/landing/HowWeWork";
-import WhoWeWorkWith from "@/components/landing/WhoWeWorkWith";
-import Deliverables from "@/components/landing/Deliverables";
-import CaseStudies from "@/components/landing/CaseStudies";
-import Manifesto from "@/components/landing/Manifesto";
-import Pricing from "@/components/landing/Pricing";
-import PipelineAudit from "@/components/landing/PipelineAudit";
+import IndustriesStrip from "@/components/landing/IndustriesStrip";
+import WhatWeDo from "@/components/landing/WhatWeDo";
+import OurProcess from "@/components/landing/OurProcess";
+import GetStarted from "@/components/landing/GetStarted";
 import Footer from "@/components/landing/Footer";
+import MorphingOrbs from "@/components/landing/MorphingOrbs";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative" style={{ background: "#090f1a" }}>
+      <MorphingOrbs />
       <Header />
       <main>
         <Hero />
-        <AgencyTrap />
-        <HowWeWork />
-        <WhoWeWorkWith />
-        <Deliverables />
-        <CaseStudies />
-        <Manifesto />
-        <Pricing />
-        <PipelineAudit />
+        <IndustriesStrip />
+        <WhatWeDo />
+        <div className="glow-line relative z-10" />
+        <OurProcess />
+        <div className="glow-line relative z-10" />
+        <GetStarted />
       </main>
       <Footer />
     </div>

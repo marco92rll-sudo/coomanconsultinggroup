@@ -1,123 +1,117 @@
-import { Button } from "@/components/ui/button";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, TrendingUp, TrendingDown } from "lucide-react";
+import gsap from "gsap";
 
 const Hero = () => {
+  const logoRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (logoRef.current) {
+      gsap.fromTo(
+        logoRef.current,
+        { opacity: 0, scale: 0.6, rotation: -15 },
+        { opacity: 1, scale: 1, rotation: 0, duration: 1.2, ease: "power3.out" }
+      );
+      // Idle pulse after entrance
+      gsap.to(logoRef.current, {
+        scale: 1.02,
+        duration: 2,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+        delay: 1.3,
+      });
+    }
+  }, []);
+
   return (
-    <section className="min-h-screen flex items-center pt-20 pb-12 bg-background relative overflow-hidden">
-      {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary opacity-50" />
-      
-      {/* Glow effect */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-      
-      <div className="container-wide relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left: Content */}
-          <div>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-sm uppercase tracking-widest text-primary font-semibold mb-6"
-            >
-              Anti-Agency Revenue Systems
-            </motion.p>
+    <section className="min-h-screen flex items-center justify-center relative" style={{ paddingTop: 80 }}>
+      <div className="text-center max-w-4xl mx-auto px-6 relative z-10">
+        {/* Eyebrow */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="eyebrow mb-8"
+          style={{ letterSpacing: "0.18em" }}
+        >
+          Revenue Operations · Sales Systems · Outbound Infrastructure
+        </motion.p>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="heading-hero mb-6"
-            >
-              Stop Renting Your Revenue Engine.{" "}
-              <span className="gradient-text">Build It.</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="body-large max-w-xl mb-8"
-            >
-              We help B2B companies build world-class in-house outbound teams in 90 days—then we leave. No retainers. No dependency. Just sustainable growth.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex flex-col sm:flex-row gap-4"
-            >
-              <Button size="lg" className="group">
-                Book Pipeline Audit
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-              <Button variant="outline" size="lg">
-                Why We're Not an Agency
-              </Button>
-            </motion.div>
+        {/* Logo */}
+        <div className="flex justify-center mb-8">
+          <div style={{ filter: "drop-shadow(0 0 20px rgba(139,171,184,0.45))" }}>
+            <img
+              ref={logoRef}
+              src="/logo.png"
+              alt="CCG Logo"
+              className="w-20 h-20"
+              style={{ mixBlendMode: "lighten", opacity: 0 }}
+            />
           </div>
-
-          {/* Right: Split-screen visual */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="grid grid-cols-2 gap-4"
-          >
-            {/* Agency Model */}
-            <div className="bg-card border border-destructive/30 rounded-xl p-6 relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-destructive/50" />
-              <div className="flex items-center gap-2 mb-4">
-                <TrendingDown className="h-5 w-5 text-destructive" />
-                <span className="text-sm font-semibold text-destructive">Agency Model</span>
-              </div>
-              <div className="space-y-3">
-                <div className="text-xs text-muted-foreground">Monthly payments</div>
-                <div className="flex gap-1">
-                  {[...Array(12)].map((_, i) => (
-                    <div key={i} className="h-6 w-2 bg-destructive/40 rounded" />
-                  ))}
-                </div>
-                <div className="text-xs text-muted-foreground mt-4">Your ownership</div>
-                <div className="h-2 bg-muted rounded-full overflow-hidden">
-                  <div className="h-full w-0 bg-destructive rounded-full" />
-                </div>
-                <p className="text-xs text-muted-foreground mt-4">
-                  $180K-$300K/year<br/>
-                  <span className="text-destructive">Zero ownership when they leave</span>
-                </p>
-              </div>
-            </div>
-
-            {/* CCG Model */}
-            <div className="bg-card border border-primary/30 rounded-xl p-6 relative overflow-hidden glow-cyan">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-primary" />
-              <div className="flex items-center gap-2 mb-4">
-                <TrendingUp className="h-5 w-5 text-primary" />
-                <span className="text-sm font-semibold text-primary">CCG Model</span>
-              </div>
-              <div className="space-y-3">
-                <div className="text-xs text-muted-foreground">One-time investment</div>
-                <div className="flex gap-1">
-                  <div className="h-6 w-8 bg-primary rounded" />
-                  {[...Array(9)].map((_, i) => (
-                    <div key={i} className="h-6 w-2 bg-muted rounded opacity-30" />
-                  ))}
-                </div>
-                <div className="text-xs text-muted-foreground mt-4">Your ownership</div>
-                <div className="h-2 bg-muted rounded-full overflow-hidden">
-                  <div className="h-full w-full bg-primary rounded-full" />
-                </div>
-                <p className="text-xs text-muted-foreground mt-4">
-                  $45K-$85K one time<br/>
-                  <span className="text-primary">You own it forever</span>
-                </p>
-              </div>
-            </div>
-          </motion.div>
         </div>
+
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          style={{ fontSize: "clamp(48px, 7vw, 88px)", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.05 }}
+        >
+          <span style={{ color: "rgba(255,255,255,0.28)" }}>From </span>
+          <span style={{ color: "rgba(255,255,255,0.28)" }}>Founder{"\n"}</span>
+          <br />
+          <span className="glow-text">Instinct</span>
+          <span style={{ color: "rgba(255,255,255,0.28)" }}> to</span>
+          <br />
+          <span>Scalable </span>
+          <span className="glow-text">Framework.</span>
+        </motion.h1>
+
+        {/* Subheadline */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="mx-auto mt-8"
+          style={{ fontSize: 17, color: "rgba(255,255,255,0.5)", maxWidth: 580 }}
+        >
+          We extract what you know, systematise how you sell, and build the infrastructure that closes deals without you.
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center mt-10"
+        >
+          <a
+            href="#get-started"
+            className="inline-flex items-center justify-center px-8 py-3 font-semibold transition-all duration-200 glow-btn"
+            style={{
+              background: "#8BAAB8",
+              color: "#090f1a",
+              borderRadius: 6,
+              fontSize: 14,
+            }}
+          >
+            Pipeline Fix
+          </a>
+          <a
+            href="#get-started"
+            className="inline-flex items-center justify-center px-8 py-3 font-semibold transition-all duration-200"
+            style={{
+              background: "rgba(139,171,184,0.04)",
+              color: "#8BAAB8",
+              border: "1px solid rgba(139,171,184,0.35)",
+              borderRadius: 6,
+              fontSize: 14,
+            }}
+          >
+            Virtual Coffee
+          </a>
+        </motion.div>
       </div>
     </section>
   );
