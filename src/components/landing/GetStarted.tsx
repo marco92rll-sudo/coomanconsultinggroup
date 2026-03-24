@@ -16,17 +16,6 @@ const GetStarted = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [auditOpen, setAuditOpen] = useState(false);
 
-  const inputStyle: React.CSSProperties = {
-    background: "rgba(255,255,255,0.05)",
-    border: "1px solid rgba(139,171,184,0.2)",
-    color: "#ffffff",
-    borderRadius: 6,
-    padding: "10px 14px",
-    fontSize: 14,
-    width: "100%",
-    outline: "none",
-    transition: "border-color 0.2s",
-  };
 
   return (
     <>
