@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import CCGQualBot from "./CCGQualBot";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
