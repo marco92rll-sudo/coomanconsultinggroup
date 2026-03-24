@@ -60,7 +60,7 @@ const OurProcess = () => {
         >
           <p className="eyebrow mb-4">Our Process</p>
           <h2 className="heading-section">
-            Two engines. <span className="glow-text-sm">One outcome.</span>
+            Two functions. <span className="glow-text-sm">One outcome.</span>
           </h2>
         </motion.div>
 
