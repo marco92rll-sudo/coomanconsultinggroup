@@ -250,20 +250,12 @@ const GetStarted = () => {
             >
               <X className="h-6 w-6" />
             </button>
-            <div className="w-full h-full flex items-center justify-center p-4">
-              <div
-                className="w-full max-w-2xl p-8 text-center"
-                style={{
-                  background: "#0b1220",
-                  border: "1px solid rgba(139,171,184,0.2)",
-                  borderRadius: 12,
-                }}
-              >
-                <h3 className="text-xl font-bold mb-3">Pipeline Fix Audit</h3>
-                <p style={{ fontSize: 14, color: "rgba(255,255,255,0.45)" }}>
-                  The Quick Fix Audit tool will be embedded here. Content coming soon.
-                </p>
-              </div>
+            <div className="w-full h-full">
+              <iframe
+                src="/lead-leak-finder.html"
+                className="w-full h-full border-0"
+                title="3-Minute Lead Leak Finder"
+              />
             </div>
           </motion.div>
         )}
