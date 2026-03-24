@@ -104,7 +104,7 @@ const OurProcess = () => {
             className="card-process p-8 md:p-11"
           >
             <span className="pill-badge mb-5 inline-block">ROE</span>
-            <h3 className="text-xl font-bold mb-3">Rev-Ops Engine</h3>
+            <h3 className="text-xl font-bold mb-3">Rev-Ops Engine™</h3>
             <p className="mb-8" style={{ fontSize: 14, color: "rgba(255,255,255,0.45)", lineHeight: 1.7 }}>
               We leverage your F2F playbook to build the outbound infrastructure that generates meetings, refines your close, and then automates what's already working.
             </p>
