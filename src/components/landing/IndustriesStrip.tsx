@@ -52,7 +52,7 @@ const IndustriesStrip = () => {
             fontWeight: 500,
             letterSpacing: "0.15em",
             textTransform: "uppercase",
-            color: "rgba(255,255,255,0.2)",
+            color: "#ffffff",
           }}
         >
           Industries Served
