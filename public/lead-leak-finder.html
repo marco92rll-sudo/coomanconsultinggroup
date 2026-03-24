@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 3-Minute Lead Leak Finder</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #090f1a;
+  --white: #0b1220;
+  --cream: #0f1926;
+  --mid: rgba(139,171,184,0.15);
+  --muted: rgba(255,255,255,0.45);
+  --text: #ffffff;
+  --accent: #8BAAB8;
+  --accent-light: rgba(139,171,184,0.1);
+  --amber: #8BAAB8;
+  --amber-light: rgba(139,171,184,0.08);
+  --green: #8BAAB8;
+  --green-light: rgba(139,171,184,0.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #090f1a;
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+
+/* Hero */
+.hero {
+  margin-bottom: 3rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--mid);
+}
+.hero-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 1.25rem;
+}
+.hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--black);
+  margin-bottom: 1rem;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+.hero p {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 480px;
+  line-height: 1.7;
+}
+
+/* Email gate */
+#emailGate {
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+#emailGate h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--black);
+  margin-bottom: .5rem;
+}
+#emailGate p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+.input-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+.input-row input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid var(--mid);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--white);
+  outline: none;
+  transition: border-color .15s;
+}
+.input-row input:focus { border-color: var(--accent); }
+.input-row input::placeholder { color: var(--muted); }
+.btn-start {
+  width: 100%;
+  padding: 14px;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity .15s;
+}
+.btn-start:hover { opacity: .85; }
+.gate-note {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: .75rem;
+}
+
+/* Quiz */
+#quizArea { display: none; }
+
+.progress-wrap {
+  margin-bottom: 2.5rem;
+}
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.prog-track {
+  height: 3px;
+  background: var(--mid);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.prog-bar {
+  height: 100%;
+  background: var(--black);
+  border-radius: 2px;
+  transition: width .4s ease;
+  width: 0%;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.75rem;
+}
+
+.question-block {
+  margin-bottom: 2.25rem;
+}
+.question-block h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1.4;
+  margin-bottom: .4rem;
+}
+.q-hint {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 15px;
+  border: 1px solid var(--mid);
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--white);
+  transition: all .15s;
+  text-align: left;
+  width: 100%;
+  font-family: 'DM Sans', sans-serif;
+}
+.opt:hover { border-color: #ccc; background: var(--cream); }
+.opt.selected { border-color: var(--black); background: var(--cream); }
+.opt-radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--mid);
+  flex-shrink: 0;
+  margin-top: 2px;
+  position: relative;
+  transition: all .15s;
+}
+.opt.selected .opt-radio {
+  border-color: var(--black);
+  background: var(--black);
+}
+.opt.selected .opt-radio::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--white);
+}
+.opt-text {}
+.opt-label { font-size: 14px; color: var(--text); font-weight: 400; line-height: 1.4; }
+.opt-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+.step-nav {
+  display: flex;
+  gap: 10px;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--mid);
+  margin-top: 1rem;
+}
+.btn-nav {
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--mid);
+  background: var(--white);
+  color: var(--text);
+  transition: all .15s;
+}
+.btn-nav:hover { background: var(--cream); }
+.btn-nav.primary {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+}
+.btn-nav.primary:hover { opacity: .85; }
+
+/* Steps */
+.step { display: none; }
+.step.active { display: block; }
+
+/* Results */
+#resultsArea { display: none; }
+
+.score-hero {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  background: var(--cream);
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+.score-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 5rem;
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1;
+  margin-bottom: .25rem;
+}
+.score-denom {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+.score-verdict {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 5px 16px;
+  border-radius: 20px;
+}
+
+.results-section { margin-bottom: 2rem; }
+.results-section h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--black);
+  margin-bottom: 1rem;
+}
+
+.leak-card {
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--mid);
+  margin-bottom: 10px;
+  background: var(--white);
+}
+.leak-card.critical { border-color: #e8b4a0; background: var(--accent-light); }
+.leak-card.warning { border-color: #e0c88a; background: var(--amber-light); }
+.leak-card.good { border-color: #9ecfb4; background: var(--green-light); }
+.leak-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+.leak-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.leak-card.critical .leak-dot { background: var(--accent); }
+.leak-card.warning .leak-dot { background: var(--amber); }
+.leak-card.good .leak-dot { background: var(--green); }
+.leak-title { font-size: 13px; font-weight: 500; color: var(--text); }
+.leak-desc { font-size: 13px; color: var(--muted); line-height: 1.6; padding-left: 16px; }
+
+.fix-block {
+  display: flex;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--mid);
+}
+.fix-block:last-child { border-bottom: none; }
+.fix-num {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 500;
+  color: var(--muted);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.fix-action { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; line-height: 1.4; }
+.fix-detail { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.fix-time {
+  display: inline-block;
+  font-size: 11px; font-weight: 500;
+  color: var(--amber);
+  background: var(--amber-light);
+  padding: 2px 9px;
+  border-radius: 12px;
+  margin-top: 5px;
+}
+
+.cta-box {
+  background: var(--black);
+  color: var(--white);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-top: 2.5rem;
+  text-align: center;
+}
+.cta-box h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: .75rem;
+  color: var(--white);
+}
+.cta-box p {
+  font-size: 14px;
+  color: #9a9690;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+.btn-cta {
+  display: inline-block;
+  padding: 13px 28px;
+  background: var(--white);
+  color: var(--black);
+  border: none;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity .15s;
+}
+.btn-cta:hover { opacity: .9; }
+
+.restart-row {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+.btn-restart {
+  background: none;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Sending state */
+.sending-msg {
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: .75rem;
+  min-height: 20px;
+}
+
+@media(max-width:500px){
+  .page{ padding: 2rem 1.25rem 4rem; }
+  .hero h1 { font-size: 1.85rem; }
+  .score-num { font-size: 4rem; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">Free diagnostic</div>
+    <h1>The 3-Minute<br><em>Lead Leak Finder</em><br>+ 15-Minute Fix Plan</h1>
+    <p>For founders who've hit the referral ceiling. Find exactly where your funnel is leaking — and what to fix today.</p>
+  </div>
+
+  <!-- EMAIL GATE -->
+  <div id="emailGate">
+    <h2>Where should we send your results?</h2>
+    <p>Takes 3 minutes. You'll get a personalised score, a breakdown of your biggest leaks, and a 15-minute fix plan.</p>
+    <div class="input-row">
+      <input type="text" id="userName" placeholder="Your first name" autocomplete="given-name" />
+      <input type="email" id="userEmail" placeholder="Your email address" autocomplete="email" />
+    </div>
+    <button class="btn-start" onclick="startQuiz()">Start the diagnostic →</button>
+    <div class="sending-msg" id="gateMsg"></div>
+    <p class="gate-note">No spam. Just your results.</p>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quizArea">
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span id="stepLabel">Section 1 of 3</span>
+        <span id="stepCount">Question 1–2 of 6</span>
+      </div>
+      <div class="prog-track"><div class="prog-bar" id="progBar"></div></div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="step active" id="step1">
+      <div class="section-label">Visibility</div>
+
+      <div class="question-block">
+        <h3>How consistently are you putting content or messages in front of new people?</h3>
+        <p class="q-hint">Posts, outreach, podcasts, video — anything that gets you seen by people who don't know you yet.</p>
+        <div class="options">
+          <button class="opt" onclick="pick(this,'v1',0)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Rarely or never</div><div class="opt-sub">I mostly wait for referrals or word of mouth</div></div></button>
+          <button class="opt" onclick="pick(this,'v1',1)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Inconsistently</div><div class="opt-sub">Some weeks I show up, others I go quiet</div></div></button>
+          <button class="opt" onclick="pick(this,'v1',2)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">1–2 times per week</div><div class="opt-sub">I'm posting or reaching out regularly</div></div></button>
+          <button class="opt" onclick="pick(this,'v1',3)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Daily or near-daily</div><div class="opt-sub">Visibility is a habit, not an afterthought</div></div></button>
+        </div>
+      </div>
+
+      <div class="question-block">
+        <h3>When you do post or reach out — how targeted is your content toward your ideal founder client?</h3>
+        <div class="options">
+          <button class="opt" onclick="pick(this,'v2',0)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Very general</div><div class="opt-sub">I post broad business or motivational content</div></div></button>
+          <button class="opt" onclick="pick(this,'v2',1)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Somewhat relevant</div><div class="opt-sub">It loosely connects to my work, not always their problem</div></div></button>
+          <button class="opt" onclick="pick(this,'v2',2)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Speaks to their pain</div><div class="opt-sub">I write about the exact problems my clients face</div></div></button>
+          <button class="opt" onclick="pick(this,'v2',3)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Magnetic and specific</div><div class="opt-sub">My content makes ideal clients stop and say "this is me"</div></div></button>
+        </div>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn-nav primary" onclick="nextStep(1)">Next — Messaging →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step" id="step2">
+      <div class="section-label">Messaging</div>
+
+      <div class="question-block">
+        <h3>How clear is your offer to a stranger who lands on your profile or website?</h3>
+        <p class="q-hint">Could someone tell in 10 seconds exactly who you help, what you help with, and what the result is?</p>
+        <div class="options">
+          <button class="opt" onclick="pick(this,'m1',0)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Vague or confusing</div><div class="opt-sub">My bio says "coach / consultant / advisor"</div></div></button>
+          <button class="opt" onclick="pick(this,'m1',1)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Partially clear</div><div class="opt-sub">It's clear what I do, but not who for or what the outcome is</div></div></button>
+          <button class="opt" onclick="pick(this,'m1',2)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Mostly clear</div><div class="opt-sub">People get it — I just don't know if it resonates deeply</div></div></button>
+          <button class="opt" onclick="pick(this,'m1',3)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Crystal clear and compelling</div><div class="opt-sub">Specific, outcome-focused, and turns the right heads</div></div></button>
+        </div>
+      </div>
+
+      <div class="question-block">
+        <h3>Do you have a clear, specific next step you direct people toward?</h3>
+        <div class="options">
+          <button class="opt" onclick="pick(this,'m2',0)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">No real CTA</div><div class="opt-sub">I just post and hope they figure it out</div></div></button>
+          <button class="opt" onclick="pick(this,'m2',1)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Generic CTA</div><div class="opt-sub">"DM me to chat" but nothing specific</div></div></button>
+          <button class="opt" onclick="pick(this,'m2',2)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">One clear next step</div><div class="opt-sub">I have a link, freebie, or call booking that I direct to</div></div></button>
+          <button class="opt" onclick="pick(this,'m2',3)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Strong lead path</div><div class="opt-sub">Every piece of content has a specific, compelling CTA that converts</div></div></button>
+        </div>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn-nav" onclick="prevStep(2)">← Back</button>
+        <button class="btn-nav primary" onclick="nextStep(2)">Next — Conversion →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step" id="step3">
+      <div class="section-label">Conversion</div>
+
+      <div class="question-block">
+        <h3>When someone shows interest — how fast and confident is your follow-through?</h3>
+        <div class="options">
+          <button class="opt" onclick="pick(this,'c1',0)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Slow or non-existent</div><div class="opt-sub">Leads go cold because I don't have a process</div></div></button>
+          <button class="opt" onclick="pick(this,'c1',1)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">I respond but inconsistently</div><div class="opt-sub">No clear script or follow-up system</div></div></button>
+          <button class="opt" onclick="pick(this,'c1',2)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Respond promptly, no script</div><div class="opt-sub">I wing it and it goes well sometimes</div></div></button>
+          <button class="opt" onclick="pick(this,'c1',3)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Fast and systematic</div><div class="opt-sub">I have a process that moves interested people to calls</div></div></button>
+        </div>
+      </div>
+
+      <div class="question-block">
+        <h3>How balanced is your lead gen between inbound and outbound?</h3>
+        <div class="options">
+          <button class="opt" onclick="pick(this,'c2',0)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">100% referral / word of mouth</div><div class="opt-sub">Zero active lead gen happening</div></div></button>
+          <button class="opt" onclick="pick(this,'c2',1)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Mostly one channel</div><div class="opt-sub">Either content or outreach — inconsistently</div></div></button>
+          <button class="opt" onclick="pick(this,'c2',2)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Both, but reactive</div><div class="opt-sub">I do both when I remember, not systematically</div></div></button>
+          <button class="opt" onclick="pick(this,'c2',3)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Balanced and intentional</div><div class="opt-sub">Weekly inbound + outbound on a schedule</div></div></button>
+        </div>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn-nav" onclick="prevStep(3)">← Back</button>
+        <button class="btn-nav primary" onclick="showResults()">Show my results →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="resultsArea">
+    <div class="score-hero">
+      <div class="score-num" id="rScore">0</div>
+      <div class="score-denom">out of 18 — your lead engine score</div>
+      <div class="score-verdict" id="rVerdict"></div>
+    </div>
+
+    <div class="results-section">
+      <h2>Where your funnel is leaking</h2>
+      <div id="leakCards"></div>
+    </div>
+
+    <div class="results-section">
+      <h2>Your 15-minute fix plan for today</h2>
+      <div id="fixPlan"></div>
+    </div>
+
+    <div class="cta-box">
+      <h2>Want the full system?</h2>
+      <p>This diagnostic shows you where the gaps are. If you want a step-by-step plan to build consistent inbound + outbound leads, that's what we build together.</p>
+      <a href="https://calendly.com/ccooman-ccg/30min" class="btn-cta" target="_blank">Book a free 20-min call →</a>
+    </div>
+
+    <div class="restart-row">
+      <button class="btn-restart" onclick="restart()">Start over</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+var answers = {};
+var userData = { name: '', email: '' };
+
+// ── REPLACE THIS with your Formspree endpoint ──────────────────────────────
+// 1. Go to formspree.io → New Form → copy your endpoint URL
+// 2. Replace the URL below
+var FORMSPREE_URL = 'https://formspree.io/f/xjgazynn';
+// ──────────────────────────────────────────────────────────────────────────
+
+function startQuiz() {
+  var name = document.getElementById('userName').value.trim();
+  var email = document.getElementById('userEmail').value.trim();
+  var msg = document.getElementById('gateMsg');
+
+  if (!name) { msg.textContent = 'Please enter your first name.'; return; }
+  if (!email || !email.includes('@')) { msg.textContent = 'Please enter a valid email.'; return; }
+
+  userData.name = name;
+  userData.email = email;
+  msg.textContent = '';
+
+  document.getElementById('emailGate').style.display = 'none';
+  document.getElementById('quizArea').style.display = 'block';
+  updateProgress(1);
+}
+
+function pick(el, key, val) {
+  var parent = el.closest('.options');
+  parent.querySelectorAll('.opt').forEach(function(o) { o.classList.remove('selected'); });
+  el.classList.add('selected');
+  answers[key] = val;
+}
+
+function nextStep(from) {
+  var required = from === 1 ? ['v1','v2'] : ['m1','m2'];
+  for (var i = 0; i < required.length; i++) {
+    if (answers[required[i]] === undefined) {
+      alert('Please answer both questions before continuing.');
+      return;
+    }
+  }
+  document.getElementById('step' + from).classList.remove('active');
+  document.getElementById('step' + (from + 1)).classList.add('active');
+  updateProgress(from + 1);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function prevStep(from) {
+  document.getElementById('step' + from).classList.remove('active');
+  document.getElementById('step' + (from - 1)).classList.add('active');
+  updateProgress(from - 1);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress(step) {
+  var labels = ['', 'Section 1 of 3 — Visibility', 'Section 2 of 3 — Messaging', 'Section 3 of 3 — Conversion'];
+  var counts = ['', 'Questions 1–2 of 6', 'Questions 3–4 of 6', 'Questions 5–6 of 6'];
+  var pcts = [0, 16, 50, 83];
+  document.getElementById('stepLabel').textContent = labels[step];
+  document.getElementById('stepCount').textContent = counts[step];
+  document.getElementById('progBar').style.width = pcts[step] + '%';
+}
+
+function showResults() {
+  if (answers['c1'] === undefined || answers['c2'] === undefined) {
+    alert('Please answer both questions before continuing.');
+    return;
+  }
+
+  document.getElementById('quizArea').style.display = 'none';
+  document.getElementById('resultsArea').style.display = 'block';
+  document.getElementById('progBar').style.width = '100%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  buildResults();
+  sendToFormspree();
+}
+
+function buildResults() {
+  var v = (answers.v1 || 0) + (answers.v2 || 0);
+  var m = (answers.m1 || 0) + (answers.m2 || 0);
+  var c = (answers.c1 || 0) + (answers.c2 || 0);
+  var total = v + m + c;
+
+  document.getElementById('rScore').textContent = total;
+
+  var verdict = document.getElementById('rVerdict');
+  if (total <= 6) {
+    verdict.textContent = 'Major leaks — fix the foundation first';
+    verdict.style.cssText = 'background:#f5ede8;color:#993c1d;padding:5px 16px;border-radius:20px;font-size:13px;font-weight:500';
+  } else if (total <= 11) {
+    verdict.textContent = 'A few leaks slowing your growth';
+    verdict.style.cssText = 'background:#faf3e6;color:#854f0b;padding:5px 16px;border-radius:20px;font-size:13px;font-weight:500';
+  } else if (total <= 15) {
+    verdict.textContent = 'Solid base — optimise and scale';
+    verdict.style.cssText = 'background:#e8f5ee;color:#2e7d52;padding:5px 16px;border-radius:20px;font-size:13px;font-weight:500';
+  } else {
+    verdict.textContent = 'Strong engine — now systemise it';
+    verdict.style.cssText = 'background:#e1f5ee;color:#0f6e56;padding:5px 16px;border-radius:20px;font-size:13px;font-weight:500';
+  }
+
+  var leaks = [];
+  if (v <= 2) leaks.push({type:'critical', title:'Visibility leak', desc:"You're not showing up consistently enough for new people to find you. Without regular visibility, your funnel starves at the top."});
+  else if (v <= 4) leaks.push({type:'warning', title:'Visibility gap', desc:"You're showing up but not frequently or specifically enough to build momentum. Inconsistency kills trust before it starts."});
+  else leaks.push({type:'good', title:'Visibility — solid', desc:"You're creating regular visibility. Focus on keeping it hyper-targeted to your ideal client."});
+
+  if (m <= 2) leaks.push({type:'critical', title:'Messaging leak', desc:"Your message isn't clear or compelling enough to stop the scroll. People can't say yes to something they don't fully understand."});
+  else if (m <= 4) leaks.push({type:'warning', title:'Messaging gap', desc:"Your offer is clear-ish, but the CTA path isn't converting. People see you but don't know what to do next."});
+  else leaks.push({type:'good', title:'Messaging — solid', desc:"Clear offer, clear CTA. Now it's about volume and targeting."});
+
+  if (c <= 2) leaks.push({type:'critical', title:'Conversion leak', desc:"Interested leads are going cold. You have no system to move people from curious to booked. This is where money is left on the table."});
+  else if (c <= 4) leaks.push({type:'warning', title:'Conversion gap', desc:"You're responding but winging it. Without a process, your conversion rate is a guess, not a system."});
+  else leaks.push({type:'good', title:'Conversion — solid', desc:"You have a process that works. The opportunity is to make it more consistent and track it."});
+
+  var lhtml = '';
+  leaks.forEach(function(l) {
+    lhtml += '<div class="leak-card ' + l.type + '"><div class="leak-header"><div class="leak-dot"></div><div class="leak-title">' + l.title + '</div></div><div class="leak-desc">' + l.desc + '</div></div>';
+  });
+  document.getElementById('leakCards').innerHTML = lhtml;
+
+  var fixes = [];
+  if ((answers.v1 || 0) <= 1) fixes.push({action:'Block 15 mins and send 3 outreach messages today', detail:'Pick 3 specific founders in your network who could benefit from what you do. Send a personalised, no-pitch opener to each one.', time:'15 min'});
+  else if ((answers.v2 || 0) <= 1) fixes.push({action:'Rewrite one piece of content to speak directly to the pain', detail:'Take something you\'ve already created and rewrite the opening line to call out the exact frustration your ideal founder is feeling right now.', time:'15 min'});
+
+  if ((answers.m1 || 0) <= 1) fixes.push({action:'Rewrite your bio using the founder formula', detail:'"I help [specific founder type] go from [current pain] to [specific outcome] — without [common frustration]." Replace anything vague.', time:'10 min'});
+  else if ((answers.m2 || 0) <= 1) fixes.push({action:'Add one specific CTA to your next piece of content', detail:'Don\'t end with "let me know your thoughts." End with a clear, low-friction ask: comment a word, DM a phrase, or click a link.', time:'5 min'});
+
+  if ((answers.c1 || 0) <= 1) fixes.push({action:'Write a 3-message DM sequence for when someone shows interest', detail:'Message 1: warm thank you + one qualifying question. Message 2: short insight + soft CTA. Message 3: direct ask to book a call.', time:'15 min'});
+  else if ((answers.c2 || 0) <= 1) fixes.push({action:'Schedule 3 outbound touchpoints for this week right now', detail:'Open your calendar and block 3 × 15-min slots for outbound activity. Just three conversations started per week compounds fast.', time:'5 min'});
+
+  if (fixes.length === 0) fixes.push({action:'Raise your volume by 20%', detail:'Your fundamentals are strong. The lever now is reach. Pick one channel and increase your output by one extra touchpoint per week.', time:'10 min'});
+
+  var fhtml = '';
+  fixes.forEach(function(f, i) {
+    fhtml += '<div class="fix-block"><div class="fix-num">' + (i + 1) + '</div><div><div class="fix-action">' + f.action + '</div><div class="fix-detail">' + f.detail + '</div><span class="fix-time">' + f.time + '</span></div></div>';
+  });
+  document.getElementById('fixPlan').innerHTML = fhtml;
+}
+
+function sendToFormspree() {
+  var v = (answers.v1 || 0) + (answers.v2 || 0);
+  var m = (answers.m1 || 0) + (answers.m2 || 0);
+  var c = (answers.c1 || 0) + (answers.c2 || 0);
+  var total = v + m + c;
+
+  var scoreLabels = ['Rarely/never','Inconsistently','1-2x per week','Daily'];
+  var targetLabels = ['Very general','Somewhat relevant','Speaks to pain','Magnetic'];
+  var clarityLabels = ['Vague','Partially clear','Mostly clear','Crystal clear'];
+  var ctaLabels = ['No CTA','Generic CTA','One clear step','Strong lead path'];
+  var followLabels = ['Slow/none','Inconsistent','Prompt, no script','Fast + systematic'];
+  var balanceLabels = ['100% referral','Mostly one channel','Both, reactive','Balanced'];
+
+  var payload = {
+    name: userData.name,
+    email: userData.email,
+    score: total + '/18',
+    visibility_score: v + '/6',
+    messaging_score: m + '/6',
+    conversion_score: c + '/6',
+    q1_consistency: scoreLabels[answers.v1 || 0],
+    q2_targeting: targetLabels[answers.v2 || 0],
+    q3_clarity: clarityLabels[answers.m1 || 0],
+    q4_cta: ctaLabels[answers.m2 || 0],
+    q5_followthrough: followLabels[answers.c1 || 0],
+    q6_balance: balanceLabels[answers.c2 || 0],
+    completed_at: new Date().toLocaleString()
+  };
+
+  fetch(FORMSPREE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(payload)
+  }).catch(function() {});
+}
+
+function restart() {
+  answers = {};
+  userData = { name: '', email: '' };
+  document.getElementById('userName').value = '';
+  document.getElementById('userEmail').value = '';
+  document.getElementById('resultsArea').style.display = 'none';
+  document.getElementById('emailGate').style.display = 'block';
+  document.querySelectorAll('.opt').forEach(function(o) { o.classList.remove('selected'); });
+  document.querySelectorAll('.step').forEach(function(s, i) {
+    s.classList.toggle('active', i === 0);
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
