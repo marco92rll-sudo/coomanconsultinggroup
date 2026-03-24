@@ -58,11 +58,11 @@ const Hero = () => {
           transition={{ duration: 0.5, delay: 0.3 }}
           style={{ fontSize: "clamp(48px, 7vw, 88px)", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.05 }}
         >
-          <span style={{ color: "rgba(255,255,255,0.28)" }}>From </span>
-          <span style={{ color: "rgba(255,255,255,0.28)" }}>Founder{"\n"}</span>
+          <span style={{ color: "#ffffff" }}>From </span>
+          <span style={{ color: "#ffffff" }}>Founder{"\n"}</span>
           <br />
           <span className="glow-text">Instinct</span>
-          <span style={{ color: "rgba(255,255,255,0.28)" }}> to</span>
+          <span style={{ color: "#ffffff" }}> to</span>
           <br />
           <span>Scalable </span>
           <span className="glow-text">Framework.</span>
