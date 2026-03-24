@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import CCGQualBot from "./CCGQualBot";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -14,24 +15,7 @@ const fadeUp = {
 const GetStarted = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [auditOpen, setAuditOpen] = useState(false);
-  const [form, setForm] = useState({ name: "", website: "", email: "", challenge: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    window.location.href = "https://calendly.com/lcooman-ccg/discovery";
-  };
-
-  const inputStyle: React.CSSProperties = {
-    background: "rgba(255,255,255,0.05)",
-    border: "1px solid rgba(139,171,184,0.2)",
-    color: "#ffffff",
-    borderRadius: 6,
-    padding: "10px 14px",
-    fontSize: 14,
-    width: "100%",
-    outline: "none",
-    transition: "border-color 0.2s",
-  };
 
   return (
     <>
@@ -139,7 +123,7 @@ const GetStarted = () => {
         </div>
       </section>
 
-      {/* Virtual Coffee Modal */}
+      {/* Virtual Coffee Bot Modal */}
       <AnimatePresence>
         {modalOpen && (
           <motion.div
@@ -154,80 +138,17 @@ const GetStarted = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="w-full max-w-md p-8 relative"
-              style={{
-                background: "#0b1220",
-                border: "1px solid rgba(139,171,184,0.2)",
-                borderRadius: 12,
-              }}
               onClick={(e) => e.stopPropagation()}
+              className="relative"
             >
               <button
                 onClick={() => setModalOpen(false)}
-                className="absolute top-4 right-4"
-                style={{ color: "rgba(255,255,255,0.4)" }}
+                className="absolute -top-3 -right-3 z-10 w-8 h-8 rounded-full flex items-center justify-center"
+                style={{ background: "#0f1926", border: "1px solid rgba(139,171,184,0.2)", color: "rgba(255,255,255,0.5)" }}
               >
-                <X className="h-5 w-5" />
+                <X className="h-4 w-4" />
               </button>
-
-              <h3 className="text-xl font-bold mb-1">Reserve Your Spot</h3>
-              <p className="mb-6" style={{ fontSize: 13, color: "rgba(255,255,255,0.6)" }}>
-                Tell us a bit about you and we'll set up your virtual coffee.
-              </p>
-
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <input
-                  required
-                  placeholder="Name"
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  style={inputStyle}
-                  onFocus={(e) => (e.currentTarget.style.borderColor = "#8BAAB8")}
-                  onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(139,171,184,0.2)")}
-                />
-                <input
-                  required
-                  type="url"
-                  placeholder="Company Website"
-                  value={form.website}
-                  onChange={(e) => setForm({ ...form, website: e.target.value })}
-                  style={inputStyle}
-                  onFocus={(e) => (e.currentTarget.style.borderColor = "#8BAAB8")}
-                  onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(139,171,184,0.2)")}
-                />
-                <input
-                  required
-                  type="email"
-                  placeholder="Email"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  style={inputStyle}
-                  onFocus={(e) => (e.currentTarget.style.borderColor = "#8BAAB8")}
-                  onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(139,171,184,0.2)")}
-                />
-                <textarea
-                  required
-                  rows={3}
-                  placeholder="Biggest Challenge"
-                  value={form.challenge}
-                  onChange={(e) => setForm({ ...form, challenge: e.target.value })}
-                  style={{ ...inputStyle, resize: "none" }}
-                  onFocus={(e) => (e.currentTarget.style.borderColor = "#8BAAB8")}
-                  onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(139,171,184,0.2)")}
-                />
-                <button
-                  type="submit"
-                  className="w-full py-3 font-semibold transition-all duration-200"
-                  style={{
-                    background: "#8BAAB8",
-                    color: "#090f1a",
-                    borderRadius: 6,
-                    fontSize: 14,
-                  }}
-                >
-                  Reserve My Spot
-                </button>
-              </form>
+              <CCGQualBot />
             </motion.div>
           </motion.div>
         )}
