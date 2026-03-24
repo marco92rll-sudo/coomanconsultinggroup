@@ -118,7 +118,7 @@ const GetStarted = () => {
               </span>
 
               <h3 className="text-lg font-bold mb-3 mt-2">Virtual Coffee</h3>
-              <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.45)", lineHeight: 1.7 }}>
+              <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
                 Tell us your biggest challenge. We'll spend 30 minutes showing you exactly what we'd do about it.
               </p>
               <button
