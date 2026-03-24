@@ -104,8 +104,10 @@ const GetStarted = () => {
               <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
                 Tell us your biggest challenge. We'll spend 30 minutes showing you exactly what we'd do about it.
               </p>
-              <button
-                onClick={() => setModalOpen(true)}
+              <a
+                href="https://calendly.com/lcooman-ccg/discovery"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-6 py-2.5 font-semibold transition-all duration-200"
                 style={{
                   background: "rgba(139,171,184,0.04)",
@@ -116,7 +118,7 @@ const GetStarted = () => {
                 }}
               >
                 Reserve My Spot
-              </button>
+              </a>
             </motion.div>
           </div>
         </div>
