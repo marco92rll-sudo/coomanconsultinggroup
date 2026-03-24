@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 const stats = [
-  { number: "80%", desc: "Win rate achieved on high-value enterprise pipeline" },
+  { number: "71%", desc: "Win rate achieved from our custom offers" },
   { number: "40%", desc: "Pipeline revenue increase in under 90 days" },
   { number: "20+", desc: "Businesses supported through our optimization" },
   { number: "5yr+", desc: "CRM automation and hygiene expertise" },
