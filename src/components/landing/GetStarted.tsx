@@ -124,36 +124,6 @@ const GetStarted = () => {
         </div>
       </section>
 
-      {/* Virtual Coffee Bot Modal */}
-      <AnimatePresence>
-        {modalOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4"
-            style={{ background: "rgba(9,15,26,0.9)", backdropFilter: "blur(8px)" }}
-            onClick={() => setModalOpen(false)}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative"
-            >
-              <button
-                onClick={() => setModalOpen(false)}
-                className="absolute -top-3 -right-3 z-10 w-8 h-8 rounded-full flex items-center justify-center"
-                style={{ background: "#0f1926", border: "1px solid rgba(139,171,184,0.2)", color: "rgba(255,255,255,0.5)" }}
-              >
-                <X className="h-4 w-4" />
-              </button>
-              <CCGQualBot />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Pipeline Fix Audit Modal */}
       <AnimatePresence>
