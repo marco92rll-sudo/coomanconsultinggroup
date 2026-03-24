@@ -15,7 +15,6 @@ const fadeUp = {
 const GetStarted = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [auditOpen, setAuditOpen] = useState(false);
-  const [form, setForm] = useState({ name: "", website: "", email: "", challenge: "" });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
