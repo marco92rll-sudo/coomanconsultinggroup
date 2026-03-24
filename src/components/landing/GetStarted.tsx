@@ -16,11 +16,6 @@ const GetStarted = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [auditOpen, setAuditOpen] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    window.location.href = "https://calendly.com/lcooman-ccg/discovery";
-  };
-
   const inputStyle: React.CSSProperties = {
     background: "rgba(255,255,255,0.05)",
     border: "1px solid rgba(139,171,184,0.2)",
