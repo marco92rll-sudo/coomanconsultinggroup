@@ -20,7 +20,7 @@ const card1Steps = [
   },
   {
     title: "Outbound Recommendations",
-    desc: "Packaged strategy & tooling with ongoing monthly engagement, full maintenance & support",
+    desc: "Packaged strategy & tech stack recommendations",
   },
 ];
 
