@@ -12,7 +12,6 @@ const fadeUp = {
 };
 
 const GetStarted = () => {
-  const [modalOpen, setModalOpen] = useState(false);
   const [auditOpen, setAuditOpen] = useState(false);
 
 
