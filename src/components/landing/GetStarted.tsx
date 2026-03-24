@@ -171,7 +171,7 @@ const GetStarted = () => {
               </button>
 
               <h3 className="text-xl font-bold mb-1">Reserve Your Spot</h3>
-              <p className="mb-6" style={{ fontSize: 13, color: "rgba(255,255,255,0.45)" }}>
+              <p className="mb-6" style={{ fontSize: 13, color: "rgba(255,255,255,0.6)" }}>
                 Tell us a bit about you and we'll set up your virtual coffee.
               </p>
 
