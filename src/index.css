@@ -28,6 +28,7 @@
     --ring: 199 22% 63%;
     --radius: 0.5rem;
     --mid-blue: 218 60% 26%;
+    --cta: 11 70% 62%;
     
     --sidebar-background: 222 47% 5%;
     --sidebar-foreground: 0 0% 100%;
@@ -113,7 +114,7 @@
   }
 
   .glow-btn {
-    box-shadow: 0 0 30px rgba(139,171,184,0.4), 0 0 60px rgba(139,171,184,0.15);
+    box-shadow: 0 0 30px rgba(226,114,91,0.4), 0 0 60px rgba(226,114,91,0.15);
   }
 
   .glow-line {
