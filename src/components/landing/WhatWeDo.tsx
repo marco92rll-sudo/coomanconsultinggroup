@@ -29,7 +29,7 @@ const WhatWeDo = () => {
             variants={fadeUp}
             custom={0}
           >
-            <p className="eyebrow mb-4" style={{ color: "#C5A059", letterSpacing: "0.18em" }}>Expertise</p>
+            <p className="eyebrow mb-4">What We Do</p>
             <h2 className="heading-section mb-6">
               We turn{" "}
               <span className="glow-text-sm">founder knowledge</span>
