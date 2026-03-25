@@ -52,7 +52,7 @@ const GetStarted = () => {
               </p>
               <button
                 onClick={() => setAuditOpen(true)}
-                className="inline-flex items-center justify-center px-6 py-2.5 font-semibold transition-all duration-200 glow-btn"
+                className="inline-flex items-center gap-2 justify-center px-6 py-2.5 font-semibold transition-all duration-200 glow-btn"
                 style={{
                   background: "#8BAAB8",
                   color: "#090f1a",
@@ -60,7 +60,8 @@ const GetStarted = () => {
                   fontSize: 13,
                 }}
               >
-                Pipeline Fix
+                Start the diagnostic
+                <span style={{ color: "#C5A059", fontSize: 16, fontWeight: 700 }}>→</span>
               </button>
             </motion.div>
 
