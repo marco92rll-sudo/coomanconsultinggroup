@@ -76,6 +76,7 @@ body {
 
 /* Email gate */
 #emailGate {
+  display: none;
   background: var(--cream);
   border-radius: 12px;
   padding: 2rem;
@@ -100,7 +101,7 @@ body {
   gap: 10px;
   margin-bottom: 1rem;
 }
-.input-row input {
+.input-row input, .input-row select {
   width: 100%;
   padding: 13px 16px;
   border: 1px solid var(--mid);
@@ -112,8 +113,15 @@ body {
   outline: none;
   transition: border-color .15s;
 }
-.input-row input:focus { border-color: var(--accent); }
+.input-row input:focus, .input-row select:focus { border-color: var(--accent); }
 .input-row input::placeholder { color: var(--muted); }
+.input-row select { -webkit-appearance: none; appearance: none; }
+.input-row .field-label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: -4px;
+  line-height: 1.6;
+}
 .btn-start {
   width: 100%;
   padding: 14px;
@@ -136,7 +144,7 @@ body {
 }
 
 /* Quiz */
-#quizArea { display: none; }
+#quizArea { display: block; }
 
 .progress-wrap {
   margin-bottom: 2.5rem;
@@ -440,30 +448,17 @@ body {
     <p>For founders who've hit the referral ceiling. Find exactly where your funnel is leaking — and what to fix today.</p>
   </div>
 
-  <!-- EMAIL GATE -->
-  <div id="emailGate">
-    <h2>Where should we send your results?</h2>
-    <p>Takes 3 minutes. You'll get a personalised score, a breakdown of your biggest leaks, and a 15-minute fix plan.</p>
-    <div class="input-row">
-      <input type="text" id="userName" placeholder="Your first name" autocomplete="given-name" />
-      <input type="email" id="userEmail" placeholder="Your email address" autocomplete="email" />
-    </div>
-    <button class="btn-start" onclick="startQuiz()">Start the diagnostic →</button>
-    <div class="sending-msg" id="gateMsg"></div>
-    <p class="gate-note">No spam. Just your results.</p>
-  </div>
-
-  <!-- QUIZ -->
+  <!-- QUIZ (visible immediately) -->
   <div id="quizArea">
     <div class="progress-wrap">
       <div class="progress-meta">
-        <span id="stepLabel">Section 1 of 3</span>
-        <span id="stepCount">Question 1–2 of 6</span>
+        <span id="stepLabel">Section 1 of 3 — Visibility</span>
+        <span id="stepCount">Questions 1–3 of 7</span>
       </div>
-      <div class="prog-track"><div class="prog-bar" id="progBar"></div></div>
+      <div class="prog-track"><div class="prog-bar" id="progBar" style="width:14%"></div></div>
     </div>
 
-    <!-- STEP 1 -->
+    <!-- STEP 1: Visibility (3 questions: v1, v2, v3) -->
     <div class="step active" id="step1">
       <div class="section-label">Visibility</div>
 
@@ -488,12 +483,22 @@ body {
         </div>
       </div>
 
+      <div class="question-block">
+        <h3>How balanced is your lead gen between inbound and outbound?</h3>
+        <div class="options">
+          <button class="opt" onclick="pick(this,'v3',0)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">100% referral / word of mouth</div><div class="opt-sub">Zero active lead gen happening</div></div></button>
+          <button class="opt" onclick="pick(this,'v3',1)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Mostly one channel</div><div class="opt-sub">Either content or outreach — inconsistently</div></div></button>
+          <button class="opt" onclick="pick(this,'v3',2)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Both, but reactive</div><div class="opt-sub">I do both when I remember, not systematically</div></div></button>
+          <button class="opt" onclick="pick(this,'v3',3)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Balanced and intentional</div><div class="opt-sub">Weekly inbound + outbound on a schedule</div></div></button>
+        </div>
+      </div>
+
       <div class="step-nav">
         <button class="btn-nav primary" onclick="nextStep(1)">Next — Messaging →</button>
       </div>
     </div>
 
-    <!-- STEP 2 -->
+    <!-- STEP 2: Messaging (2 questions: m1, m2) -->
     <div class="step" id="step2">
       <div class="section-label">Messaging</div>
 
@@ -524,7 +529,7 @@ body {
       </div>
     </div>
 
-    <!-- STEP 3 -->
+    <!-- STEP 3: Conversion (2 questions: c1, c2) -->
     <div class="step" id="step3">
       <div class="section-label">Conversion</div>
 
@@ -539,27 +544,58 @@ body {
       </div>
 
       <div class="question-block">
-        <h3>How balanced is your lead gen between inbound and outbound?</h3>
+        <h3>When a prospect shows genuine interest, how structured is your process for moving them to a paid engagement?</h3>
+        <p class="q-hint">Think about what happens after the first reply — do you have a defined next step or are you improvising?</p>
         <div class="options">
-          <button class="opt" onclick="pick(this,'c2',0)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">100% referral / word of mouth</div><div class="opt-sub">Zero active lead gen happening</div></div></button>
-          <button class="opt" onclick="pick(this,'c2',1)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Mostly one channel</div><div class="opt-sub">Either content or outreach — inconsistently</div></div></button>
-          <button class="opt" onclick="pick(this,'c2',2)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Both, but reactive</div><div class="opt-sub">I do both when I remember, not systematically</div></div></button>
-          <button class="opt" onclick="pick(this,'c2',3)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Balanced and intentional</div><div class="opt-sub">Weekly inbound + outbound on a schedule</div></div></button>
+          <button class="opt" onclick="pick(this,'c2',0)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">No real process — I figure it out each time</div><div class="opt-sub">Every conversation starts from scratch</div></div></button>
+          <button class="opt" onclick="pick(this,'c2',1)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">I have a rough idea but no script</div><div class="opt-sub">It works sometimes, not consistently</div></div></button>
+          <button class="opt" onclick="pick(this,'c2',2)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">I have a sequence but don't always follow it</div><div class="opt-sub">The process exists, execution is patchy</div></div></button>
+          <button class="opt" onclick="pick(this,'c2',3)"><div class="opt-radio"></div><div class="opt-text"><div class="opt-label">Defined steps, consistent execution</div><div class="opt-sub">I move interested leads to calls predictably</div></div></button>
         </div>
       </div>
 
       <div class="step-nav">
         <button class="btn-nav" onclick="prevStep(3)">← Back</button>
-        <button class="btn-nav primary" onclick="showResults()">Show my results →</button>
+        <button class="btn-nav primary" onclick="showGate()">Show my results →</button>
       </div>
     </div>
+  </div>
+
+  <!-- EMAIL GATE (shown after quiz, before results) -->
+  <div id="emailGate">
+    <h2>Where should we send your personalised results?</h2>
+    <p>Your score, leak breakdown, and custom fix plan are ready. Enter your details to see them.</p>
+    <div class="input-row">
+      <input type="text" id="userName" placeholder="Your first name" autocomplete="given-name" />
+      <input type="email" id="userEmail" placeholder="Your email address" autocomplete="email" />
+      <div class="field-label">What best describes your business?</div>
+      <select id="userBizType">
+        <option value="">Select one...</option>
+        <option value="Solo consultant / fractional leader">Solo consultant / fractional leader</option>
+        <option value="Founder-led firm (2–5 people)">Founder-led firm (2–5 people)</option>
+        <option value="Growing PSF (6–20 people)">Growing PSF (6–20 people)</option>
+        <option value="Other">Other</option>
+      </select>
+      <div class="field-label">What's your current biggest growth blocker?</div>
+      <select id="userBlocker">
+        <option value="">Select one...</option>
+        <option value="Not enough qualified leads">Not enough qualified leads</option>
+        <option value="Pipeline is too referral-dependent">Pipeline is too referral-dependent</option>
+        <option value="Leads go cold before converting">Leads go cold before converting</option>
+        <option value="No time to do consistent outreach">No time to do consistent outreach</option>
+        <option value="My messaging isn't resonating">My messaging isn't resonating</option>
+      </select>
+    </div>
+    <button class="btn-start" onclick="submitGate()">See my results →</button>
+    <div class="sending-msg" id="gateMsg"></div>
+    <p class="gate-note">No spam. Just your results.</p>
   </div>
 
   <!-- RESULTS -->
   <div id="resultsArea">
     <div class="score-hero">
       <div class="score-num" id="rScore">0</div>
-      <div class="score-denom">out of 18 — your lead engine score</div>
+      <div class="score-denom">out of 21 — your lead engine score</div>
       <div class="score-verdict" id="rVerdict"></div>
     </div>
 
@@ -573,7 +609,7 @@ body {
       <div id="fixPlan"></div>
     </div>
 
-    <div class="cta-box">
+    <div class="cta-box" id="ctaBox">
       <h2>Want the full system?</h2>
       <p>This diagnostic shows you where the gaps are. If you want a step-by-step plan to build consistent inbound + outbound leads, that's what we build together.</p>
       <a href="https://calendly.com/ccooman-ccg/30min" class="btn-cta" target="_blank">Book a free 20-min call →</a>
@@ -590,28 +626,7 @@ body {
 var answers = {};
 var userData = { name: '', email: '' };
 
-// ── REPLACE THIS with your Formspree endpoint ──────────────────────────────
-// 1. Go to formspree.io → New Form → copy your endpoint URL
-// 2. Replace the URL below
 var FORMSPREE_URL = 'https://formspree.io/f/xjgazynn';
-// ──────────────────────────────────────────────────────────────────────────
-
-function startQuiz() {
-  var name = document.getElementById('userName').value.trim();
-  var email = document.getElementById('userEmail').value.trim();
-  var msg = document.getElementById('gateMsg');
-
-  if (!name) { msg.textContent = 'Please enter your first name.'; return; }
-  if (!email || !email.includes('@')) { msg.textContent = 'Please enter a valid email.'; return; }
-
-  userData.name = name;
-  userData.email = email;
-  msg.textContent = '';
-
-  document.getElementById('emailGate').style.display = 'none';
-  document.getElementById('quizArea').style.display = 'block';
-  updateProgress(1);
-}
 
 function pick(el, key, val) {
   var parent = el.closest('.options');
@@ -621,10 +636,12 @@ function pick(el, key, val) {
 }
 
 function nextStep(from) {
-  var required = from === 1 ? ['v1','v2'] : ['m1','m2'];
+  var required;
+  if (from === 1) required = ['v1','v2','v3'];
+  else required = ['m1','m2'];
   for (var i = 0; i < required.length; i++) {
     if (answers[required[i]] === undefined) {
-      alert('Please answer both questions before continuing.');
+      alert('Please answer all questions before continuing.');
       return;
     }
   }
@@ -643,29 +660,45 @@ function prevStep(from) {
 
 function updateProgress(step) {
   var labels = ['', 'Section 1 of 3 — Visibility', 'Section 2 of 3 — Messaging', 'Section 3 of 3 — Conversion'];
-  var counts = ['', 'Questions 1–2 of 6', 'Questions 3–4 of 6', 'Questions 5–6 of 6'];
-  var pcts = [0, 16, 50, 83];
+  var counts = ['', 'Questions 1–3 of 7', 'Questions 4–5 of 7', 'Questions 6–7 of 7'];
+  var pcts = [0, 14, 43, 71];
   document.getElementById('stepLabel').textContent = labels[step];
   document.getElementById('stepCount').textContent = counts[step];
   document.getElementById('progBar').style.width = pcts[step] + '%';
 }
 
-function showResults() {
+function showGate() {
   if (answers['c1'] === undefined || answers['c2'] === undefined) {
-    alert('Please answer both questions before continuing.');
+    alert('Please answer all questions before continuing.');
     return;
   }
-
-  document.getElementById('quizArea').style.display = 'none';
-  document.getElementById('resultsArea').style.display = 'block';
   document.getElementById('progBar').style.width = '100%';
+  document.getElementById('quizArea').style.display = 'none';
+  document.getElementById('emailGate').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function submitGate() {
+  var name = document.getElementById('userName').value.trim();
+  var email = document.getElementById('userEmail').value.trim();
+  var msg = document.getElementById('gateMsg');
+
+  if (!name) { msg.textContent = 'Please enter your first name.'; return; }
+  if (!email || !email.includes('@')) { msg.textContent = 'Please enter a valid email.'; return; }
+
+  userData.name = name;
+  userData.email = email;
+  msg.textContent = '';
+
+  document.getElementById('emailGate').style.display = 'none';
+  document.getElementById('resultsArea').style.display = 'block';
   window.scrollTo({ top: 0, behavior: 'smooth' });
   buildResults();
   sendToFormspree();
 }
 
 function buildResults() {
-  var v = (answers.v1 || 0) + (answers.v2 || 0);
+  var v = (answers.v1 || 0) + (answers.v2 || 0) + (answers.v3 || 0);
   var m = (answers.m1 || 0) + (answers.m2 || 0);
   var c = (answers.c1 || 0) + (answers.c2 || 0);
   var total = v + m + c;
@@ -673,13 +706,13 @@ function buildResults() {
   document.getElementById('rScore').textContent = total;
 
   var verdict = document.getElementById('rVerdict');
-  if (total <= 6) {
+  if (total <= 7) {
     verdict.textContent = 'Major leaks — fix the foundation first';
     verdict.style.cssText = 'background:#f5ede8;color:#993c1d;padding:5px 16px;border-radius:20px;font-size:13px;font-weight:500';
-  } else if (total <= 11) {
+  } else if (total <= 13) {
     verdict.textContent = 'A few leaks slowing your growth';
     verdict.style.cssText = 'background:#faf3e6;color:#854f0b;padding:5px 16px;border-radius:20px;font-size:13px;font-weight:500';
-  } else if (total <= 15) {
+  } else if (total <= 18) {
     verdict.textContent = 'Solid base — optimise and scale';
     verdict.style.cssText = 'background:#e8f5ee;color:#2e7d52;padding:5px 16px;border-radius:20px;font-size:13px;font-weight:500';
   } else {
@@ -687,9 +720,10 @@ function buildResults() {
     verdict.style.cssText = 'background:#e1f5ee;color:#0f6e56;padding:5px 16px;border-radius:20px;font-size:13px;font-weight:500';
   }
 
+  // Leak cards
   var leaks = [];
-  if (v <= 2) leaks.push({type:'critical', title:'Visibility leak', desc:"You're not showing up consistently enough for new people to find you. Without regular visibility, your funnel starves at the top."});
-  else if (v <= 4) leaks.push({type:'warning', title:'Visibility gap', desc:"You're showing up but not frequently or specifically enough to build momentum. Inconsistency kills trust before it starts."});
+  if (v <= 3) leaks.push({type:'critical', title:'Visibility leak', desc:"You're not showing up consistently enough for new people to find you. Without regular visibility, your funnel starves at the top."});
+  else if (v <= 6) leaks.push({type:'warning', title:'Visibility gap', desc:"You're showing up but not frequently or specifically enough to build momentum. Inconsistency kills trust before it starts."});
   else leaks.push({type:'good', title:'Visibility — solid', desc:"You're creating regular visibility. Focus on keeping it hyper-targeted to your ideal client."});
 
   if (m <= 2) leaks.push({type:'critical', title:'Messaging leak', desc:"Your message isn't clear or compelling enough to stop the scroll. People can't say yes to something they don't fully understand."});
@@ -706,51 +740,91 @@ function buildResults() {
   });
   document.getElementById('leakCards').innerHTML = lhtml;
 
+  // Fix plan (CCG-specific)
   var fixes = [];
-  if ((answers.v1 || 0) <= 1) fixes.push({action:'Block 15 mins and send 3 outreach messages today', detail:'Pick 3 specific founders in your network who could benefit from what you do. Send a personalised, no-pitch opener to each one.', time:'15 min'});
-  else if ((answers.v2 || 0) <= 1) fixes.push({action:'Rewrite one piece of content to speak directly to the pain', detail:'Take something you\'ve already created and rewrite the opening line to call out the exact frustration your ideal founder is feeling right now.', time:'15 min'});
+  if ((answers.v1 || 0) <= 1) fixes.push({action:'Define your outreach rhythm using the CCG 3-touch rule', detail:'Pick 3 founder-profile prospects from LinkedIn. Send a no-pitch opener referencing something specific about their business. Your goal is a reply, not a pitch. This is the first move in your outbound motion.', time:'15 min'});
+  else if ((answers.v2 || 0) <= 1) fixes.push({action:'Rewrite your content hook using your founder ICP lens', detail:"Pull your last post. Rewrite the opening line to call out the exact situation your ideal founder client is in right now — not a general pain, a specific moment. Specificity is what makes content convert.", time:'15 min'});
 
-  if ((answers.m1 || 0) <= 1) fixes.push({action:'Rewrite your bio using the founder formula', detail:'"I help [specific founder type] go from [current pain] to [specific outcome] — without [common frustration]." Replace anything vague.', time:'10 min'});
-  else if ((answers.m2 || 0) <= 1) fixes.push({action:'Add one specific CTA to your next piece of content', detail:'Don\'t end with "let me know your thoughts." End with a clear, low-friction ask: comment a word, DM a phrase, or click a link.', time:'5 min'});
+  if ((answers.m1 || 0) <= 1) fixes.push({action:'Apply the F2F positioning formula to your bio today', detail:"Replace your current bio with this structure: 'I help [specific founder type] go from [current broken state] to [specific outcome] — using a system built from your own instincts, not a generic playbook.' Make it true to you.", time:'10 min'});
+  else if ((answers.m2 || 0) <= 1) fixes.push({action:'Add a lead path CTA to your next 3 pieces of content', detail:"Every post without a next step is a missed conversation. End each piece with one specific, low-friction ask that routes people toward a conversation — not a generic 'DM me', a specific reason to act now.", time:'5 min'});
 
-  if ((answers.c1 || 0) <= 1) fixes.push({action:'Write a 3-message DM sequence for when someone shows interest', detail:'Message 1: warm thank you + one qualifying question. Message 2: short insight + soft CTA. Message 3: direct ask to book a call.', time:'15 min'});
-  else if ((answers.c2 || 0) <= 1) fixes.push({action:'Schedule 3 outbound touchpoints for this week right now', detail:'Open your calendar and block 3 × 15-min slots for outbound activity. Just three conversations started per week compounds fast.', time:'5 min'});
+  if ((answers.c1 || 0) <= 1) fixes.push({action:'Write your 3-message interest-to-call sequence right now', detail:'Message 1: acknowledge their interest + one sharp qualifying question. Message 2: a specific insight about their situation + soft CTA. Message 3: direct ask. This sequence is the skeleton of your conversion system.', time:'15 min'});
+  else if ((answers.c2 || 0) <= 1) fixes.push({action:'Map your current discovery-to-close steps on paper', detail:"Write down every step from 'prospect shows interest' to 'signed'. Identify where the drop-off happens. That gap is your highest-leverage fix — and the starting point for building a repeatable close process.", time:'10 min'});
 
-  if (fixes.length === 0) fixes.push({action:'Raise your volume by 20%', detail:'Your fundamentals are strong. The lever now is reach. Pick one channel and increase your output by one extra touchpoint per week.', time:'10 min'});
+  if (fixes.length === 0) fixes.push({action:'Increase your outbound volume by one conversation per day', detail:'Your fundamentals are strong. The constraint is now reach. Add one intentional outbound touchpoint per day — a reply, a DM, a voice note — and your pipeline compounds within 30 days.', time:'10 min'});
 
   var fhtml = '';
   fixes.forEach(function(f, i) {
     fhtml += '<div class="fix-block"><div class="fix-num">' + (i + 1) + '</div><div><div class="fix-action">' + f.action + '</div><div class="fix-detail">' + f.detail + '</div><span class="fix-time">' + f.time + '</span></div></div>';
   });
   document.getElementById('fixPlan').innerHTML = fhtml;
+
+  // Personalised CTA based on weakest section
+  var scores = { visibility: v, messaging: m, conversion: c };
+  var weakest = 'messaging'; // default tie-breaker
+  var minScore = m;
+  if (c < minScore) { weakest = 'conversion'; minScore = c; }
+  if (v < minScore) { weakest = 'visibility'; }
+  // If tied with messaging, messaging wins as default
+
+  var ctaData = {
+    visibility: {
+      heading: 'Your pipeline starts with being seen',
+      body: "Your biggest leak is Visibility — the right people don't know you exist often enough to act. The Founder to Framework program starts by building your ICP and positioning so every touchpoint compounds. Let's map your visibility gap.",
+      btn: 'Book a free 20-min call →'
+    },
+    messaging: {
+      heading: "You're showing up — but the message isn't landing",
+      body: "Your biggest leak is Messaging — people see you but don't know why you're the right choice. F2F extracts your founder instincts and turns them into positioning that stops the right people mid-scroll. Let's fix your message.",
+      btn: 'Book a free 20-min call →'
+    },
+    conversion: {
+      heading: 'Interested leads are going cold',
+      body: "Your biggest leak is Conversion — you're generating interest but losing it before it becomes revenue. This is exactly where the Rev Ops Engine was built to play. Let's talk about plugging the gap.",
+      btn: 'Book a free 20-min call →'
+    }
+  };
+
+  var cta = ctaData[weakest];
+  document.getElementById('ctaBox').innerHTML =
+    '<h2>' + cta.heading + '</h2>' +
+    '<p>' + cta.body + '</p>' +
+    '<a href="https://calendly.com/ccooman-ccg/30min" class="btn-cta" target="_blank">' + cta.btn + '</a>';
 }
 
 function sendToFormspree() {
-  var v = (answers.v1 || 0) + (answers.v2 || 0);
+  var v = (answers.v1 || 0) + (answers.v2 || 0) + (answers.v3 || 0);
   var m = (answers.m1 || 0) + (answers.m2 || 0);
   var c = (answers.c1 || 0) + (answers.c2 || 0);
   var total = v + m + c;
 
   var scoreLabels = ['Rarely/never','Inconsistently','1-2x per week','Daily'];
   var targetLabels = ['Very general','Somewhat relevant','Speaks to pain','Magnetic'];
+  var balanceLabels = ['100% referral','Mostly one channel','Both, reactive','Balanced'];
   var clarityLabels = ['Vague','Partially clear','Mostly clear','Crystal clear'];
   var ctaLabels = ['No CTA','Generic CTA','One clear step','Strong lead path'];
   var followLabels = ['Slow/none','Inconsistent','Prompt, no script','Fast + systematic'];
-  var balanceLabels = ['100% referral','Mostly one channel','Both, reactive','Balanced'];
+  var structureLabels = ['No process','Rough idea','Sequence exists','Defined + consistent'];
+
+  var bizType = document.getElementById('userBizType').value;
+  var blocker = document.getElementById('userBlocker').value;
 
   var payload = {
     name: userData.name,
     email: userData.email,
-    score: total + '/18',
-    visibility_score: v + '/6',
+    score: total + '/21',
+    visibility_score: v + '/9',
     messaging_score: m + '/6',
     conversion_score: c + '/6',
     q1_consistency: scoreLabels[answers.v1 || 0],
     q2_targeting: targetLabels[answers.v2 || 0],
+    q2b_lead_balance: balanceLabels[answers.v3 || 0],
     q3_clarity: clarityLabels[answers.m1 || 0],
     q4_cta: ctaLabels[answers.m2 || 0],
     q5_followthrough: followLabels[answers.c1 || 0],
-    q6_balance: balanceLabels[answers.c2 || 0],
+    q6_conversion_structure: structureLabels[answers.c2 || 0],
+    biz_type: bizType || '',
+    growth_blocker: blocker || '',
     completed_at: new Date().toLocaleString()
   };
 
@@ -766,12 +840,16 @@ function restart() {
   userData = { name: '', email: '' };
   document.getElementById('userName').value = '';
   document.getElementById('userEmail').value = '';
+  document.getElementById('userBizType').selectedIndex = 0;
+  document.getElementById('userBlocker').selectedIndex = 0;
   document.getElementById('resultsArea').style.display = 'none';
-  document.getElementById('emailGate').style.display = 'block';
+  document.getElementById('emailGate').style.display = 'none';
+  document.getElementById('quizArea').style.display = 'block';
   document.querySelectorAll('.opt').forEach(function(o) { o.classList.remove('selected'); });
   document.querySelectorAll('.step').forEach(function(s, i) {
     s.classList.toggle('active', i === 0);
   });
+  updateProgress(1);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
