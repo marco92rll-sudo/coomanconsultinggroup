@@ -37,16 +37,40 @@ const GetStarted = () => {
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {/* Card A - Pipeline Fix */}
+            {/* Card A - Pipeline Fix (Featured) */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               variants={fadeUp}
               custom={1}
-              className="card-process p-8"
+              className="relative p-8"
+              style={{
+                background: "rgba(15,25,38,0.85)",
+                backdropFilter: "blur(8px)",
+                border: "1px solid rgba(226,114,91,0.35)",
+                borderRadius: 8,
+                boxShadow: "0 0 40px rgba(226,114,91,0.08), inset 0 0 40px rgba(226,114,91,0.03)",
+                overflow: "visible",
+              }}
             >
-              <h3 className="text-lg font-bold mb-3">The 3-Minute Lead Leak Finder</h3>
+              {/* Most Popular badge */}
+              <span
+                className="absolute -top-3 left-8 bg-cta text-white"
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  padding: "4px 12px",
+                  borderRadius: 4,
+                  boxShadow: "0 0 16px rgba(226,114,91,0.5)",
+                }}
+              >
+                Most Popular
+              </span>
+
+              <h3 className="text-lg font-bold mb-3 mt-2">The 3-Minute Lead Leak Finder</h3>
               <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
                 A fast self-assessment that diagnoses exactly where your pipeline is leaking. Instant results. No call needed.
               </p>
@@ -62,42 +86,16 @@ const GetStarted = () => {
               </button>
             </motion.div>
 
-            {/* Card B - Virtual Coffee (Featured) */}
+            {/* Card B - Virtual Coffee */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               variants={fadeUp}
               custom={2}
-              className="relative p-8"
-              style={{
-                background: "rgba(15,25,38,0.85)",
-                backdropFilter: "blur(8px)",
-                border: "1px solid rgba(139,171,184,0.35)",
-                borderRadius: 8,
-                boxShadow: "0 0 40px rgba(139,171,184,0.08), inset 0 0 40px rgba(139,171,184,0.03)",
-                overflow: "visible",
-              }}
+              className="card-process p-8"
             >
-              {/* Most Popular badge */}
-              <span
-                className="absolute -top-3 left-8"
-                style={{
-                  background: "#8BAAB8",
-                  color: "#090f1a",
-                  fontSize: 10,
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
-                  padding: "4px 12px",
-                  borderRadius: 4,
-                  boxShadow: "0 0 16px rgba(139,171,184,0.5)",
-                }}
-              >
-                Most Popular
-              </span>
-
-              <h3 className="text-lg font-bold mb-3 mt-2">Virtual Coffee</h3>
+              <h3 className="text-lg font-bold mb-3">Virtual Coffee</h3>
               <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
                 Tell us your biggest challenge. We'll spend 30 minutes showing you exactly what we'd do about it.
               </p>
