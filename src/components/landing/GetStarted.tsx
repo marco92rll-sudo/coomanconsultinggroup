@@ -52,10 +52,8 @@ const GetStarted = () => {
               </p>
               <button
                 onClick={() => setAuditOpen(true)}
-                className="inline-flex items-center justify-center px-6 py-2.5 font-semibold transition-all duration-200 glow-btn"
+                className="inline-flex items-center justify-center px-6 py-2.5 font-semibold transition-all duration-200 glow-btn bg-cta text-white"
                 style={{
-                  background: "#8BAAB8",
-                  color: "#090f1a",
                   borderRadius: 6,
                   fontSize: 13,
                 }}
