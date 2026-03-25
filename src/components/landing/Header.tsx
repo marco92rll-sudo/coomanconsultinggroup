@@ -26,9 +26,9 @@ const Header = () => {
         borderBottom: "1px solid rgba(139,171,184,0.12)",
       }}
     >
-      <div className="container-wide py-4 flex items-center justify-between">
+      <div className="container-wide py-4 flex items-center justify-between relative">
         {/* Left: Logo + Name */}
-        <a href="#" className="flex items-center gap-3">
+        <a href="#" className="flex items-center gap-3 relative z-10">
           <img
             src="/logo.png"
             alt="Cooman Consulting Group Logo"
@@ -49,13 +49,13 @@ const Header = () => {
           </span>
         </a>
 
-        {/* Centre: Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        {/* Centre: Nav - absolutely centered */}
+        <nav className="hidden md:flex items-center gap-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="transition-colors duration-200"
+              className="transition-colors duration-200 whitespace-nowrap"
               style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "#8BAAB8")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.5)")}
