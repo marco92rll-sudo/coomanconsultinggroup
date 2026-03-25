@@ -4,6 +4,7 @@ import gsap from "gsap";
 
 const Hero = () => {
   const logoRef = useRef<HTMLImageElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (logoRef.current) {
@@ -12,7 +13,6 @@ const Hero = () => {
         { opacity: 0, scale: 0.6, rotation: -15 },
         { opacity: 1, scale: 1, rotation: 0, duration: 1.2, ease: "power3.out" }
       );
-      // Idle pulse after entrance
       gsap.to(logoRef.current, {
         scale: 1.02,
         duration: 2,
@@ -24,9 +24,32 @@ const Hero = () => {
     }
   }, []);
 
+  // Parallax: hero content moves up slightly on scroll
+  useEffect(() => {
+    let raf: number;
+    const animate = () => {
+      const section = sectionRef.current;
+      if (section) {
+        const scrollY = window.scrollY;
+        const content = section.querySelector(".hero-content") as HTMLElement;
+        if (content) {
+          content.style.transform = `translateY(${scrollY * 0.12}px)`;
+          content.style.opacity = String(Math.max(1 - scrollY / 800, 0));
+        }
+      }
+      raf = requestAnimationFrame(animate);
+    };
+    raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
   return (
-    <section className="min-h-screen flex items-center justify-center relative" style={{ paddingTop: 80 }}>
-      <div className="text-center max-w-4xl mx-auto px-6 relative z-10">
+    <section
+      ref={sectionRef}
+      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      style={{ paddingTop: 80 }}
+    >
+      <div className="hero-content text-center max-w-4xl mx-auto px-6 relative z-10 will-change-transform">
         {/* Eyebrow */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -89,10 +112,7 @@ const Hero = () => {
           <a
             href="/lead-leak-finder"
             className="inline-flex items-center justify-center px-8 py-3 font-semibold transition-all duration-200 glow-btn bg-cta text-white"
-            style={{
-              borderRadius: 6,
-              fontSize: 14,
-            }}
+            style={{ borderRadius: 6, fontSize: 14 }}
           >
             Pipeline Fix
           </a>
