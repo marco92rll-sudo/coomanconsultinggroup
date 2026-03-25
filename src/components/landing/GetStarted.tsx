@@ -44,24 +44,37 @@ const GetStarted = () => {
               viewport={{ once: true, margin: "-50px" }}
               variants={fadeUp}
               custom={1}
-              className="card-process p-8"
+              className="relative p-8"
+              style={{
+                background: "linear-gradient(135deg, rgba(13,148,136,0.08) 0%, rgba(15,25,38,0.85) 60%)",
+                backdropFilter: "blur(8px)",
+                border: "1px solid rgba(13,148,136,0.25)",
+                borderRadius: 8,
+                overflow: "hidden",
+              }}
             >
+              {/* Subtle teal top-line */}
+              <div
+                className="absolute top-0 left-0 right-0"
+                style={{ height: 2, background: "linear-gradient(90deg, #0D9488, transparent)" }}
+              />
               <h3 className="text-lg font-bold mb-3">The 3-Minute Lead Leak Finder</h3>
               <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
                 A fast self-assessment that diagnoses exactly where your pipeline is leaking. Instant results. No call needed.
               </p>
               <button
                 onClick={() => setAuditOpen(true)}
-                className="inline-flex items-center gap-2 justify-center px-6 py-2.5 font-semibold transition-all duration-200 glow-btn"
+                className="inline-flex items-center gap-2 justify-center px-6 py-2.5 font-semibold transition-all duration-200"
                 style={{
-                  background: "#8BAAB8",
-                  color: "#090f1a",
+                  background: "#0D9488",
+                  color: "#ffffff",
                   borderRadius: 6,
                   fontSize: 13,
+                  boxShadow: "0 0 24px rgba(13,148,136,0.35)",
                 }}
               >
                 Start the diagnostic
-                <span style={{ color: "#C5A059", fontSize: 16, fontWeight: 700 }}>→</span>
+                <span style={{ fontSize: 16, fontWeight: 700 }}>→</span>
               </button>
             </motion.div>
 
