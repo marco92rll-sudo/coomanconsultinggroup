@@ -52,7 +52,7 @@ const GetStarted = () => {
               </p>
               <button
                 onClick={() => setAuditOpen(true)}
-                className="inline-flex items-center justify-center px-6 py-2.5 font-semibold transition-all duration-200 glow-btn"
+                className="inline-flex items-center gap-2 justify-center px-6 py-2.5 font-semibold transition-all duration-200 glow-btn"
                 style={{
                   background: "#8BAAB8",
                   color: "#090f1a",
@@ -60,7 +60,8 @@ const GetStarted = () => {
                   fontSize: 13,
                 }}
               >
-                Pipeline Fix
+                Start the diagnostic
+                <span style={{ color: "#C5A059", fontSize: 16, fontWeight: 700 }}>→</span>
               </button>
             </motion.div>
 
@@ -75,9 +76,9 @@ const GetStarted = () => {
               style={{
                 background: "rgba(15,25,38,0.85)",
                 backdropFilter: "blur(8px)",
-                border: "1px solid rgba(139,171,184,0.35)",
+                border: "1px solid rgba(197,160,89,0.3)",
                 borderRadius: 8,
-                boxShadow: "0 0 40px rgba(139,171,184,0.08), inset 0 0 40px rgba(139,171,184,0.03)",
+                boxShadow: "0 0 40px rgba(197,160,89,0.06), inset 0 0 40px rgba(197,160,89,0.02)",
                 overflow: "visible",
               }}
             >
@@ -85,7 +86,7 @@ const GetStarted = () => {
               <span
                 className="absolute -top-3 left-8"
                 style={{
-                  background: "#8BAAB8",
+                  background: "#C5A059",
                   color: "#090f1a",
                   fontSize: 10,
                   fontWeight: 700,
@@ -93,7 +94,7 @@ const GetStarted = () => {
                   letterSpacing: "0.1em",
                   padding: "4px 12px",
                   borderRadius: 4,
-                  boxShadow: "0 0 16px rgba(139,171,184,0.5)",
+                  boxShadow: "0 0 16px rgba(197,160,89,0.4)",
                 }}
               >
                 Most Popular
