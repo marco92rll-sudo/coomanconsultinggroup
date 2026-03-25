@@ -44,7 +44,7 @@ const Hero = () => {
             <img
               ref={logoRef}
               src="/logo.png"
-              alt="CCG Logo"
+              alt="Cooman Consulting Group Logo"
               className="w-20 h-20"
               style={{ mixBlendMode: "lighten", opacity: 0 }}
             />
