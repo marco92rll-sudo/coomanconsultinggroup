@@ -85,7 +85,7 @@ const GetStarted = () => {
               <span
                 className="absolute -top-3 left-8"
                 style={{
-                  background: "#8BAAB8",
+                  background: "#C5A059",
                   color: "#090f1a",
                   fontSize: 10,
                   fontWeight: 700,
@@ -93,7 +93,7 @@ const GetStarted = () => {
                   letterSpacing: "0.1em",
                   padding: "4px 12px",
                   borderRadius: 4,
-                  boxShadow: "0 0 16px rgba(139,171,184,0.5)",
+                  boxShadow: "0 0 16px rgba(197,160,89,0.4)",
                 }}
               >
                 Most Popular
