@@ -15,6 +15,8 @@ const Index = () => {
       <main>
         <Hero />
         <IndustriesStrip />
+        <WhatWeDo />
+        <div className="glow-line relative z-10" />
         <OurProcess />
         <div className="glow-line relative z-10" />
         <GetStarted />
