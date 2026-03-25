@@ -27,7 +27,7 @@ const card1Steps = [
 const card2Steps = [
   {
     title: "Outbound Infrastructure",
-    desc: "Lead gen & multichannel outbound messaging to drive valuable connections",
+    desc: "Lead gen & multichannel outbound messaging to drive valuable engagement",
   },
   {
     title: "Performance Acceleration",
