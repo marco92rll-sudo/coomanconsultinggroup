@@ -75,9 +75,9 @@ const GetStarted = () => {
               style={{
                 background: "rgba(15,25,38,0.85)",
                 backdropFilter: "blur(8px)",
-                border: "1px solid rgba(139,171,184,0.35)",
+                border: "1px solid rgba(197,160,89,0.3)",
                 borderRadius: 8,
-                boxShadow: "0 0 40px rgba(139,171,184,0.08), inset 0 0 40px rgba(139,171,184,0.03)",
+                boxShadow: "0 0 40px rgba(197,160,89,0.06), inset 0 0 40px rgba(197,160,89,0.02)",
                 overflow: "visible",
               }}
             >
