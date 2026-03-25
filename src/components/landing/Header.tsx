@@ -31,7 +31,7 @@ const Header = () => {
         <a href="#" className="flex items-center gap-3">
           <img
             src="/logo.png"
-            alt="CCG"
+            alt="Cooman Consulting Group Logo"
             className="h-7 w-auto"
             style={{ mixBlendMode: "lighten" }}
           />

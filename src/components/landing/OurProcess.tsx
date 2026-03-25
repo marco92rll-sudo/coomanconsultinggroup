@@ -62,6 +62,7 @@ const OurProcess = () => {
           <h2 className="heading-section">
             Two functions. <span className="glow-text-sm">One outcome.</span>
           </h2>
+          <p className="sr-only">Our consulting process for scaling founder-led businesses</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6">

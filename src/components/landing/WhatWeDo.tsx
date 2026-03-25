@@ -35,6 +35,7 @@ const WhatWeDo = () => {
               <span className="glow-text-sm">founder knowledge</span>
               {" "}into revenue systems.
             </h2>
+            <p className="sr-only">Business consulting services for B2B founders</p>
             <p style={{ fontSize: 15, color: "rgba(255,255,255,0.45)", lineHeight: 1.7 }}>
               Most founders are the best salesperson in their business but can't explain why they win — let alone teach it. We capture that edge, build the framework around it, and deploy the infrastructure to replicate it without you in every deal.
             </p>
