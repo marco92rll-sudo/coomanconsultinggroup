@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="flex items-center gap-3">
           <img
             src="/logo.png"
-            alt="CCG"
+            alt="Cooman Consulting Group Logo"
             className="h-6 w-auto"
             style={{ mixBlendMode: "lighten" }}
           />

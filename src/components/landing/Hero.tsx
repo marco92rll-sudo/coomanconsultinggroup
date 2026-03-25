@@ -44,7 +44,7 @@ const Hero = () => {
             <img
               ref={logoRef}
               src="/logo.png"
-              alt="CCG Logo"
+              alt="Cooman Consulting Group Logo"
               className="w-20 h-20"
               style={{ mixBlendMode: "lighten", opacity: 0 }}
             />
@@ -58,8 +58,8 @@ const Hero = () => {
           transition={{ duration: 0.5, delay: 0.3 }}
           style={{ fontSize: "clamp(48px, 7vw, 88px)", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.05 }}
         >
-          <span style={{ color: "#ffffff" }}>From </span>
-          <span style={{ color: "#ffffff" }}>Founder{"\n"}</span>
+          <span className="sr-only">Business Consulting Services: </span>
+          <span style={{ color: "#ffffff" }}>From Founder </span>
           <br />
           <span className="glow-text">Instinct</span>
           <span style={{ color: "#ffffff" }}> to</span>
