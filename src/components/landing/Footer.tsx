@@ -29,15 +29,6 @@ const Footer = () => {
           >
             LinkedIn
           </a>
-          <a
-            href="/privacy"
-            className="transition-colors duration-200"
-            style={{ fontSize: 12, color: "rgba(255,255,255,0.2)" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#8BAAB8")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.2)")}
-          >
-            Privacy
-          </a>
         </div>
       </div>
     </footer>
