@@ -28,7 +28,7 @@ const Hero = () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノ<>{}[]|/\\=+*&^%$#@!ABCDEF";
+    const chars = "01ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω<>{}[]|/\\=+*&^%$#@!0123456789";
     const fontSize = 14;
     const columns = Math.floor(canvas.width / fontSize);
     const drops: number[] = Array(columns).fill(1);
@@ -204,7 +204,7 @@ const Hero = () => {
         duration: 0.5,
         ease: "power4.out",
       })
-      .call(() => glitchText(line1Ref.current, 6))
+      
 
       // Line 2
       .to(line2Ref.current, {
@@ -213,7 +213,7 @@ const Hero = () => {
         duration: 0.5,
         ease: "power4.out",
       }, "-=0.15")
-      .call(() => glitchText(line2Ref.current, 6))
+      
 
       // Line 3
       .to(line3Ref.current, {
@@ -222,7 +222,7 @@ const Hero = () => {
         duration: 0.5,
         ease: "power4.out",
       }, "-=0.15")
-      .call(() => glitchText(line3Ref.current, 6))
+      
 
       // ACT 5: Supporting elements
       .to(eyebrowRef.current, { opacity: 1, y: 0, duration: 0.5 }, "-=0.1")
