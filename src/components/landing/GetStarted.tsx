@@ -100,7 +100,7 @@ const GetStarted = () => {
                 Tell us your biggest challenge. We'll spend 30 minutes showing you exactly what we'd do about it.
               </p>
               <a
-                href="https://calendly.com/lcooman-ccg/discovery"
+                href="https://calendly.com/ccooman-ccg/30min"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-6 py-2.5 font-semibold transition-all duration-200"
