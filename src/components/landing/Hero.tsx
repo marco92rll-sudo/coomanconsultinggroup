@@ -222,7 +222,7 @@ const Hero = () => {
         duration: 0.5,
         ease: "power4.out",
       }, "-=0.15")
-      .call(() => glitchText(line3Ref.current, 6))
+      
 
       // ACT 5: Supporting elements
       .to(eyebrowRef.current, { opacity: 1, y: 0, duration: 0.5 }, "-=0.1")
