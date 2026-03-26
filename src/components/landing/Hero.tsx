@@ -213,7 +213,7 @@ const Hero = () => {
         duration: 0.5,
         ease: "power4.out",
       }, "-=0.15")
-      .call(() => glitchText(line2Ref.current, 6))
+      
 
       // Line 3
       .to(line3Ref.current, {
