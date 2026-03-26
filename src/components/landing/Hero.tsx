@@ -76,7 +76,7 @@ const Hero = () => {
           className="mx-auto mt-8"
           style={{ fontSize: 17, color: "rgba(255,255,255,0.5)", maxWidth: 580 }}
         >
-          We extract what you know, systemize how you sell, and build the infrastructure that closes deals without you.
+          We extract what you know, systemize how you sell, and build the infrastructure that gives you more time to focus on delivery.
         </motion.p>
 
         {/* CTAs */}
