@@ -70,7 +70,9 @@ const Header = () => {
         {/* Right: CTA + Mobile */}
         <div className="flex items-center gap-4">
           <a
-            href="#get-started"
+            href="https://calendly.com/lcooman-ccg/discovery"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden sm:block transition-all duration-200"
             style={{
               fontSize: 11,
