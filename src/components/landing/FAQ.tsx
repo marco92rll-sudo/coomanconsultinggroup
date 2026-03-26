@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     q: "How long does an engagement typically last?",
-    a: "Most engagements run 8–12 weeks depending on scope. We work in focused sprints — diagnose, build, deploy — so you see traction fast, not months of 'strategy decks.'",
+    a: "Most engagements run 90 -180 days, depending on scope. We work in focused sprints — diagnose, build, deploy so you see traction fast, not months of 'strategy decks.'",
   },
   {
     q: "Do you replace our existing sales team?",
