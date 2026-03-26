@@ -1,12 +1,9 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 const Hero = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const logoRef = useRef<HTMLImageElement>(null);
   const logoGlowRef = useRef<HTMLDivElement>(null);
-  const scanLineRef = useRef<HTMLDivElement>(null);
-  const scanFrameRef = useRef<HTMLDivElement>(null);
   const line1Ref = useRef<HTMLSpanElement>(null);
   const line2Ref = useRef<HTMLSpanElement>(null);
   const line3Ref = useRef<HTMLSpanElement>(null);
@@ -14,81 +11,12 @@ const Hero = () => {
   const ctaRef = useRef<HTMLDivElement>(null);
   const eyebrowRef = useRef<HTMLParagraphElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
-  const authTextRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
   const [animStarted, setAnimStarted] = useState(false);
-
-  // Matrix rain on canvas
-  const startMatrixRain = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return () => {};
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return () => {};
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    const chars = "01ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω<>{}[]|/\\=+*&^%$#@!0123456789";
-    const fontSize = 14;
-    const columns = Math.floor(canvas.width / fontSize);
-    const drops: number[] = Array(columns).fill(1);
-    let animId: number;
-    let opacity = 1;
-
-    const draw = () => {
-      ctx.fillStyle = `rgba(9, 15, 26, 0.06)`;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      for (let i = 0; i < drops.length; i++) {
-        const char = chars[Math.floor(Math.random() * chars.length)];
-        const x = i * fontSize;
-        const y = drops[i] * fontSize;
-
-        // Mix of brand colors: primary blue-gray and accent coral
-        if (Math.random() > 0.92) {
-          ctx.fillStyle = `rgba(226, 114, 91, ${opacity * 0.9})`;
-          ctx.font = `bold ${fontSize}px monospace`;
-        } else {
-          ctx.fillStyle = `rgba(139, 171, 184, ${opacity * (0.3 + Math.random() * 0.5)})`;
-          ctx.font = `${fontSize}px monospace`;
-        }
-
-        ctx.fillText(char, x, y);
-
-        if (y > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
-      animId = requestAnimationFrame(draw);
-    };
-
-    draw();
-
-    return (fadeOut = false) => {
-      if (fadeOut) {
-        const fade = () => {
-          opacity -= 0.02;
-          if (opacity <= 0) {
-            cancelAnimationFrame(animId);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            return;
-          }
-          requestAnimationFrame(fade);
-        };
-        fade();
-      } else {
-        cancelAnimationFrame(animId);
-      }
-    };
-  }, []);
 
   useEffect(() => {
     if (animStarted) return;
     setAnimStarted(true);
-
-    // Start matrix rain immediately
-    const stopRain = startMatrixRain();
 
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
@@ -99,67 +27,10 @@ const Hero = () => {
     );
     gsap.set(logoRef.current, { opacity: 0, scale: 0.1 });
     gsap.set(logoGlowRef.current, { opacity: 0, scale: 0.1 });
-    gsap.set(scanLineRef.current, { opacity: 0, top: "0%" });
-    gsap.set(scanFrameRef.current, { opacity: 0, scale: 0.8 });
     gsap.set(overlayRef.current, { opacity: 1 });
-    gsap.set(authTextRef.current, { opacity: 0 });
 
-    // === ACT 1: Matrix rain + biometric boot sequence ===
+    // === Logo explodes into existence ===
     tl
-      // Auth text typing effect
-      .to(authTextRef.current, { opacity: 1, duration: 0.3 }, "+=0.8")
-      .call(() => {
-        const el = authTextRef.current;
-        if (!el) return;
-        const lines = [
-          "> INITIALIZING CCG PROTOCOL...",
-          "> SCANNING BIOMETRICS...",
-          "> IDENTITY VERIFIED",
-          "> ACCESS GRANTED_",
-        ];
-        let lineIdx = 0;
-        let charIdx = 0;
-        el.textContent = "";
-        const typeInterval = setInterval(() => {
-          if (lineIdx >= lines.length) {
-            clearInterval(typeInterval);
-            return;
-          }
-          const currentLine = lines[lineIdx];
-          charIdx++;
-          const displayedLines = lines.slice(0, lineIdx).join("\n");
-          const currentTyped = currentLine.substring(0, charIdx);
-          el.textContent = (displayedLines ? displayedLines + "\n" : "") + currentTyped;
-          if (charIdx >= currentLine.length) {
-            lineIdx++;
-            charIdx = 0;
-          }
-        }, 35);
-      })
-
-      // === ACT 2: Biometric scan frame appears ===
-      .to(scanFrameRef.current, {
-        opacity: 1,
-        scale: 1,
-        duration: 0.6,
-        ease: "power2.out",
-      }, "+=1.0")
-
-      // Scan line sweeps
-      .to(scanLineRef.current, { opacity: 1, duration: 0.1 })
-      .to(scanLineRef.current, {
-        top: "100%",
-        duration: 1.2,
-        ease: "power1.inOut",
-      })
-      .to(scanLineRef.current, {
-        top: "0%",
-        duration: 1.0,
-        ease: "power1.inOut",
-      })
-      .to(scanLineRef.current, { opacity: 0, duration: 0.2 })
-
-      // === ACT 3: Logo explodes into existence ===
       .to(logoGlowRef.current, {
         opacity: 1,
         scale: 2,
