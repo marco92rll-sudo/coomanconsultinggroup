@@ -5,6 +5,8 @@ const navItems = [
   { label: "Our Offer & Who We Serve", href: "#services" },
   { label: "Process", href: "#process" },
   { label: "Get Started", href: "#get-started" },
+  { label: "Fit Assessment", href: "#fit" },
+  { label: "FAQs", href: "#faq" },
 ];
 
 const Header = () => {
