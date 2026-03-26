@@ -3,6 +3,8 @@ import Hero from "@/components/landing/Hero";
 import IndustriesStrip from "@/components/landing/IndustriesStrip";
 import WhatWeDo from "@/components/landing/WhatWeDo";
 import OurProcess from "@/components/landing/OurProcess";
+import WhoThisIsFor from "@/components/landing/WhoThisIsFor";
+import FAQ from "@/components/landing/FAQ";
 import GetStarted from "@/components/landing/GetStarted";
 import Footer from "@/components/landing/Footer";
 import MorphingOrbs from "@/components/landing/MorphingOrbs";
@@ -18,6 +20,10 @@ const Index = () => {
         <WhatWeDo />
         <div className="glow-line relative z-10" />
         <OurProcess />
+        <div className="glow-line relative z-10" />
+        <WhoThisIsFor />
+        <div className="glow-line relative z-10" />
+        <FAQ />
         <div className="glow-line relative z-10" />
         <GetStarted />
       </main>
