@@ -28,7 +28,7 @@ const Hero = () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノ<>{}[]|/\\=+*&^%$#@!ABCDEF";
+    const chars = "01ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω<>{}[]|/\\=+*&^%$#@!0123456789";
     const fontSize = 14;
     const columns = Math.floor(canvas.width / fontSize);
     const drops: number[] = Array(columns).fill(1);
