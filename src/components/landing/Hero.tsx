@@ -97,8 +97,10 @@ const Hero = () => {
             Pipeline Fix
           </a>
           <a
-            href="#get-started"
-            className="inline-flex items-center justify-center px-8 py-3 font-semibold transition-all duration-200"
+            href="https://calendly.com/lcooman-ccg/discovery"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center px-8 py-3 font-semibold transition-all duration-200 glow-btn"
             style={{
               background: "rgba(139,171,184,0.04)",
               color: "#8BAAB8",

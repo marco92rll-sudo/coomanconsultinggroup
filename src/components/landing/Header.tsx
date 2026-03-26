@@ -115,7 +115,9 @@ const Header = () => {
               </a>
             ))}
             <a
-              href="#get-started"
+              href="https://calendly.com/lcooman-ccg/discovery"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setMobileOpen(false)}
               className="inline-block w-fit mt-2"
               style={{
