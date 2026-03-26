@@ -4,28 +4,23 @@ import { Star } from "lucide-react";
 
 const testimonials = [
   {
-    quote: "They uncovered blind spots in our pipeline we'd been ignoring for two years. Revenue jumped 35% in the first quarter after implementation.",
-    title: "CEO, B2B SaaS Company",
+    quote: "They uncovered 5 opportunities in our existing data. Revenue jumped 35% that quarter.",
+    title: "CEO, Renewable Energy SaaS",
     rating: 5,
   },
   {
-    quote: "We went from gut-feel selling to a repeatable system. Our new reps are ramping in half the time now.",
-    title: "VP of Sales, Professional Services Firm",
+    quote: "We went from selling on gut feelings to systematic demand gen that allows us to focus more on delivery.",
+    title: "IP Lawyer, Legal Firm",
     rating: 5,
   },
   {
-    quote: "The CRM overhaul alone saved us 10 hours a week. But the real win was finally understanding why we were losing deals.",
-    title: "Founder, Digital Agency",
+    quote: "They transformed the way we approached new clients. Our close rate went from 50-75% in 6 weeks.",
+    title: "Program Manager, Marketing Firm",
     rating: 5,
   },
   {
     quote: "I was skeptical about another consultant, but they actually got in the trenches with us. The framework they built is now our entire sales playbook.",
-    title: "Managing Director, IT Consultancy",
-    rating: 5,
-  },
-  {
-    quote: "Our close rate went from 40% to over 65% within 90 days. The diagnostic alone was worth every penny.",
-    title: "COO, Financial Services Startup",
+    title: "Founder, Business Coaching",
     rating: 5,
   },
 ];
