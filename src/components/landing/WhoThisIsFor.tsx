@@ -37,7 +37,7 @@ const WhoThisIsFor = () => {
         >
           <p className="eyebrow mb-4">Fit Assessment</p>
           <h2 className="heading-section">
-            We choose our clients <span className="glow-text-sm">carefully</span>.
+            Who is this <span className="glow-text-sm">for</span>?
           </h2>
         </motion.div>
 
