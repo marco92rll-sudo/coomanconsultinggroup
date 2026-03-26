@@ -21,11 +21,11 @@ const Index = () => {
         <div className="glow-line relative z-10" />
         <OurProcess />
         <div className="glow-line relative z-10" />
+        <GetStarted />
+        <div className="glow-line relative z-10" />
         <WhoThisIsFor />
         <div className="glow-line relative z-10" />
         <FAQ />
-        <div className="glow-line relative z-10" />
-        <GetStarted />
       </main>
       <Footer />
     </div>
