@@ -114,7 +114,12 @@
   }
 
   .glow-btn {
-    box-shadow: 0 0 30px rgba(226,114,91,0.4), 0 0 60px rgba(226,114,91,0.15);
+    box-shadow: 0 0 20px rgba(226,114,91,0.2), 0 0 40px rgba(226,114,91,0.08);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .glow-btn:hover {
+    box-shadow: 0 0 35px rgba(226,114,91,0.5), 0 0 70px rgba(226,114,91,0.25);
   }
 
   .glow-line {
