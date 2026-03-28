@@ -1,6 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Star, ShieldCheck } from "lucide-react";
+import GlobeCanvas from "./GlobeCanvas";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const testimonials = [
   {
