@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Star } from "lucide-react";
+import { Star, ShieldCheck } from "lucide-react";
 
 const testimonials = [
   {
@@ -90,11 +90,8 @@ const WhatWeDo = () => {
               {/* Google G logo area */}
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 rounded-full"
                 style={{ background: "rgba(15,25,38,0.9)", border: "1px solid rgba(139,171,184,0.2)" }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <rect width="24" height="24" rx="4" fill="#0A66C2"/>
-                  <path d="M7.5 9.5H5V18h2.5V9.5zM6.25 8.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM13 9.5h-2.4V18H13v-4.5c0-1.2.5-2 1.7-2 1 0 1.3.8 1.3 2V18H18.5v-5c0-2.5-1.3-3.8-3.2-3.8-1.4 0-2 .7-2.3 1.2V9.5z" fill="white"/>
-                </svg>
-                <span style={{ fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,0.7)" }}>LinkedIn Reviews</span>
+                <ShieldCheck size={16} color="hsl(var(--cta))" />
+                <span style={{ fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,0.7)" }}>Client Reviews</span>
               </div>
 
               {/* Stars */}
