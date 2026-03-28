@@ -3,9 +3,9 @@ import { Check, X } from "lucide-react";
 
 const forList = [
   "You're a growing B2B company with proven product-market fit",
-  "Founder-led or early-stage sales teams ready to scale",
-  "Revenue between early traction and scale-up phase",
-  "Businesses seeking predictable, repeatable pipeline",
+  "Your company is Founder-led or has early-stage sales teams ready to scale",
+  "Your company's revenue is between the early traction and scale-up phase",
+  "You're seeking a predictable, repeatable pipeline to grow your business.",
 ];
 
 const notForList = [
