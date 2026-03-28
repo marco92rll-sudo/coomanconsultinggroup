@@ -21,122 +21,114 @@ const GlobeCanvas = ({ size }: GlobeCanvasProps) => {
 
     const cx = size / 2;
     const cy = size / 2;
-    const radius = size / 2 - 8;
+    const r = size / 2 - 2;
 
     let rotation = 0;
 
-    const drawGlobe = () => {
+    const draw = () => {
       ctx.clearRect(0, 0, size, size);
 
-      // Outer glow
-      const glowGrad = ctx.createRadialGradient(cx, cy, radius * 0.85, cx, cy, radius * 1.15);
-      glowGrad.addColorStop(0, "rgba(139,171,184,0.06)");
-      glowGrad.addColorStop(1, "rgba(139,171,184,0)");
+      // 1. Soft outer atmospheric glow
+      const atmo = ctx.createRadialGradient(cx, cy, r * 0.88, cx, cy, r * 1.05);
+      atmo.addColorStop(0, "rgba(139,171,184,0)");
+      atmo.addColorStop(0.7, "rgba(139,171,184,0.04)");
+      atmo.addColorStop(1, "rgba(139,171,184,0)");
       ctx.beginPath();
-      ctx.arc(cx, cy, radius * 1.15, 0, Math.PI * 2);
-      ctx.fillStyle = glowGrad;
+      ctx.arc(cx, cy, r * 1.05, 0, Math.PI * 2);
+      ctx.fillStyle = atmo;
       ctx.fill();
 
-      // Globe fill - subtle gradient
-      const bgGrad = ctx.createRadialGradient(cx * 0.7, cy * 0.7, 0, cx, cy, radius);
-      bgGrad.addColorStop(0, "rgba(139,171,184,0.08)");
-      bgGrad.addColorStop(0.6, "rgba(9,15,26,0.95)");
-      bgGrad.addColorStop(1, "rgba(9,15,26,0.98)");
+      // 2. Main sphere — dark fill with very subtle inner light
+      const sphereGrad = ctx.createRadialGradient(
+        cx - r * 0.25, cy - r * 0.25, 0,
+        cx, cy, r
+      );
+      sphereGrad.addColorStop(0, "rgba(20,32,48,0.6)");
+      sphereGrad.addColorStop(0.5, "rgba(9,15,26,0.92)");
+      sphereGrad.addColorStop(1, "rgba(9,15,26,0.98)");
       ctx.beginPath();
-      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-      ctx.fillStyle = bgGrad;
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.fillStyle = sphereGrad;
       ctx.fill();
 
-      // Globe border
+      // 3. Sphere edge highlight — thin luminous rim
       ctx.beginPath();
-      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(139,171,184,0.12)";
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(139,171,184,0.1)";
       ctx.lineWidth = 1;
       ctx.stroke();
 
+      // Clip to sphere for internal elements
       ctx.save();
       ctx.beginPath();
-      ctx.arc(cx, cy, radius - 1, 0, Math.PI * 2);
+      ctx.arc(cx, cy, r - 1, 0, Math.PI * 2);
       ctx.clip();
 
-      // Latitude lines
-      const latLines = 7;
-      for (let i = 1; i < latLines; i++) {
-        const lat = (Math.PI / latLines) * i - Math.PI / 2;
-        const y = cy + Math.sin(lat) * radius;
-        const r = Math.cos(lat) * radius;
+      // 4. Very faint longitude meridians — only at edges, fading toward center
+      const lonCount = 6;
+      for (let i = 0; i < lonCount; i++) {
+        const angle = (Math.PI / lonCount) * i + rotation;
+        const squeeze = Math.abs(Math.sin(angle));
+        
+        // Only draw when meridian is near the edges (squeeze < 0.5 means near-edge)
+        const alpha = squeeze < 0.35 ? 0.035 + squeeze * 0.02 : squeeze * 0.025;
+        
         ctx.beginPath();
-        ctx.ellipse(cx, y, Math.abs(r), Math.abs(r) * 0.15, 0, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(139,171,184,0.06)";
-        ctx.lineWidth = 0.5;
+        ctx.ellipse(cx, cy, Math.max(squeeze * r, 0.5), r * 0.98, 0, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(139,171,184,${alpha})`;
+        ctx.lineWidth = 0.4;
         ctx.stroke();
       }
 
-      // Longitude lines (rotating)
-      const lonLines = 8;
-      for (let i = 0; i < lonLines; i++) {
-        const lon = (Math.PI / lonLines) * i + rotation;
-        const xOffset = Math.cos(lon) * radius;
-        const squeeze = Math.abs(Math.sin(lon));
+      // 5. Equator line — very faint
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, r * 0.98, r * 0.12, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(139,171,184,0.03)";
+      ctx.lineWidth = 0.4;
+      ctx.stroke();
 
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, Math.max(squeeze * radius, 1), radius, 0, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(139,171,184,${0.04 + squeeze * 0.06})`;
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-      }
-
-      // Dot particles on surface
-      const dotCount = 60;
+      // 6. Sparse edge dots — only along the visible rim, like stars on a globe's silhouette
+      const dotCount = 30;
       for (let i = 0; i < dotCount; i++) {
         const phi = (i / dotCount) * Math.PI * 2;
         const theta = Math.acos(2 * ((i * 0.618033988749895) % 1) - 1);
 
-        const x3d = Math.sin(theta) * Math.cos(phi + rotation * 2);
+        const x3d = Math.sin(theta) * Math.cos(phi + rotation * 1.5);
         const y3d = Math.cos(theta);
-        const z3d = Math.sin(theta) * Math.sin(phi + rotation * 2);
+        const z3d = Math.sin(theta) * Math.sin(phi + rotation * 1.5);
 
-        if (z3d < -0.1) continue; // behind globe
+        // Only show dots near the edge of the sphere (rim zone)
+        if (z3d < 0.0 || z3d > 0.4) continue;
 
-        const px = cx + x3d * radius * 0.9;
-        const py = cy + y3d * radius * 0.9;
-        const alpha = 0.08 + z3d * 0.12;
+        const px = cx + x3d * r * 0.92;
+        const py = cy + y3d * r * 0.92;
 
         ctx.beginPath();
-        ctx.arc(px, py, 1, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(139,171,184,${alpha})`;
+        ctx.arc(px, py, 0.6, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(139,171,184,${0.08 + z3d * 0.06})`;
         ctx.fill();
-      }
-
-      // Orbital rings (like reference image but subtle)
-      for (let r = 0; r < 3; r++) {
-        const ringAngle = -0.3 + r * 0.3;
-        const ringRadius = radius * (0.7 + r * 0.2);
-        const ringAlpha = 0.06 - r * 0.015;
-        const ringRotation = rotation * (0.5 + r * 0.3);
-
-        ctx.save();
-        ctx.translate(cx, cy);
-        ctx.rotate(ringRotation * 0.3);
-        ctx.beginPath();
-        ctx.ellipse(0, 0, ringRadius, ringRadius * 0.2, ringAngle, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(139,171,184,${ringAlpha})`;
-        ctx.lineWidth = 0.6;
-        ctx.stroke();
-        ctx.restore();
       }
 
       ctx.restore();
 
-      rotation += 0.003;
-      animRef.current = requestAnimationFrame(drawGlobe);
+      // 7. Top specular highlight — subtle glass-like reflection
+      const specGrad = ctx.createRadialGradient(
+        cx - r * 0.15, cy - r * 0.4, 0,
+        cx - r * 0.15, cy - r * 0.4, r * 0.5
+      );
+      specGrad.addColorStop(0, "rgba(139,171,184,0.04)");
+      specGrad.addColorStop(1, "rgba(139,171,184,0)");
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.fillStyle = specGrad;
+      ctx.fill();
+
+      rotation += 0.002;
+      animRef.current = requestAnimationFrame(draw);
     };
 
-    drawGlobe();
-
-    return () => {
-      cancelAnimationFrame(animRef.current);
-    };
+    draw();
+    return () => cancelAnimationFrame(animRef.current);
   }, [size]);
 
   return (
