@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Check, X } from "lucide-react";
 
 const forList = [
-  "Growing B2B companies with proven product-market fit",
+  "You're a growing B2B company with proven product-market fit",
   "Founder-led or early-stage sales teams ready to scale",
   "Revenue between early traction and scale-up phase",
   "Businesses seeking predictable, repeatable pipeline",
