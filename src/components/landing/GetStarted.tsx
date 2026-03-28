@@ -97,7 +97,7 @@ const GetStarted = () => {
             >
               <h3 className="text-lg font-bold mb-3">Virtual Coffee</h3>
               <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
-                Tell us your biggest challenge. We'll spend 30 minutes showing you exactly what we'd do about it.
+                We'll spend 30 minutes learning about your challenges, experience, goals, and intent so we can prescribe the best painkillers.
               </p>
               <a
                 href="https://calendly.com/ccooman-ccg/30min"
