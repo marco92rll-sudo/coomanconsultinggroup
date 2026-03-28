@@ -14,7 +14,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    quote: "They transformed the way we approached new clients. Our close rate went from 50-75% in 6 weeks.",
+    quote: "They shared such simple yet profound principles on sales and outbound frameworks. This modern b2b sales and marketing space is so overwhelming and complicated, but CCG really simplified it for us.",
     title: "Program Manager, Marketing Firm",
     rating: 5,
   },
