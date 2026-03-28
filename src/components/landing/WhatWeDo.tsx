@@ -38,6 +38,7 @@ const fadeUp = {
 
 const WhatWeDo = () => {
   const [current, setCurrent] = useState(0);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const timer = setInterval(() => {
