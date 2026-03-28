@@ -72,7 +72,7 @@ const GetStarted = () => {
 
               <h3 className="text-lg font-bold mb-3 mt-2">The 3-Minute Lead Leak Finder</h3>
               <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
-                A fast self-assessment that diagnoses exactly where your pipeline is leaking. Instant results. No call needed.
+                A fast self-assessment that diagnoses exactly where your immediate pipeline leaks are. Unlock instant relief to take control of your pipeline.
               </p>
               <button
                 onClick={() => setAuditOpen(true)}
