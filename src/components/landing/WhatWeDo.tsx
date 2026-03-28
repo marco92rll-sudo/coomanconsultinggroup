@@ -83,13 +83,9 @@ const WhatWeDo = () => {
             className="flex justify-center"
           >
             <div
-              className="relative w-[320px] h-[320px] md:w-[360px] md:h-[360px] rounded-full flex items-center justify-center"
-              style={{
-                background: "radial-gradient(circle at 30% 30%, rgba(139,171,184,0.12), rgba(9,15,26,0.9) 70%)",
-                border: "1px solid rgba(139,171,184,0.15)",
-                boxShadow: "0 0 60px rgba(139,171,184,0.08), inset 0 0 40px rgba(139,171,184,0.04)",
-              }}
+              className="relative w-[320px] h-[320px] md:w-[380px] md:h-[380px] rounded-full flex items-center justify-center overflow-hidden"
             >
+              <GlobeCanvas size={isMobile ? 320 : 380} />
               {/* Google G logo area */}
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-1.5 rounded-full"
                 style={{ background: "rgba(15,25,38,0.9)", border: "1px solid rgba(139,171,184,0.2)" }}>
