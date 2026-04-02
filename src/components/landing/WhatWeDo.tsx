@@ -68,11 +68,11 @@ const WhatWeDo = () => {
           </p>
         </motion.div>
 
-        {/* 4 Pillars Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
-          {pillars.map((pillar, i) => (
+        {/* Deliverables Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
+          {deliverables.map((item, i) => (
             <motion.div
-              key={pillar.title}
+              key={item.title}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -80,15 +80,15 @@ const WhatWeDo = () => {
               custom={i + 1}
               className="card-process p-6 md:p-8"
             >
-              <pillar.icon
+              <item.icon
                 className="w-5 h-5 text-accent mb-4"
                 strokeWidth={1.5}
               />
               <h3 className="text-base font-semibold mb-2 text-foreground">
-                {pillar.title}
+                {item.title}
               </h3>
               <p className="text-secondary-custom" style={{ fontSize: 14, lineHeight: 1.7 }}>
-                {pillar.description}
+                {item.description}
               </p>
             </motion.div>
           ))}
