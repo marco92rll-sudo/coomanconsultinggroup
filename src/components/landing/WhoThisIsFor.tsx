@@ -9,9 +9,9 @@ const forList = [
 ];
 
 const notForList = [
-  "Pre-revenue businesses still searching for product-market fit",
-  "Founders expecting outsourced sales without internal involvement",
-  "Companies looking only for hiring or lead lists without a system built",
+  "Pre-revenue business searching for product-market fit",
+  "The founder expects outsourced sales without internal involvement",
+  "The company is just looking for lead lists or short-term hires without a strategy",
 ];
 
 const fadeUp = {
