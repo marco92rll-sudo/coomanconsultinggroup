@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MessageSquare, Target, Mail, Database, Play, Users } from "lucide-react";
+import { Target, Settings, BookOpen, TrendingUp } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -10,36 +10,30 @@ const fadeUp = {
   }),
 };
 
-const deliverables = [
+const pillars = [
   {
-    icon: MessageSquare,
-    title: "Messaging & Offer Positioning",
-    description: "Clear messaging and offer positioning that converts cold prospects into qualified opportunities.",
+    icon: BookOpen,
+    title: "Sales Knowledge Transfer",
+    description:
+      "Extracts founder-led sales skill and turns it into a documented, trainable process.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Performance Acceleration",
+    description:
+      "Improves meeting-to-close conversion before scaling headcount.",
   },
   {
     icon: Target,
-    title: "Targeting & Pipeline Strategy",
-    description: "Targeting and pipeline strategy to consistently reach the right buyers.",
+    title: "Revenue Positioning Reset",
+    description:
+      "Clarifies ICP, messaging, differentiation, and value narrative so outbound converts.",
   },
   {
-    icon: Mail,
-    title: "Outbound Infrastructure",
-    description: "Outbound infrastructure (email, LinkedIn, sequencing) designed for scale.",
-  },
-  {
-    icon: Database,
-    title: "CRM & Process Architecture",
-    description: "CRM and process architecture to track, manage, and optimise pipeline.",
-  },
-  {
-    icon: Play,
-    title: "Execution Frameworks",
-    description: "Execution frameworks your team can run without relying on you.",
-  },
-  {
-    icon: Users,
-    title: "Role Definition & Sales Structure",
-    description: "Role definition and sales structure so the right person can step into a working system.",
+    icon: Settings,
+    title: "Pipeline Infrastructure Build",
+    description:
+      "Installs outbound systems, CRM architecture, reporting dashboards, and qualification frameworks.",
   },
 ];
 
@@ -58,9 +52,9 @@ const WhatWeDo = () => {
         >
           <p className="eyebrow mb-4">What We Do</p>
           <h2 className="heading-section mb-6">
-            What we{" "}
-            <span className="glow-text-sm">build</span>
-            {" "}for you.
+            We turn{" "}
+            <span className="glow-text-sm">founder knowledge</span>
+            {" "}into revenue systems.
           </h2>
           <p className="sr-only">Business consulting services for B2B founders</p>
           <p className="text-secondary-custom" style={{ fontSize: 15, lineHeight: 1.8 }}>
@@ -68,11 +62,11 @@ const WhatWeDo = () => {
           </p>
         </motion.div>
 
-        {/* Deliverables Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
-          {deliverables.map((item, i) => (
+        {/* 4 Pillars Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
+          {pillars.map((pillar, i) => (
             <motion.div
-              key={item.title}
+              key={pillar.title}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -80,15 +74,15 @@ const WhatWeDo = () => {
               custom={i + 1}
               className="card-process p-6 md:p-8"
             >
-              <item.icon
+              <pillar.icon
                 className="w-5 h-5 text-accent mb-4"
                 strokeWidth={1.5}
               />
               <h3 className="text-base font-semibold mb-2 text-foreground">
-                {item.title}
+                {pillar.title}
               </h3>
               <p className="text-secondary-custom" style={{ fontSize: 14, lineHeight: 1.7 }}>
-                {item.description}
+                {pillar.description}
               </p>
             </motion.div>
           ))}
