@@ -58,9 +58,9 @@ const WhatWeDo = () => {
         >
           <p className="eyebrow mb-4">What We Do</p>
           <h2 className="heading-section mb-6">
-            We turn{" "}
-            <span className="glow-text-sm">founder knowledge</span>
-            {" "}into revenue systems.
+            What we{" "}
+            <span className="glow-text-sm">build</span>
+            {" "}for you.
           </h2>
           <p className="sr-only">Business consulting services for B2B founders</p>
           <p className="text-secondary-custom" style={{ fontSize: 15, lineHeight: 1.8 }}>
