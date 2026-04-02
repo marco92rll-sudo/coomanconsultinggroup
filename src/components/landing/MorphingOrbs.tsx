@@ -1,105 +1,68 @@
 import { useEffect, useRef } from "react";
 
-// Keyframe states for morphing
-const keyframes = [
-  { scroll: 0, clipPath: "circle(50% at 50% 50%)", blur: 60 },
-  { scroll: 0.25, clipPath: "polygon(50% 2%, 74% 26%, 98% 50%, 74% 74%, 50% 98%, 26% 74%, 2% 50%, 26% 26%)", blur: 40 },
-  { scroll: 0.5, clipPath: "polygon(50% 0%, 68% 12%, 88% 12%, 100% 50%, 88% 88%, 68% 88%, 50% 100%, 32% 88%, 12% 88%, 0% 50%, 12% 12%, 32% 12%)", blur: 20 },
-  { scroll: 0.75, clipPath: "polygon(50% 2%, 74% 26%, 98% 50%, 74% 74%, 50% 98%, 26% 74%, 2% 50%, 26% 26%)", blur: 40 },
-  { scroll: 1, clipPath: "circle(50% at 50% 50%)", blur: 60 },
-];
-
-// Normalize all clip-paths to 12 points for smooth interpolation
-function parsePoints(clipPath: string): number[][] {
-  if (clipPath.startsWith("circle")) return Array(12).fill([50, 50]);
-  const match = clipPath.match(/polygon\((.+)\)/);
-  if (!match) return Array(12).fill([50, 50]);
-  const pts = match[1].split(",").map(p => {
-    const [x, y] = p.trim().replace(/%/g, "").split(/\s+/).map(Number);
-    return [x, y];
-  });
-  // Resample to 12 points
-  while (pts.length < 12) {
-    // duplicate last point
-    pts.push([...pts[pts.length - 1]]);
-  }
-  return pts.slice(0, 12);
-}
-
-// Circle as 12 evenly spaced points
-function circlePoints(): number[][] {
-  return Array.from({ length: 12 }, (_, i) => {
-    const angle = (i / 12) * Math.PI * 2 - Math.PI / 2;
-    return [50 + 50 * Math.cos(angle), 50 + 50 * Math.sin(angle)];
-  });
-}
-
-const normalizedKeyframes = keyframes.map(kf => ({
-  scroll: kf.scroll,
-  points: kf.clipPath.startsWith("circle") ? circlePoints() : parsePoints(kf.clipPath),
-  blur: kf.blur,
-  opacity: kf.scroll >= 0.4 && kf.scroll <= 0.6 ? 0.85 : 0.7,
-}));
-
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * t;
-}
-
-function interpolateState(progress: number) {
-  let i = 0;
-  for (let j = 0; j < normalizedKeyframes.length - 1; j++) {
-    if (progress >= normalizedKeyframes[j].scroll && progress <= normalizedKeyframes[j + 1].scroll) {
-      i = j;
-      break;
-    }
-  }
-  if (progress >= normalizedKeyframes[normalizedKeyframes.length - 1].scroll) {
-    i = normalizedKeyframes.length - 2;
-  }
-
-  const from = normalizedKeyframes[i];
-  const to = normalizedKeyframes[i + 1];
-  const range = to.scroll - from.scroll;
-  const t = range === 0 ? 0 : (progress - from.scroll) / range;
-
-  const points = from.points.map((pt, idx) => [
-    lerp(pt[0], to.points[idx][0], t),
-    lerp(pt[1], to.points[idx][1], t),
-  ]);
-
-  const blur = lerp(from.blur, to.blur, t);
-  const opacity = lerp(from.opacity, to.opacity, t);
-
-  const clipPath = `polygon(${points.map(p => `${p[0].toFixed(1)}% ${p[1].toFixed(1)}%`).join(", ")})`;
-
-  return { clipPath, blur, opacity };
-}
-
 const MorphingOrbs = () => {
   const orb1Ref = useRef<HTMLDivElement>(null);
   const orb2Ref = useRef<HTMLDivElement>(null);
   const orb3Ref = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number>(0);
+  const currentBlur = useRef(60);
+  const currentOpacity = useRef(0.7);
+  const currentScale = useRef(1);
 
   useEffect(() => {
+    let targetBlur = 60;
+    let targetOpacity = 0.7;
+    let targetScale = 1;
+
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       const progress = Math.min(Math.max(scrollY / maxScroll, 0), 1);
 
-      const state = interpolateState(progress);
+      // Smooth target values based on scroll — gentle wave curve
+      const wave = Math.sin(progress * Math.PI);
+      targetBlur = 60 - wave * 40;
+      targetOpacity = 0.7 + wave * 0.15;
+      targetScale = 1 + wave * 0.08;
+    };
+
+    const animate = () => {
+      // Lerp towards targets for buttery smooth transitions
+      const lerpFactor = 0.06;
+      currentBlur.current += (targetBlur - currentBlur.current) * lerpFactor;
+      currentOpacity.current += (targetOpacity - currentOpacity.current) * lerpFactor;
+      currentScale.current += (targetScale - currentScale.current) * lerpFactor;
+
+      const blur = currentBlur.current.toFixed(1);
+      const opacity = currentOpacity.current.toFixed(3);
+      const scale = currentScale.current.toFixed(4);
 
       [orb1Ref, orb2Ref, orb3Ref].forEach(ref => {
         if (ref.current) {
-          ref.current.style.clipPath = state.clipPath;
-          ref.current.style.filter = `blur(${state.blur}px)`;
-          ref.current.style.opacity = String(state.opacity);
+          ref.current.style.filter = `blur(${blur}px)`;
+          ref.current.style.opacity = opacity;
+          ref.current.style.transform = ref.current.dataset.baseTransform
+            ? `${ref.current.dataset.baseTransform} scale(${scale})`
+            : `scale(${scale})`;
         }
       });
+
+      rafRef.current = requestAnimationFrame(animate);
     };
 
+    // Set base transforms
+    if (orb1Ref.current) orb1Ref.current.dataset.baseTransform = "translate(-50%, -50%)";
+    if (orb2Ref.current) orb2Ref.current.dataset.baseTransform = "";
+    if (orb3Ref.current) orb3Ref.current.dataset.baseTransform = "";
+
     window.addEventListener("scroll", handleScroll, { passive: true });
+    rafRef.current = requestAnimationFrame(animate);
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
   return (
@@ -107,7 +70,7 @@ const MorphingOrbs = () => {
       {/* Orb 1 - Primary */}
       <div
         ref={orb1Ref}
-        className="absolute"
+        className="absolute will-change-[filter,opacity,transform]"
         style={{
           width: 480,
           height: 480,
@@ -115,32 +78,35 @@ const MorphingOrbs = () => {
           left: "50%",
           transform: "translate(-50%, -50%)",
           background: "radial-gradient(ellipse at 50% 50%, rgba(139,171,184,0.4) 0%, rgba(27,58,107,0.6) 35%, transparent 65%)",
+          borderRadius: "50%",
           animation: "drift1 24s ease-in-out infinite",
         }}
       />
       {/* Orb 2 - Secondary */}
       <div
         ref={orb2Ref}
-        className="absolute"
+        className="absolute will-change-[filter,opacity,transform]"
         style={{
           width: 360,
           height: 360,
           top: "10%",
           right: "10%",
           background: "radial-gradient(circle, rgba(27,58,107,0.6), transparent 70%)",
+          borderRadius: "50%",
           animation: "drift2 20s ease-in-out infinite",
         }}
       />
       {/* Orb 3 - Ambient */}
       <div
         ref={orb3Ref}
-        className="absolute"
+        className="absolute will-change-[filter,opacity,transform]"
         style={{
           width: 300,
           height: 300,
           bottom: "15%",
           left: "10%",
           background: "radial-gradient(circle, rgba(27,58,107,0.4), transparent 70%)",
+          borderRadius: "50%",
           animation: "drift3 28s ease-in-out infinite",
         }}
       />
