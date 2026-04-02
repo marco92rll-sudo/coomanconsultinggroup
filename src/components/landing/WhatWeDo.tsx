@@ -31,7 +31,7 @@ const WhatWeDo = () => {
           custom={0}
           className="max-w-3xl mx-auto text-center mb-14"
         >
-          <p className="eyebrow mb-4">What We Do</p>
+          <p className="eyebrow mb-4">WHAT WE DO</p>
           <h2 className="heading-section mb-6">
             We turn{" "}
             <span className="glow-text-sm">founder knowledge</span>
