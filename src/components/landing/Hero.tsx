@@ -10,7 +10,6 @@ const Hero = () => {
   const subRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const eyebrowRef = useRef<HTMLParagraphElement>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
   const [animStarted, setAnimStarted] = useState(false);
 
@@ -18,58 +17,47 @@ const Hero = () => {
     if (animStarted) return;
     setAnimStarted(true);
 
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    const elements = [
+      logoGlowRef.current,
+      logoRef.current,
+      eyebrowRef.current,
+      line1Ref.current,
+      line2Ref.current,
+      line3Ref.current,
+      subRef.current,
+      ctaRef.current,
+    ];
 
-    gsap.set(
-      [eyebrowRef.current, line1Ref.current, line2Ref.current, line3Ref.current, subRef.current, ctaRef.current],
-      { opacity: 0, y: 40 }
-    );
-    gsap.set(logoRef.current, { opacity: 0, scale: 0.1 });
-    gsap.set(logoGlowRef.current, { opacity: 0, scale: 0.1 });
-    gsap.set(overlayRef.current, { opacity: 1 });
+    // Set initial state — everything invisible and slightly below
+    gsap.set(elements, { opacity: 0, y: 30 });
+    gsap.set(logoRef.current, { scale: 0.9 });
+    gsap.set(logoGlowRef.current, { scale: 0.8 });
+
+    // Smooth cascading wave — each element flows in like a tide
+    const tl = gsap.timeline({
+      defaults: { ease: "power2.out", duration: 0.8 },
+      delay: 0.3,
+    });
 
     tl
-      .to(logoGlowRef.current, {
-        opacity: 1,
-        scale: 2,
-        duration: 0.15,
-        ease: "power4.out",
-      }, "+=0.5")
-      .to(logoRef.current, {
-        opacity: 1,
-        scale: 1.2,
-        duration: 0.1,
-        ease: "power4.out",
-      }, "<")
-      .to(overlayRef.current, {
-        background: "rgba(139,171,184,0.3)",
-        duration: 0.08,
-      })
-      .to(overlayRef.current, {
-        background: "rgba(9,15,26,0)",
-        duration: 0.4,
-      })
-      .to(logoRef.current, { scale: 0.95, duration: 0.05, ease: "none" })
-      .to(logoRef.current, { scale: 1.05, x: -3, duration: 0.04, ease: "none" })
-      .to(logoRef.current, { scale: 0.98, x: 3, duration: 0.04, ease: "none" })
-      .to(logoRef.current, { scale: 1, x: 0, duration: 0.3, ease: "elastic.out(1, 0.5)" })
-      .to(logoGlowRef.current, { scale: 1, opacity: 0.6, duration: 0.6, ease: "power2.inOut" }, "<")
+      // Logo fades in gently
+      .to(logoGlowRef.current, { opacity: 0.6, y: 0, scale: 1, duration: 1.2 })
+      .to(logoRef.current, { opacity: 1, y: 0, scale: 1, duration: 1 }, "-=1")
+      // Text flows in with staggered wave timing
+      .to(eyebrowRef.current, { opacity: 1, y: 0 }, "-=0.5")
+      .to(line1Ref.current, { opacity: 1, y: 0 }, "-=0.55")
+      .to(line2Ref.current, { opacity: 1, y: 0 }, "-=0.55")
+      .to(line3Ref.current, { opacity: 1, y: 0 }, "-=0.55")
+      .to(subRef.current, { opacity: 1, y: 0 }, "-=0.45")
+      .to(ctaRef.current, { opacity: 1, y: 0 }, "-=0.4");
 
-      .to({}, { duration: 0.3 })
-
-      .to(line1Ref.current, { opacity: 1, y: 0, duration: 0.5, ease: "power4.out" })
-      .to(line2Ref.current, { opacity: 1, y: 0, duration: 0.5, ease: "power4.out" }, "-=0.15")
-      .to(line3Ref.current, { opacity: 1, y: 0, duration: 0.5, ease: "power4.out" }, "-=0.15")
-      .to(eyebrowRef.current, { opacity: 1, y: 0, duration: 0.5 }, "-=0.1")
-      .to(subRef.current, { opacity: 1, y: 0, duration: 0.5 }, "-=0.3")
-      .to(ctaRef.current, { opacity: 1, y: 0, duration: 0.5 }, "-=0.3");
-
+    // Gentle breathing loop after intro completes
     tl.call(() => {
       gsap.to(logoRef.current, {
-        scale: 1.03, duration: 2, ease: "sine.inOut", yoyo: true, repeat: -1,
+        scale: 1.03, duration: 3, ease: "sine.inOut", yoyo: true, repeat: -1,
       });
       gsap.to(logoGlowRef.current, {
-        opacity: 0.35, scale: 1.15, duration: 3, ease: "sine.inOut", yoyo: true, repeat: -1,
+        opacity: 0.35, scale: 1.1, duration: 4, ease: "sine.inOut", yoyo: true, repeat: -1,
       });
     });
   }, [animStarted]);
@@ -80,8 +68,6 @@ const Hero = () => {
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
       style={{ paddingTop: 80 }}
     >
-      <div ref={overlayRef} className="absolute inset-0 z-[5] pointer-events-none" />
-
       <div className="text-center max-w-4xl mx-auto px-6 relative z-10">
         <p
           ref={eyebrowRef}
