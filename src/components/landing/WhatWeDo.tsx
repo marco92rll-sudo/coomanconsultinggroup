@@ -37,7 +37,7 @@ const WhatWeDo = () => {
             <span className="glow-text-sm">founder knowledge</span>
             {" "}into revenue systems.
           </h2>
-          <p className="sr-only">Business consulting services for B2B founders</p>
+          <p className="text-sm font-semibold text-accent mb-4">Business consulting services for B2B founders</p>
           <p className="text-secondary-custom" style={{ fontSize: 15, lineHeight: 1.8 }}>
             Most founders start as the primary driver of revenue. As the business grows, they get split between closing new deals and delivering on existing ones. Both require full attention. Neither gets it. Growth slows, pipeline becomes inconsistent, and the business becomes dependent on the founder to keep revenue moving. We take how you already sell, your positioning, conversations, and closing approach, and turn them into a structured, repeatable system that runs without your constant involvement.
           </p>
