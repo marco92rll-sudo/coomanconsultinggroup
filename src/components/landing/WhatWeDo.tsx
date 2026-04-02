@@ -53,7 +53,7 @@ const WhatWeDo = () => {
             custom={1}
             className="text-sm font-semibold uppercase tracking-wider text-accent mb-6"
           >
-            What we build:
+            WHAT WE BUILD:
           </motion.p>
 
           <div className="space-y-4">
