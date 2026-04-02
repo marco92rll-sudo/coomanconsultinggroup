@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Target, Settings, BookOpen, TrendingUp } from "lucide-react";
+import { MessageSquare, Target, Mail, Database, Play, Users } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -10,30 +10,36 @@ const fadeUp = {
   }),
 };
 
-const pillars = [
+const deliverables = [
   {
-    icon: BookOpen,
-    title: "Sales Knowledge Transfer",
-    description:
-      "Extracts founder-led sales skill and turns it into a documented, trainable process.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Performance Acceleration",
-    description:
-      "Improves meeting-to-close conversion before scaling headcount.",
+    icon: MessageSquare,
+    title: "Messaging & Offer Positioning",
+    description: "Clear messaging and offer positioning that converts cold prospects into qualified opportunities.",
   },
   {
     icon: Target,
-    title: "Revenue Positioning Reset",
-    description:
-      "Clarifies ICP, messaging, differentiation, and value narrative so outbound converts.",
+    title: "Targeting & Pipeline Strategy",
+    description: "Targeting and pipeline strategy to consistently reach the right buyers.",
   },
   {
-    icon: Settings,
-    title: "Pipeline Infrastructure Build",
-    description:
-      "Installs outbound systems, CRM architecture, reporting dashboards, and qualification frameworks.",
+    icon: Mail,
+    title: "Outbound Infrastructure",
+    description: "Outbound infrastructure (email, LinkedIn, sequencing) designed for scale.",
+  },
+  {
+    icon: Database,
+    title: "CRM & Process Architecture",
+    description: "CRM and process architecture to track, manage, and optimise pipeline.",
+  },
+  {
+    icon: Play,
+    title: "Execution Frameworks",
+    description: "Execution frameworks your team can run without relying on you.",
+  },
+  {
+    icon: Users,
+    title: "Role Definition & Sales Structure",
+    description: "Role definition and sales structure so the right person can step into a working system.",
   },
 ];
 
