@@ -29,7 +29,7 @@ const faqs = [
   },
   {
     q: "Is this only for B2B companies?",
-    a: "No. Our frameworks are built for fractional leaders or founder-led firms in complex B2B sales cycles — typically professional services and high-value consulting businesses where relationships and positioning drive revenue.",
+    a: "Yes. Our frameworks are built for fractional leaders or founder-led firms in complex B2B sales cycles — typically professional services and high-value consulting businesses where relationships and positioning drive revenue.",
   },
 ];
 
