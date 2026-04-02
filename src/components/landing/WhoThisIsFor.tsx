@@ -65,7 +65,7 @@ const WhoThisIsFor = () => {
                 color: "hsl(var(--primary))",
               }}
             >
-              This is for you if
+              BEST FITS
             </h3>
             <ul className="space-y-4">
               {forList.map((item, i) => (
