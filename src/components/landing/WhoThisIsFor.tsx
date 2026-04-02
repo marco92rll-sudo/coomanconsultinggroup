@@ -111,7 +111,7 @@ const WhoThisIsFor = () => {
                 color: "rgba(255,255,255,0.35)",
               }}
             >
-              This is not for you if
+              NOT A FIT IF
             </h3>
             <ul className="space-y-4">
               {notForList.map((item, i) => (
