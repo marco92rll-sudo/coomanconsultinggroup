@@ -12,18 +12,6 @@ const fadeUp = {
 
 const pillars = [
   {
-    icon: Target,
-    title: "Revenue Positioning Reset",
-    description:
-      "Clarifies ICP, messaging, differentiation, and value narrative so outbound converts.",
-  },
-  {
-    icon: Settings,
-    title: "Pipeline Infrastructure Build",
-    description:
-      "Installs outbound systems, CRM architecture, reporting dashboards, and qualification frameworks.",
-  },
-  {
     icon: BookOpen,
     title: "Sales Knowledge Transfer",
     description:
@@ -34,6 +22,18 @@ const pillars = [
     title: "Performance Acceleration",
     description:
       "Improves meeting-to-close conversion before scaling headcount.",
+  },
+  {
+    icon: Target,
+    title: "Revenue Positioning Reset",
+    description:
+      "Clarifies ICP, messaging, differentiation, and value narrative so outbound converts.",
+  },
+  {
+    icon: Settings,
+    title: "Pipeline Infrastructure Build",
+    description:
+      "Installs outbound systems, CRM architecture, reporting dashboards, and qualification frameworks.",
   },
 ];
 
