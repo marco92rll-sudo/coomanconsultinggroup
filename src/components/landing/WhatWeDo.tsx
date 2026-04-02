@@ -31,15 +31,15 @@ const WhatWeDo = () => {
           custom={0}
           className="max-w-3xl mx-auto text-center mb-14"
         >
-          <p className="eyebrow mb-4">What We Do</p>
+          <p className="eyebrow mb-4">WHAT WE DO</p>
           <h2 className="heading-section mb-6">
             We turn{" "}
             <span className="glow-text-sm">founder knowledge</span>
             {" "}into revenue systems.
           </h2>
-          <p className="sr-only">Business consulting services for B2B founders</p>
+          <p className="text-sm font-semibold text-accent mb-4">Business consulting services for B2B founders</p>
           <p className="text-secondary-custom" style={{ fontSize: 15, lineHeight: 1.8 }}>
-            We design and implement outbound sales systems that turn founder-led selling into a predictable pipeline. We take how you already sell, your positioning, conversations, and closing approach, and turn them into a structured, repeatable system that runs without your constant involvement.
+            Most founders start as the primary driver of revenue. As the business grows, they get split between closing new deals and delivering on existing ones. Both require full attention. Neither gets it. Growth slows, pipeline becomes inconsistent, and the business becomes dependent on the founder to keep revenue moving. We take how you already sell, your positioning, conversations, and closing approach, and turn them into a structured, repeatable system that runs without your constant involvement.
           </p>
         </motion.div>
 
@@ -53,7 +53,7 @@ const WhatWeDo = () => {
             custom={1}
             className="text-sm font-semibold uppercase tracking-wider text-accent mb-6"
           >
-            What we build:
+            WHAT WE BUILD:
           </motion.p>
 
           <div className="space-y-4">
@@ -85,6 +85,7 @@ const WhatWeDo = () => {
           className="max-w-2xl mx-auto text-center mt-14 text-secondary-custom"
           style={{ fontSize: 14, lineHeight: 1.8 }}
         >
+          Focus is finite—spreading it thin lowers quality. We remove that constraint.<br />
           The outcome is a predictable pipeline engine so revenue no longer depends on when you have time to sell.
         </motion.p>
       </div>
