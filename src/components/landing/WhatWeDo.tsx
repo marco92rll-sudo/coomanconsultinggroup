@@ -1,54 +1,35 @@
 import { motion } from "framer-motion";
-import { Target, Settings, BookOpen, TrendingUp } from "lucide-react";
+import { MessageSquare, Target, Mail, Database, Play, Users } from "lucide-react";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, delay: i * 0.1 },
+    transition: { duration: 0.4, delay: i * 0.07 },
   }),
 };
 
-const pillars = [
-  {
-    icon: BookOpen,
-    title: "Sales Knowledge Transfer",
-    description:
-      "Extracts founder-led sales skill and turns it into a documented, trainable process.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Performance Acceleration",
-    description:
-      "Improves meeting-to-close conversion before scaling headcount.",
-  },
-  {
-    icon: Target,
-    title: "Revenue Positioning Reset",
-    description:
-      "Clarifies ICP, messaging, differentiation, and value narrative so outbound converts.",
-  },
-  {
-    icon: Settings,
-    title: "Pipeline Infrastructure Build",
-    description:
-      "Installs outbound systems, CRM architecture, reporting dashboards, and qualification frameworks.",
-  },
+const items = [
+  { icon: MessageSquare, text: "Clear messaging and offer positioning that convert cold prospects into qualified opportunities" },
+  { icon: Target, text: "Targeting and pipeline strategy to consistently reach the right buyers" },
+  { icon: Mail, text: "Outbound infrastructure (email, LinkedIn, sequencing) designed for scale" },
+  { icon: Database, text: "CRM and process architecture to track, manage, and optimise pipeline" },
+  { icon: Play, text: "Execution frameworks your team can run without relying on you" },
+  { icon: Users, text: "Role definition and sales structure so the right person can step into a working system" },
 ];
 
 const WhatWeDo = () => {
   return (
     <section id="services" className="section-padding relative z-10">
       <div className="container-wide">
-        {/* Intro */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeUp}
           custom={0}
-          className="max-w-3xl mx-auto text-center mb-16"
+          className="max-w-3xl mx-auto text-center mb-14"
         >
           <p className="eyebrow mb-4">What We Do</p>
           <h2 className="heading-section mb-6">
@@ -62,39 +43,45 @@ const WhatWeDo = () => {
           </p>
         </motion.div>
 
-        {/* 4 Pillars Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
-          {pillars.map((pillar, i) => (
-            <motion.div
-              key={pillar.title}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              custom={i + 1}
-              className="card-process p-6 md:p-8"
-            >
-              <pillar.icon
-                className="w-5 h-5 text-accent mb-4"
-                strokeWidth={1.5}
-              />
-              <h3 className="text-base font-semibold mb-2 text-foreground">
-                {pillar.title}
-              </h3>
-              <p className="text-secondary-custom" style={{ fontSize: 14, lineHeight: 1.7 }}>
-                {pillar.description}
-              </p>
-            </motion.div>
-          ))}
+        {/* What we build */}
+        <div className="max-w-2xl mx-auto">
+          <motion.p
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            custom={1}
+            className="text-sm font-semibold uppercase tracking-wider text-accent mb-6"
+          >
+            What we build:
+          </motion.p>
+
+          <div className="space-y-4">
+            {items.map((item, i) => (
+              <motion.div
+                key={i}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeUp}
+                custom={i + 2}
+                className="flex items-start gap-3"
+              >
+                <item.icon className="w-4 h-4 text-accent mt-0.5 shrink-0" strokeWidth={1.5} />
+                <p className="text-secondary-custom" style={{ fontSize: 14, lineHeight: 1.7 }}>
+                  {item.text}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
-        {/* Closing line */}
         <motion.p
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeUp}
-          custom={6}
+          custom={9}
           className="max-w-2xl mx-auto text-center mt-14 text-secondary-custom"
           style={{ fontSize: 14, lineHeight: 1.8 }}
         >
