@@ -2,16 +2,16 @@ import { motion } from "framer-motion";
 import { Check, X } from "lucide-react";
 
 const forList = [
-  "You're a growing B2B company with proven product-market fit",
-  "Your company is Founder-led or has early-stage sales teams ready to scale",
-  "Your company's revenue is between the early traction and scale-up phase",
-  "You're seeking a predictable, repeatable pipeline to grow your business.",
+  "Founder-led businesses generating revenue but lacking a consistent pipeline",
+  "Offers that already convert — you've closed deals, but it's not repeatable",
+  "Teams stuck between delivery and growth, relying heavily on referrals",
+  "Founders who want to step out of day-to-day selling without losing control of revenue",
 ];
 
 const notForList = [
-  "Companies wanting mass lead volume over quality",
-  "Teams looking for cheap, plug-and-play execution",
-  "Businesses unwilling to engage strategically",
+  "Pre-revenue businesses still searching for product-market fit",
+  "Founders expecting outsourced sales without internal involvement",
+  "Companies looking only for hiring or lead lists without a system built",
 ];
 
 const fadeUp = {
