@@ -32,18 +32,19 @@ const PolarizingStatement = () => {
             <span className="glow-text font-medium">
               We remove that constraint.
             </span>
+            "
           </p>
           <p
             className="text-base md:text-lg font-light"
             style={{ color: "rgba(255,255,255,0.85)", lineHeight: 1.8, fontStyle: "italic" }}
           >
-            The outcome is a predictable pipeline engine so revenue no longer depends on when you have time to sell."
+            {"\n"}
           </p>
           <p
             className="text-sm tracking-widest uppercase pt-2"
             style={{ color: "hsl(var(--cta))", letterSpacing: "0.15em" }}
           >
-            — L.Cooman
+            {"\u00A0- CO-FOUNDER L.COOMAN"}
           </p>
         </motion.blockquote>
       </div>
