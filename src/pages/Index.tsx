@@ -25,7 +25,6 @@ const Index = () => {
         <div className="glow-line relative z-10" />
         <GetStarted />
         <div className="glow-line relative z-10" />
-        <div className="glow-line relative z-10" />
         <FAQ />
       </main>
       <Footer />
