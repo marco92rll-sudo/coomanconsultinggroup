@@ -85,7 +85,7 @@ const WhatWeDo = () => {
           className="max-w-2xl mx-auto text-center mt-14 text-secondary-custom"
           style={{ fontSize: 14, lineHeight: 1.8 }}
         >
-          Focus is finite—spreading it thin lowers quality. We remove that constraint.<br />
+          Focus is finite; spreading it thin lowers quality. We remove that constraint.<br />
           The outcome is a predictable pipeline engine so revenue no longer depends on when you have time to sell.
         </motion.p>
       </div>
