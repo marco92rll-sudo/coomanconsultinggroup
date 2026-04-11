@@ -44,7 +44,7 @@ const PolarizingStatement = () => {
             className="text-sm tracking-widest uppercase pt-2"
             style={{ color: "hsl(var(--cta))", letterSpacing: "0.15em" }}
           >
-            - CO-FOUNDER L.COOMAN
+            {"\u00A0- CO-FOUNDER L.COOMAN"}
           </p>
         </motion.blockquote>
       </div>
