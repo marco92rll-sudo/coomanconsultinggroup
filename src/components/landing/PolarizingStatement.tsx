@@ -18,19 +18,32 @@ const PolarizingStatement = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={fadeUp}
-          className="space-y-4"
+          className="space-y-6"
         >
-          <p className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight tracking-tight">
-            Focus is finite; spreading it thin lowers quality.{" "}
-            <span className="glow-text">
+          <div
+            className="w-12 mx-auto mb-2"
+            style={{ height: 2, background: "hsl(var(--cta))", opacity: 0.5, borderRadius: 1 }}
+          />
+          <p
+            className="text-xl md:text-2xl lg:text-3xl font-light leading-relaxed"
+            style={{ color: "rgba(255,255,255,0.85)", fontStyle: "italic" }}
+          >
+            "Focus is finite; spreading it thin lowers quality.{" "}
+            <span className="glow-text font-medium">
               We remove that constraint.
             </span>
           </p>
           <p
-            className="text-base md:text-lg"
-            style={{ color: "rgba(255,255,255,0.45)", lineHeight: 1.8 }}
+            className="text-base md:text-lg font-light"
+            style={{ color: "rgba(255,255,255,0.85)", lineHeight: 1.8, fontStyle: "italic" }}
           >
-            The outcome is a predictable pipeline engine so revenue no longer depends on when you have time to sell.
+            The outcome is a predictable pipeline engine so revenue no longer depends on when you have time to sell."
+          </p>
+          <p
+            className="text-sm tracking-widest uppercase pt-2"
+            style={{ color: "hsl(var(--cta))", letterSpacing: "0.15em" }}
+          >
+            — L.Cooman
           </p>
         </motion.blockquote>
       </div>
