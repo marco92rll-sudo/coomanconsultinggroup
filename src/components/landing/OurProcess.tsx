@@ -19,7 +19,7 @@ const steps = [
   },
   {
     num: "02",
-    title: "Hyperpersonalised Playbook",
+    title: "Hyper-personalised Playbook",
     subtitle: "Extract & Systemise",
     desc: "We capture your founder instincts, winning conversations, and deal patterns, then codify them into a repeatable sales framework your team can run.",
     deliverables: ["Messaging frameworks", "Outbound sequences", "Objection-handling scripts"],
