@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { X, ArrowRight } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -14,7 +14,6 @@ const fadeUp = {
 const GetStarted = () => {
   const [auditOpen, setAuditOpen] = useState(false);
 
-
   return (
     <>
       <section id="get-started" className="section-padding relative z-10">
@@ -27,12 +26,12 @@ const GetStarted = () => {
             custom={0}
             className="text-center mb-16"
           >
-            <p className="eyebrow mb-4">Get Started</p>
+            <p className="eyebrow mb-4">Next Steps</p>
             <h2 className="heading-section mb-4">
-              Pick your <span className="glow-text-sm">entry point.</span>
+              Here's what to do <span className="glow-text-sm">next.</span>
             </h2>
-            <p style={{ fontSize: 15, color: "rgba(255,255,255,0.6)" }}>
-              Two ways in. Both get you clarity fast.
+            <p style={{ fontSize: 15, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, maxWidth: 520, margin: "0 auto" }}>
+              Not sure where you stand? Start with a quick diagnostic. Ready to talk? Let's have a conversation.
             </p>
           </motion.div>
 
@@ -54,7 +53,6 @@ const GetStarted = () => {
                 overflow: "visible",
               }}
             >
-              {/* Most Popular badge */}
               <span
                 className="absolute -top-3 left-8 bg-cta text-white"
                 style={{
@@ -67,22 +65,22 @@ const GetStarted = () => {
                   boxShadow: "0 0 16px rgba(226,114,91,0.5)",
                 }}
               >
-                Most Popular
+                Start Here
               </span>
 
-              <h3 className="text-lg font-bold mb-3 mt-2">The 3-Minute Lead Leak Finder</h3>
-              <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
-                A fast self-assessment that diagnoses exactly where your immediate pipeline leaks are. Unlock instant relief to take control of your pipeline.
+              <h3 className="text-lg font-bold mb-2 mt-2">The 3-Minute Lead Leak Finder</h3>
+              <p className="mb-1" style={{ fontSize: 13, color: "rgba(139,171,184,0.7)", fontWeight: 500 }}>
+                Takes 3 minutes · No email required
+              </p>
+              <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.5)", lineHeight: 1.7 }}>
+                A fast self-assessment that diagnoses exactly where your pipeline is leaking revenue — and what to fix first.
               </p>
               <button
                 onClick={() => setAuditOpen(true)}
-                className="inline-flex items-center justify-center px-6 py-2.5 font-semibold transition-all duration-200 glow-btn bg-cta text-white"
-                style={{
-                  borderRadius: 6,
-                  fontSize: 13,
-                }}
+                className="inline-flex items-center gap-2 px-6 py-2.5 font-semibold transition-all duration-200 glow-btn bg-cta text-white"
+                style={{ borderRadius: 6, fontSize: 13 }}
               >
-                Pipeline Fix
+                Find My Leaks <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </motion.div>
 
@@ -95,15 +93,18 @@ const GetStarted = () => {
               custom={2}
               className="card-process p-8"
             >
-              <h3 className="text-lg font-bold mb-3">Virtual Coffee</h3>
-              <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", lineHeight: 1.7 }}>
-                We'll spend 30 minutes learning about your challenges, experience, goals, and intent so we can prescribe the best painkillers.
+              <h3 className="text-lg font-bold mb-2">Book a Virtual Coffee</h3>
+              <p className="mb-1" style={{ fontSize: 13, color: "rgba(139,171,184,0.7)", fontWeight: 500 }}>
+                30 minutes · Zero pressure
+              </p>
+              <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.5)", lineHeight: 1.7 }}>
+                We'll learn about your challenges, experience, and goals — then prescribe the best next move. No pitch, just clarity.
               </p>
               <a
                 href="https://calendly.com/ccooman-ccg/30min"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-6 py-2.5 font-semibold transition-all duration-200"
+                className="inline-flex items-center gap-2 px-6 py-2.5 font-semibold transition-all duration-200"
                 style={{
                   background: "rgba(139,171,184,0.04)",
                   color: "#8BAAB8",
@@ -112,13 +113,12 @@ const GetStarted = () => {
                   fontSize: 13,
                 }}
               >
-                Reserve My Spot
+                Reserve My Spot <ArrowRight className="w-3.5 h-3.5" />
               </a>
             </motion.div>
           </div>
         </div>
       </section>
-
 
       {/* Pipeline Fix Audit Modal */}
       <AnimatePresence>
