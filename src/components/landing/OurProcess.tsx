@@ -5,37 +5,31 @@ const fadeUp = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, delay: i * 0.1 },
+    transition: { duration: 0.5, delay: i * 0.12 },
   }),
 };
 
-const card1Steps = [
+const steps = [
   {
-    title: "Revenue Positioning Reset",
-    desc: "Clarifying your ideal client profile, messaging & differentiation",
+    num: "01",
+    title: "Strategy Assessment",
+    subtitle: "Diagnose & Align",
+    desc: "We audit your current sales motion — ICP, messaging, pipeline health, and close process — to identify exactly where revenue is leaking and what to fix first.",
+    deliverables: ["ICP & positioning audit", "Pipeline gap analysis", "Prioritised roadmap"],
   },
   {
-    title: "Founder Knowledge Extraction",
-    desc: "Structured Q&A that transforms founder instincts into documented sales frameworks",
+    num: "02",
+    title: "Hyperpersonalised Playbook",
+    subtitle: "Extract & Systemise",
+    desc: "We capture your founder instincts, winning conversations, and deal patterns, then codify them into a repeatable sales framework your team can run.",
+    deliverables: ["Messaging frameworks", "Outbound sequences", "Objection-handling scripts"],
   },
   {
-    title: "Outbound Recommendations",
-    desc: "Packaged strategy & tech stack recommendations",
-  },
-];
-
-const card2Steps = [
-  {
-    title: "Outbound Infrastructure",
-    desc: "Lead gen & multichannel outbound messaging to drive valuable engagement",
-  },
-  {
-    title: "Performance Acceleration",
-    desc: "Improving the meeting-to-close process before introducing any automation",
-  },
-  {
-    title: "Scale & Automate",
-    desc: "You own every platform and system we build; we manage and maintain it for you",
+    num: "03",
+    title: "Implement & Optimise",
+    subtitle: "Build & Scale",
+    desc: "We deploy the infrastructure — outbound channels, CRM workflows, and automation — then continuously refine until the engine runs without you.",
+    deliverables: ["Multichannel outbound", "CRM & pipeline architecture", "Performance dashboards"],
   },
 ];
 
@@ -60,69 +54,63 @@ const OurProcess = () => {
         >
           <p className="eyebrow mb-4">Our Process</p>
           <h2 className="heading-section">
-            Two functions. <span className="glow-text-sm">One outcome.</span>
+            Three steps. <span className="glow-text-sm">One outcome.</span>
           </h2>
           <p className="sr-only">Our consulting process for scaling founder-led businesses</p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Card 1 - F2F */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            variants={fadeUp}
-            custom={1}
-            className="card-process p-8 md:p-11"
-          >
-            <span className="pill-badge mb-5 inline-block">F2F</span>
-            <h3 className="text-xl font-bold mb-3">Founder to Framework™</h3>
-            <p className="mb-8" style={{ fontSize: 14, color: "rgba(255,255,255,0.45)", lineHeight: 1.7 }}>
-              We capture your sales DNA — the instincts, positioning, and edge that wins — and systemize it so your team can replicate it.
-            </p>
-            <div className="space-y-5">
-              {card1Steps.map((step) => (
-                <div key={step.title} className="flex items-start gap-3">
-                  <div className="step-dot" />
-                  <div>
-                    <div className="text-sm font-semibold text-white">{step.title}</div>
-                    <div style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", lineHeight: 1.6 }}>
-                      {step.desc}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {steps.map((step, i) => (
+            <motion.div
+              key={step.num}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={fadeUp}
+              custom={i + 1}
+              className="card-process p-8 md:p-10 flex flex-col"
+            >
+              {/* Large watermark number */}
+              <span
+                className="block font-bold leading-none mb-5"
+                style={{
+                  fontSize: 64,
+                  color: "rgba(139,171,184,0.07)",
+                  letterSpacing: "-0.04em",
+                }}
+              >
+                {step.num}
+              </span>
 
-          {/* Card 2 - ROE */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            variants={fadeUp}
-            custom={2}
-            className="card-process p-8 md:p-11"
-          >
-            <span className="pill-badge mb-5 inline-block">ROE</span>
-            <h3 className="text-xl font-bold mb-3">Rev-Ops Engine™</h3>
-            <p className="mb-8" style={{ fontSize: 14, color: "rgba(255,255,255,0.45)", lineHeight: 1.7 }}>
-              We leverage your F2F playbook to build the outbound infrastructure that generates meetings, refines your close, and then automates what's already working.
-            </p>
-            <div className="space-y-5">
-              {card2Steps.map((step) => (
-                <div key={step.title} className="flex items-start gap-3">
-                  <div className="step-dot" />
-                  <div>
-                    <div className="text-sm font-semibold text-white">{step.title}</div>
-                    <div style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", lineHeight: 1.6 }}>
-                      {step.desc}
-                    </div>
+              <span className="pill-badge mb-4 inline-block self-start">{step.subtitle}</span>
+              <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+              <p
+                className="mb-6 flex-grow"
+                style={{ fontSize: 14, color: "rgba(255,255,255,0.45)", lineHeight: 1.7 }}
+              >
+                {step.desc}
+              </p>
+
+              {/* Deliverables */}
+              <div
+                className="pt-5 mt-auto space-y-2"
+                style={{ borderTop: "1px solid rgba(139,171,184,0.1)" }}
+              >
+                <p
+                  className="text-xs font-semibold uppercase tracking-wider mb-3"
+                  style={{ color: "rgba(139,171,184,0.5)", letterSpacing: "0.15em" }}
+                >
+                  Deliverables
+                </p>
+                {step.deliverables.map((d) => (
+                  <div key={d} className="flex items-center gap-2">
+                    <div className="step-dot" style={{ width: 4, height: 4, marginTop: 0 }} />
+                    <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>{d}</span>
                   </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

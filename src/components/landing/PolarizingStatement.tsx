@@ -18,12 +18,19 @@ const PolarizingStatement = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={fadeUp}
+          className="space-y-4"
         >
           <p className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight tracking-tight">
-            We don't sell consulting.{" "}
+            Focus is finite; spreading it thin lowers quality.{" "}
             <span className="glow-text">
-              We sell systems that run without you.
+              We remove that constraint.
             </span>
+          </p>
+          <p
+            className="text-base md:text-lg"
+            style={{ color: "rgba(255,255,255,0.45)", lineHeight: 1.8 }}
+          >
+            The outcome is a predictable pipeline engine so revenue no longer depends on when you have time to sell.
           </p>
         </motion.blockquote>
       </div>
