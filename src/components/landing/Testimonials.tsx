@@ -20,10 +20,10 @@ const testimonials = [
   },
   {
     quote:
-      "We were drowning in leads but closing nothing. They diagnosed the bottleneck, rebuilt the process, and now our close rate is up 40%.",
-    name: "Sarah L.",
-    role: "VP Sales, FinTech",
-    metric: "40% close-rate increase",
+      "Leone has a unique talent for making complex concepts accessible. His mentorship has been invaluable — he is adept at identifying potential and fostering growth in others. Through his guidance I developed skills that enhanced my performance and confidence. I wholeheartedly recommend Leone for any leadership role.",
+    name: "M.E.",
+    role: "Senior Analyst",
+    metric: "LinkedIn Recommendation, 2024",
   },
   {
     quote:
