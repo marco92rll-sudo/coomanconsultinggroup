@@ -13,10 +13,10 @@ const fadeUp = {
 const testimonials = [
   {
     quote:
-      "CCG rebuilt our entire outbound engine in 6 weeks. Pipeline went from unpredictable to consistent — we closed 3 enterprise deals in the first quarter.",
-    name: "Mark T.",
-    role: "CEO, SaaS Platform",
-    metric: "3× pipeline in 90 days",
+      "I broke through my own glass ceiling of resistance to change. I generated my first real dataset to inform a more refined plan. Sometimes we stay stuck not because we lack capability — but because we don't push past that first uncomfortable barrier. It was hard. And it was absolutely worth it.",
+    name: "J.V.",
+    role: "Founder, Consulting",
+    metric: "LinkedIn Post, 2026",
   },
   {
     quote:
