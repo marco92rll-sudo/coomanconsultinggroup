@@ -14,22 +14,22 @@ const testimonials = [
   {
     quote:
       "I broke through my own glass ceiling of resistance to change. I generated my first real dataset to inform a more refined plan. Sometimes we stay stuck not because we lack capability — but because we don't push past that first uncomfortable barrier. It was hard. And it was absolutely worth it.",
-    name: "J.V.",
-    role: "Founder, Consulting",
+    name: "J.V",
+    role: "Founder, L&D Advisory",
     metric: "LinkedIn Post, 2026",
   },
   {
     quote:
       "Leone has a unique talent for making complex concepts accessible. His mentorship has been invaluable — he is adept at identifying potential and fostering growth in others. Through his guidance I developed skills that enhanced my performance and confidence. I wholeheartedly recommend Leone for any leadership role.",
-    name: "M.E.",
+    name: "Matt.E",
     role: "Senior Analyst",
     metric: "LinkedIn Recommendation, 2024",
   },
   {
     quote:
       "Here is a company that is truly willing to invest time and effort in co-crafting a unique sales system that is a perfect fit for your organisation. Leone is an excellent listener and a strategic thinker who is able to translate your business strategy into a workable, user-friendly system. I highly recommend CCG to business owners and sales leaders who want to up their sales and marketing game.",
-    name: "J.V.",
-    role: "Founder, Consulting",
+    name: "Marco.L",
+    role: "Fractional Product Manager",
     metric: "LinkedIn Recommendation, 2026",
   },
 ];
