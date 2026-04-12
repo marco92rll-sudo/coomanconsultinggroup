@@ -8,6 +8,7 @@ import WhoThisIsFor from "@/components/landing/WhoThisIsFor";
 import ValuePillars from "@/components/landing/ValuePillars";
 import FAQ from "@/components/landing/FAQ";
 import GetStarted from "@/components/landing/GetStarted";
+import Testimonials from "@/components/landing/Testimonials";
 
 import RiskReversal from "@/components/landing/RiskReversal";
 import Footer from "@/components/landing/Footer";
@@ -32,6 +33,8 @@ const Index = () => {
         <ValuePillars />
         <div className="glow-line relative z-10" />
         <RiskReversal />
+        <div className="glow-line relative z-10" />
+        <Testimonials />
         <div className="glow-line relative z-10" />
         <GetStarted />
 
