@@ -27,10 +27,10 @@ const testimonials = [
   },
   {
     quote:
-      "The hyper-personalised playbook alone was worth the engagement. Our reps finally know exactly what to say, when, and to whom.",
-    name: "James R.",
-    role: "Founder, B2B Agency",
-    metric: "2× response rates",
+      "Here is a company that is truly willing to invest time and effort in co-crafting a unique sales system that is a perfect fit for your organisation. Leone is an excellent listener and a strategic thinker who is able to translate your business strategy into a workable, user-friendly system. I highly recommend CCG to business owners and sales leaders who want to up their sales and marketing game.",
+    name: "J.V.",
+    role: "Founder, Consulting",
+    metric: "LinkedIn Recommendation, 2026",
   },
 ];
 
