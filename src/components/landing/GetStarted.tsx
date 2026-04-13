@@ -70,7 +70,7 @@ const GetStarted = () => {
 
               <h3 className="text-lg font-bold mb-2 mt-2">The 3-Minute Lead Leak Finder</h3>
               <p className="mb-1" style={{ fontSize: 13, color: "rgba(139,171,184,0.7)", fontWeight: 500 }}>
-                Takes 3 minutes · No email required
+                Takes 3 minutes · 
               </p>
               <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.5)", lineHeight: 1.7 }}>
                 A fast self-assessment that diagnoses exactly where your pipeline is leaking revenue — and what to fix first.
