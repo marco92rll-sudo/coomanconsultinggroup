@@ -600,30 +600,32 @@ body {
   <div id="emailGate">
     <h2>Where should we send your personalised results?</h2>
     <p>Your score, leak breakdown, and custom fix plan are ready. Enter your details to see them.</p>
-    <div class="input-row">
-      <input type="text" id="userName" placeholder="Your first name" autocomplete="given-name" />
-      <input type="email" id="userEmail" placeholder="Your email address" autocomplete="email" />
-      <div class="field-label">What best describes your business?</div>
-      <select id="userBizType">
-        <option value="">Select one...</option>
-        <option value="Solo consultant / fractional leader">Solo consultant / fractional leader</option>
-        <option value="Founder-led firm (2–5 people)">Founder-led firm (2–5 people)</option>
-        <option value="Growing PSF (6–20 people)">Growing PSF (6–20 people)</option>
-        <option value="Other">Other</option>
-      </select>
-      <div class="field-label">What's your current biggest growth blocker?</div>
-      <select id="userBlocker">
-        <option value="">Select one...</option>
-        <option value="Not enough qualified leads">Not enough qualified leads</option>
-        <option value="Pipeline is too referral-dependent">Pipeline is too referral-dependent</option>
-        <option value="Leads go cold before converting">Leads go cold before converting</option>
-        <option value="No time to do consistent outreach">No time to do consistent outreach</option>
-        <option value="My messaging isn't resonating">My messaging isn't resonating</option>
-      </select>
-    </div>
-    <button class="btn-start" onclick="submitGate()">See my results →</button>
-    <div class="sending-msg" id="gateMsg"></div>
-    <p class="gate-note">No spam. Just your results.</p>
+    <form id="leadLeakCaptureForm" onsubmit="submitGate(event)">
+      <div class="input-row">
+        <input type="text" id="userName" name="name" placeholder="Your first name" autocomplete="given-name" />
+        <input type="email" id="userEmail" name="email" placeholder="Your email address" autocomplete="email" />
+        <div class="field-label">What best describes your business?</div>
+        <select id="userBizType" name="biz_type">
+          <option value="">Select one...</option>
+          <option value="Solo consultant / fractional leader">Solo consultant / fractional leader</option>
+          <option value="Founder-led firm (2–5 people)">Founder-led firm (2–5 people)</option>
+          <option value="Growing PSF (6–20 people)">Growing PSF (6–20 people)</option>
+          <option value="Other">Other</option>
+        </select>
+        <div class="field-label">What's your current biggest growth blocker?</div>
+        <select id="userBlocker" name="growth_blocker">
+          <option value="">Select one...</option>
+          <option value="Not enough qualified leads">Not enough qualified leads</option>
+          <option value="Pipeline is too referral-dependent">Pipeline is too referral-dependent</option>
+          <option value="Leads go cold before converting">Leads go cold before converting</option>
+          <option value="No time to do consistent outreach">No time to do consistent outreach</option>
+          <option value="My messaging isn't resonating">My messaging isn't resonating</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-start">See my results →</button>
+      <div class="sending-msg" id="gateMsg"></div>
+      <p class="gate-note">No spam. Just your results.</p>
+    </form>
   </div>
 
   <!-- RESULTS -->
@@ -718,9 +720,11 @@ function showGate() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function submitGate() {
+function submitGate(event) {
+  if (event) event.preventDefault();
+
   var name = document.getElementById('userName').value.trim();
-  var email = document.getElementById('userEmail').value.trim();
+  var email = document.getElementById('userEmail').value.trim().toLowerCase();
   var msg = document.getElementById('gateMsg');
 
   if (!name) { msg.textContent = 'Please enter your first name.'; return; }
@@ -897,32 +901,29 @@ function sendToFormspree() {
   var followLabels = ['Slow/none','Inconsistent','Prompt, no script','Fast + systematic'];
   var structureLabels = ['No process','Rough idea','Sequence exists','Defined + consistent'];
 
-  var bizType = document.getElementById('userBizType').value;
-  var blocker = document.getElementById('userBlocker').value;
+  var form = document.getElementById('leadLeakCaptureForm');
+  var formData = new FormData(form);
 
-  var payload = {
-    name: userData.name,
-    email: userData.email,
-    score: total + '/21',
-    visibility_score: v + '/9',
-    messaging_score: m + '/6',
-    conversion_score: c + '/6',
-    q1_consistency: scoreLabels[answers.v1 || 0],
-    q2_targeting: targetLabels[answers.v2 || 0],
-    q2b_lead_balance: balanceLabels[answers.v3 || 0],
-    q3_clarity: clarityLabels[answers.m1 || 0],
-    q4_cta: ctaLabels[answers.m2 || 0],
-    q5_followthrough: followLabels[answers.c1 || 0],
-    q6_conversion_structure: structureLabels[answers.c2 || 0],
-    biz_type: bizType || '',
-    growth_blocker: blocker || '',
-    completed_at: new Date().toLocaleString()
-  };
+  formData.set('name', userData.name);
+  formData.set('email', userData.email);
+  formData.set('_replyto', userData.email);
+  formData.set('score', total + '/21');
+  formData.set('visibility_score', v + '/9');
+  formData.set('messaging_score', m + '/6');
+  formData.set('conversion_score', c + '/6');
+  formData.set('q1_consistency', scoreLabels[answers.v1 || 0]);
+  formData.set('q2_targeting', targetLabels[answers.v2 || 0]);
+  formData.set('q2b_lead_balance', balanceLabels[answers.v3 || 0]);
+  formData.set('q3_clarity', clarityLabels[answers.m1 || 0]);
+  formData.set('q4_cta', ctaLabels[answers.m2 || 0]);
+  formData.set('q5_followthrough', followLabels[answers.c1 || 0]);
+  formData.set('q6_conversion_structure', structureLabels[answers.c2 || 0]);
+  formData.set('completed_at', new Date().toLocaleString());
 
   fetch(FORMSPREE_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    body: JSON.stringify(payload)
+    headers: { 'Accept': 'application/json' },
+    body: formData
   }).catch(function() {});
 }
 
