@@ -780,6 +780,57 @@ function buildResults() {
   });
   document.getElementById('leakCards').innerHTML = lhtml;
 
+  // What your answers really reveal
+  var reveals = [];
+
+  // Visibility reveals
+  var v1 = answers.v1 || 0;
+  var v2 = answers.v2 || 0;
+  var v3 = answers.v3 || 0;
+  if (v1 <= 1 && v3 <= 1) {
+    reveals.push({label:'Visibility', insight:"You're almost entirely dependent on referrals.", sub:"This isn't a strategy — it's a vulnerability. If referrals slow down, your pipeline goes to zero. You need an active outbound channel you control."});
+  } else if (v1 >= 2 && v2 <= 1) {
+    reveals.push({label:'Visibility', insight:"You're showing up, but to the wrong crowd.", sub:"Volume without targeting is noise. Your content or outreach isn't specific enough to attract your ideal buyer — it's attracting everyone and converting no one."});
+  } else if (v >= 7) {
+    reveals.push({label:'Visibility', insight:"Your visibility engine is working.", sub:"You're consistently in front of the right people. The next lever is making every impression count by tightening your message and CTA."});
+  }
+
+  // Messaging reveals
+  var m1 = answers.m1 || 0;
+  var m2 = answers.m2 || 0;
+  if (m1 <= 1 && m2 <= 1) {
+    reveals.push({label:'Messaging', insight:"People see you — and keep scrolling.", sub:"Your positioning doesn't give someone a reason to stop. Without a clear 'who + what + outcome' message and a next step, even warm leads won't act."});
+  } else if (m1 >= 2 && m2 <= 1) {
+    reveals.push({label:'Messaging', insight:"Your offer is clear, but there's no door to walk through.", sub:"You're explaining what you do well, but you're not telling people what to do next. A missing CTA is a missing pipeline."});
+  } else if (m >= 5) {
+    reveals.push({label:'Messaging', insight:"Your message is landing.", sub:"People understand who you are, what you do, and how to take the next step. Now it's about amplifying reach and testing variations."});
+  }
+
+  // Conversion reveals
+  var c1 = answers.c1 || 0;
+  var c2 = answers.c2 || 0;
+  if (c1 <= 1 && c2 <= 1) {
+    reveals.push({label:'Conversion', insight:"You're generating interest and then losing it.", sub:"Without a follow-up system, every warm lead cools off within 48 hours. You don't have a sales problem — you have a response-speed problem."});
+  } else if (c1 >= 2 && c2 <= 1) {
+    reveals.push({label:'Conversion', insight:"You respond fast but improvise every time.", sub:"Speed is there, but consistency isn't. Without a repeatable sequence, you're relying on charm instead of a system — and that doesn't scale."});
+  } else if (c >= 5) {
+    reveals.push({label:'Conversion', insight:"Your close process is solid.", sub:"You move people from interest to action predictably. The opportunity now is to increase the volume of conversations entering this system."});
+  }
+
+  // Cross-section pattern reveals
+  if (v >= 6 && m <= 3) {
+    reveals.push({label:'Pattern', insight:"High visibility, weak conversion — classic leaky bucket.", sub:"You're doing the hard work of showing up, but the message or follow-through isn't converting that attention into conversations. Fix the middle of the funnel first."});
+  }
+  if (v <= 3 && c >= 4) {
+    reveals.push({label:'Pattern', insight:"Strong closer, invisible brand.", sub:"When people find you, they buy. The problem is not enough people are finding you. Your biggest ROI is in visibility and outreach volume."});
+  }
+
+  var rhtml = '';
+  reveals.forEach(function(r) {
+    rhtml += '<div class="reveal-card"><div class="reveal-label">' + r.label + '</div><div class="reveal-insight">' + r.insight + '</div><div class="reveal-subtext">' + r.sub + '</div></div>';
+  });
+  document.getElementById('revealCards').innerHTML = rhtml;
+
   // Fix plan (CCG-specific)
   var fixes = [];
   if ((answers.v1 || 0) <= 1) fixes.push({action:'Define your outreach rhythm using the CCG 3-touch rule', detail:'Pick 3 founder-profile prospects from LinkedIn. Send a no-pitch opener referencing something specific about their business. Your goal is a reply, not a pitch. This is the first move in your outbound motion.', time:'15 min'});
