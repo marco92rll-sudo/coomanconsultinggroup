@@ -1111,6 +1111,141 @@
         }).catch(function() {});
       }
 
+      function sendWeb3FormsEmails() {
+        var WEB3FORMS_KEY = 'YOUR_WEB3FORMS_KEY';
+        var v = (answers.v1 || 0) + (answers.v2 || 0) + (answers.v3 || 0);
+        var m = (answers.m1 || 0) + (answers.m2 || 0);
+        var c = (answers.c1 || 0) + (answers.c2 || 0);
+        var total = v + m + c;
+
+        var verdict = '';
+        if (total <= 7) verdict = 'Major leaks — fix the foundation first';
+        else if (total <= 13) verdict = 'A few leaks slowing your growth';
+        else if (total <= 18) verdict = 'Solid base — optimise and scale';
+        else verdict = 'Strong engine — now systemise it';
+
+        var bizType = document.getElementById('userBizType').value || 'Not specified';
+        var blocker = document.getElementById('userBlocker').value || 'Not specified';
+
+        var scoreLabels = ['Rarely/never','Inconsistently','1-2x per week','Daily'];
+        var targetLabels = ['Very general','Somewhat relevant','Speaks to pain','Magnetic'];
+        var balanceLabels = ['100% referral','Mostly one channel','Both, reactive','Balanced'];
+        var clarityLabels = ['Vague','Partially clear','Mostly clear','Crystal clear'];
+        var ctaLabels = ['No CTA','Generic CTA','One clear step','Strong lead path'];
+        var followLabels = ['Slow/none','Inconsistent','Prompt, no script','Fast + systematic'];
+        var structureLabels = ['No process','Rough idea','Sequence exists','Defined + consistent'];
+
+        // 1. Admin email
+        var adminMsg = 'New Lead Leak Finder submission\n\n'
+          + 'Name: ' + userData.name + '\n'
+          + 'Email: ' + userData.email + '\n'
+          + 'Business Type: ' + bizType + '\n'
+          + 'Growth Blocker: ' + blocker + '\n\n'
+          + '--- SCORES ---\n'
+          + 'Visibility: ' + v + '/9\n'
+          + 'Messaging: ' + m + '/6\n'
+          + 'Conversion: ' + c + '/6\n'
+          + 'Total: ' + total + '/21\n'
+          + 'Verdict: ' + verdict + '\n\n'
+          + '--- RAW ANSWERS ---\n'
+          + 'v1 (Consistency): ' + scoreLabels[answers.v1 || 0] + ' (' + (answers.v1 || 0) + ')\n'
+          + 'v2 (Targeting): ' + targetLabels[answers.v2 || 0] + ' (' + (answers.v2 || 0) + ')\n'
+          + 'v3 (Lead Balance): ' + balanceLabels[answers.v3 || 0] + ' (' + (answers.v3 || 0) + ')\n'
+          + 'm1 (Clarity): ' + clarityLabels[answers.m1 || 0] + ' (' + (answers.m1 || 0) + ')\n'
+          + 'm2 (CTA): ' + ctaLabels[answers.m2 || 0] + ' (' + (answers.m2 || 0) + ')\n'
+          + 'c1 (Follow-through): ' + followLabels[answers.c1 || 0] + ' (' + (answers.c1 || 0) + ')\n'
+          + 'c2 (Structure): ' + structureLabels[answers.c2 || 0] + ' (' + (answers.c2 || 0) + ')';
+
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: 'New LLF Lead: ' + userData.name + ' – ' + total + '/21 – ' + verdict,
+            to: 'lcooman.ccg@gmail.com',
+            cc: 'ccooman.ccg@gmail.com',
+            from_name: 'Lead Leak Finder',
+            replyto: userData.email,
+            message: adminMsg
+          })
+        }).catch(function(e) { console.error('Web3Forms admin email error:', e); });
+
+        // 2. User email
+        var vStatus = v <= 3 ? '🔴 Critical leak' : (v <= 6 ? '🟡 Gap detected' : '🟢 Solid');
+        var mStatus = m <= 2 ? '🔴 Critical leak' : (m <= 4 ? '🟡 Gap detected' : '🟢 Solid');
+        var cStatus = c <= 2 ? '🔴 Critical leak' : (c <= 4 ? '🟡 Gap detected' : '🟢 Solid');
+
+        // Gather reveal insights (same logic as buildResults)
+        var insights = [];
+        if ((answers.v1 || 0) <= 1 && (answers.v3 || 0) <= 1) insights.push("You're almost entirely dependent on referrals — that's a vulnerability, not a strategy.");
+        else if ((answers.v1 || 0) >= 2 && (answers.v2 || 0) <= 1) insights.push("You're showing up, but to the wrong crowd. Volume without targeting is noise.");
+        else if (v >= 7) insights.push("Your visibility engine is working — keep it hyper-targeted.");
+        if ((answers.m1 || 0) <= 1 && (answers.m2 || 0) <= 1) insights.push("People see you and keep scrolling. Your positioning doesn't give someone a reason to stop.");
+        else if ((answers.m1 || 0) >= 2 && (answers.m2 || 0) <= 1) insights.push("Your offer is clear, but there's no door to walk through — missing CTA is a missing pipeline.");
+        else if (m >= 5) insights.push("Your message is landing. Now amplify reach and test variations.");
+        if ((answers.c1 || 0) <= 1 && (answers.c2 || 0) <= 1) insights.push("You're generating interest and then losing it. Every warm lead cools off within 48 hours.");
+        else if ((answers.c1 || 0) >= 2 && (answers.c2 || 0) <= 1) insights.push("You respond fast but improvise every time — charm doesn't scale.");
+        else if (c >= 5) insights.push("Your close process is solid. Increase the volume of conversations entering the system.");
+
+        var insightsHtml = '';
+        insights.slice(0, 3).forEach(function(t) {
+          insightsHtml += '<li style="margin-bottom:8px;color:#333;">' + t + '</li>';
+        });
+
+        // Gather fix plan items (same logic as buildResults)
+        var fixItems = [];
+        if ((answers.v1 || 0) <= 1) fixItems.push('Define your outreach rhythm using the 3-touch rule');
+        else if ((answers.v2 || 0) <= 1) fixItems.push('Rewrite your content hook using your founder ICP lens');
+        if ((answers.m1 || 0) <= 1) fixItems.push('Apply the F2F positioning formula to your bio today');
+        else if ((answers.m2 || 0) <= 1) fixItems.push('Add a lead path CTA to your next 3 pieces of content');
+        if ((answers.c1 || 0) <= 1) fixItems.push('Write your 3-message interest-to-call sequence');
+        else if ((answers.c2 || 0) <= 1) fixItems.push('Map your current discovery-to-close steps on paper');
+        if (fixItems.length === 0) fixItems.push('Increase your outbound volume by one conversation per day');
+
+        var fixHtml = '';
+        fixItems.forEach(function(f) {
+          fixHtml += '<li style="margin-bottom:6px;color:#333;">' + f + '</li>';
+        });
+
+        var userHtml = ''
+          + '<div style="font-family:Arial,Helvetica,sans-serif;max-width:600px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">'
+          + '<div style="background:#0b1220;padding:32px 24px;text-align:center;">'
+          + '<h1 style="color:#8BAAB8;font-size:22px;margin:0 0 8px;">Your Lead Leak Finder Results</h1>'
+          + '<div style="color:#ffffff;font-size:42px;font-weight:700;margin:12px 0 4px;">' + total + '<span style="font-size:20px;color:#8BAAB8;">/21</span></div>'
+          + '<div style="display:inline-block;background:' + (total <= 7 ? '#f5ede8' : total <= 13 ? '#faf3e6' : '#e8f5ee') + ';color:' + (total <= 7 ? '#993c1d' : total <= 13 ? '#854f0b' : '#2e7d52') + ';padding:5px 16px;border-radius:20px;font-size:13px;font-weight:500;">' + verdict + '</div>'
+          + '</div>'
+          + '<div style="padding:24px;">'
+          + '<h2 style="font-size:16px;color:#1a1a1a;margin:0 0 12px;">Section Breakdown</h2>'
+          + '<table style="width:100%;border-collapse:collapse;margin-bottom:20px;">'
+          + '<tr><td style="padding:8px 12px;border-bottom:1px solid #eee;color:#555;">Visibility (' + v + '/9)</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:right;">' + vStatus + '</td></tr>'
+          + '<tr><td style="padding:8px 12px;border-bottom:1px solid #eee;color:#555;">Messaging (' + m + '/6)</td><td style="padding:8px 12px;border-bottom:1px solid #eee;text-align:right;">' + mStatus + '</td></tr>'
+          + '<tr><td style="padding:8px 12px;color:#555;">Conversion (' + c + '/6)</td><td style="padding:8px 12px;text-align:right;">' + cStatus + '</td></tr>'
+          + '</table>'
+          + '<h2 style="font-size:16px;color:#1a1a1a;margin:0 0 10px;">Key Insights</h2>'
+          + '<ul style="padding-left:18px;margin:0 0 20px;">' + insightsHtml + '</ul>'
+          + '<h2 style="font-size:16px;color:#1a1a1a;margin:0 0 10px;">Your Fix Plan</h2>'
+          + '<ol style="padding-left:18px;margin:0 0 24px;">' + fixHtml + '</ol>'
+          + '<div style="text-align:center;padding:16px 0 8px;">'
+          + '<a href="https://calendly.com/ccooman-ccg/30min" target="_blank" style="display:inline-block;background:#8BAAB8;color:#0b1220;text-decoration:none;padding:14px 32px;border-radius:8px;font-weight:600;font-size:15px;">Book your free 20-min strategy call</a>'
+          + '</div>'
+          + '</div>'
+          + '<div style="background:#f9fafb;padding:16px 24px;text-align:center;font-size:11px;color:#999;">Cooman Consulting Group · coomanconsultinggroup.com</div>'
+          + '</div>';
+
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: 'Your Lead Leak Finder Results: ' + verdict,
+            to: userData.email,
+            from_name: 'Cooman Consulting Group',
+            replyto: 'leone@coomanconsultinggroup.com',
+            message: userHtml
+          })
+        }).catch(function(e) { console.error('Web3Forms user email error:', e); });
+      }
+
       function restart() {
         answers = {};
         userData = { name: '', email: '' };
