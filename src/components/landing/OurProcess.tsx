@@ -28,7 +28,7 @@ const steps = [
     num: "03",
     title: "Implement & Optimise",
     subtitle: "Build & Scale",
-    desc: "We deploy the infrastructure — outbound channels, CRM workflows, and automation — then continuously refine until the engine runs without you.",
+    desc: "We deploy the infrastructure — outbound channels, CRM workflows, and automation — then continuously refine until we've achieved desired results.",
     deliverables: ["Multichannel outbound", "CRM & pipeline architecture", "Performance dashboards"],
   },
 ];
