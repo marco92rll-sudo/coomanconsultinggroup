@@ -140,7 +140,7 @@ const Hero = () => {
             className="inline-flex items-center justify-center px-8 py-3 font-semibold transition-all duration-200 glow-btn bg-cta text-white"
             style={{ borderRadius: 6, fontSize: 14 }}
           >
-            Pipeline Fix
+            Free Diagnosis
           </a>
           <a
             href="https://calendly.com/ccooman-ccg/30min"
