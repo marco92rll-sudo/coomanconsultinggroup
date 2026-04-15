@@ -86,7 +86,7 @@ const Header = () => {
               boxShadow: "0 0 20px rgba(139,171,184,0.35)",
             }}
           >
-            Virtual Coffee
+            STRATEGY SESSION
           </a>
 
           <button
@@ -130,7 +130,7 @@ const Header = () => {
                 borderRadius: 4,
               }}
             >
-              Virtual Coffee
+              STRATEGY SESSION
             </a>
           </nav>
         </div>
