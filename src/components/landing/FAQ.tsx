@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     q: "What does the first week look like?",
-    a: "We start with a deep diagnostic — auditing your pipeline, messaging, and conversion data. By the end of week one, you'll have a clear map of where revenue is leaking and a prioritised plan to fix it.",
+    a: "We start with a deep diagnostic — auditing your pipeline, messaging, and conversion data. By the end of week one, you'll have a clear map of where revenue is leaking and a prioritized plan to fix it.",
   },
   {
     q: "Is this only for B2B companies?",

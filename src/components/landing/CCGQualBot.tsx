@@ -14,7 +14,7 @@ CCG helps business owners and sales leaders make more money through two services
 For founders who are personally doing most of the selling and need to fix that. CCG helps them:
 - Clarify who their best customers are, what makes them different, and how to talk about it
 - Turn the founder's sales instincts into a simple process the whole team can follow
-- Build a plan for finding and reaching new customers in a consistent, organised way
+- Build a plan for finding and reaching new customers in a consistent, organized way
 After the project, CCG stays involved monthly to keep things running and improving.
 Good fit if: B2B business (sells to other businesses), 1–20 people, £100K–£3M revenue, sales feel unpredictable or the founder is doing too much of it themselves.
 

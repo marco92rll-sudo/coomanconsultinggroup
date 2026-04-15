@@ -14,7 +14,7 @@ const items = [
   { icon: MessageSquare, text: "Clear messaging and offer positioning that convert cold prospects into qualified opportunities" },
   { icon: Target, text: "Targeting and pipeline strategy to consistently reach the right buyers" },
   { icon: Mail, text: "Outbound infrastructure (email, LinkedIn, sequencing) designed for scale" },
-  { icon: Database, text: "CRM and process architecture to track, manage, and optimise pipeline" },
+  { icon: Database, text: "CRM and process architecture to track, manage, and optimize pipeline" },
   { icon: Play, text: "Execution frameworks your team can run without relying on you" },
   { icon: Users, text: "Role definition and sales structure so the right person can step into a working system" },
 ];
