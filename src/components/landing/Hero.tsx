@@ -107,7 +107,7 @@ const Hero = () => {
         >
           <span className="sr-only">Business Consulting Services: </span>
           <span ref={line1Ref} className="inline-block" style={{ opacity: 0 }}>
-            <span style={{ color: "#ffffff" }}>From Founder </span>
+            <span style={{ color: "#ffffff" }}>We help translate B2B Founder-led </span>
           </span>
           <br />
           <span ref={line2Ref} className="inline-block" style={{ opacity: 0 }}>
@@ -117,7 +117,7 @@ const Hero = () => {
           <br />
           <span ref={line3Ref} className="inline-block" style={{ opacity: 0 }}>
             <span>Scalable </span>
-            <span className="glow-text">Framework.</span>
+            <span className="glow-text">Sales Systems.</span>
           </span>
         </h1>
 
@@ -126,8 +126,8 @@ const Hero = () => {
           className="mx-auto mt-8"
           style={{ fontSize: 17, color: "rgba(255,255,255,0.5)", maxWidth: 580, opacity: 0 }}
         >
-          We extract what you know, systemize how you sell, and build the
-          infrastructure that gives you more time to focus on delivery.
+          We systemize how you sell, to give you more time to focus on delivery and
+          break free from inconsistent referrals or ad hoc selling.
         </p>
 
         <div
