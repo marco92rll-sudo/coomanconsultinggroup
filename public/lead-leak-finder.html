@@ -780,7 +780,7 @@
 
       <!-- EMAIL GATE (shown after quiz, before results) -->
       <div id="emailGate">
-        <h2>Where should we send your personalised results?</h2>
+        <h2>Where should we send your personalized results?</h2>
         <p>Your score, leak breakdown, and custom fix plan are ready. Enter your details to see them.</p>
         <form id="leadLeakCaptureForm" onsubmit="submitGate(event)">
           <div class="input-row">
@@ -941,10 +941,10 @@
           verdict.textContent = 'A few leaks slowing your growth';
           verdict.style.cssText = 'background:#faf3e6;color:#854f0b;padding:5px 16px;border-radius:20px;font-size:13px;font-weight:500';
         } else if (total <= 18) {
-          verdict.textContent = 'Solid base — optimise and scale';
+          verdict.textContent = 'Solid base — optimize and scale';
           verdict.style.cssText = 'background:#e8f5ee;color:#2e7d52;padding:5px 16px;border-radius:20px;font-size:13px;font-weight:500';
         } else {
-          verdict.textContent = 'Strong engine — now systemise it';
+          verdict.textContent = 'Strong engine — now systemize it';
           verdict.style.cssText = 'background:#e1f5ee;color:#0f6e56;padding:5px 16px;border-radius:20px;font-size:13px;font-weight:500';
         }
 
@@ -1038,7 +1038,7 @@
         });
         document.getElementById('fixPlan').innerHTML = fhtml;
 
-        // Personalised CTA based on weakest section
+        // Personalized CTA based on weakest section
         var scores = { visibility: v, messaging: m, conversion: c };
         var weakest = 'messaging'; // default tie-breaker
         var minScore = m;
@@ -1121,8 +1121,8 @@
         var verdict = '';
         if (total <= 7) verdict = 'Major leaks — fix the foundation first';
         else if (total <= 13) verdict = 'A few leaks slowing your growth';
-        else if (total <= 18) verdict = 'Solid base — optimise and scale';
-        else verdict = 'Strong engine — now systemise it';
+        else if (total <= 18) verdict = 'Solid base — optimize and scale';
+        else verdict = 'Strong engine — now systemize it';
 
         var verdictBg = total <= 7 ? '#3a1a0f' : total <= 13 ? '#3a2a0a' : total <= 18 ? '#0f3a22' : '#0a3a2e';
         var verdictColor = total <= 7 ? '#e8b4a0' : total <= 13 ? '#e0c88a' : total <= 18 ? '#9ecfb4' : '#7ed4b8';
