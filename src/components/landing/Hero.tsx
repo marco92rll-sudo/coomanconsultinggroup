@@ -107,7 +107,7 @@ const Hero = () => {
         >
           <span className="sr-only">Business Consulting Services: </span>
           <span ref={line1Ref} className="inline-block" style={{ opacity: 0 }}>
-            <span style={{ color: "#ffffff" }}>We help translate B2B Founder-led </span>
+            <span style={{ color: "#ffffff" }}>We help translate B2B Founders'</span>
           </span>
           <br />
           <span ref={line2Ref} className="inline-block" style={{ opacity: 0 }}>
