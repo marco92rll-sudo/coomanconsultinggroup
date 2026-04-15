@@ -152,7 +152,7 @@ const Hero = () => {
               border: "1px solid rgba(139,171,184,0.35)", borderRadius: 6, fontSize: 14,
             }}
           >
-            Virtual Coffee
+            Strategy Session
           </a>
         </div>
       </div>
