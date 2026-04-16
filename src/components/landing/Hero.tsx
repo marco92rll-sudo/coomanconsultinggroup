@@ -66,18 +66,18 @@ const Hero = () => {
     <section
       ref={heroRef}
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
-      style={{ paddingTop: 80 }}
+      style={{ paddingTop: 60 }}
     >
       <div className="text-center max-w-4xl mx-auto px-6 relative z-10">
         <p
           ref={eyebrowRef}
-          className="eyebrow mb-8"
+          className="eyebrow mb-5"
           style={{ letterSpacing: "0.18em", opacity: 0 }}
         >
           Revenue Operations · Sales Systems · Outbound Infrastructure
         </p>
 
-        <div className="flex justify-center mb-10 relative">
+        <div className="flex justify-center mb-6 relative">
           <div
             ref={logoGlowRef}
             className="absolute"
@@ -93,7 +93,7 @@ const Hero = () => {
               ref={logoRef}
               src="/logo.png"
               alt="Cooman Consulting Group Logo"
-              className="w-24 h-24"
+              className="w-20 h-20"
               style={{ mixBlendMode: "lighten", opacity: 0 }}
             />
           </div>
@@ -101,7 +101,7 @@ const Hero = () => {
 
         <h1
           style={{
-            fontSize: "clamp(36px, 5.5vw, 68px)", fontWeight: 700,
+            fontSize: "clamp(32px, 4.5vw, 56px)", fontWeight: 700,
             letterSpacing: "-0.02em", lineHeight: 1.05,
           }}
         >
@@ -123,8 +123,8 @@ const Hero = () => {
 
         <p
           ref={subRef}
-          className="mx-auto mt-8"
-          style={{ fontSize: 17, color: "rgba(255,255,255,0.5)", maxWidth: 580, opacity: 0 }}
+          className="mx-auto mt-6"
+          style={{ fontSize: 15, color: "rgba(255,255,255,0.5)", maxWidth: 540, opacity: 0 }}
         >
           We systemize how you sell, to give you more time to focus on delivery and
           break free from inconsistent referrals or ad hoc selling.
@@ -132,7 +132,7 @@ const Hero = () => {
 
         <div
           ref={ctaRef}
-          className="flex flex-col sm:flex-row gap-4 justify-center mt-10"
+          className="flex flex-col sm:flex-row gap-4 justify-center mt-8"
           style={{ opacity: 0 }}
         >
           <a
