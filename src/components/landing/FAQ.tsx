@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: "Do you replace our existing sales team?",
-    a: "No. We make your existing team significantly more effective. We give them the playbook, messaging, and systems to consistently close — instead of relying on gut instinct.",
+    a: "No. We make your existing team significantly more effective. We give them the playbook, messaging, and systems to consistently close instead of relying on gut instinct.",
   },
   {
     q: "What does the first week look like?",
