@@ -93,7 +93,7 @@ const GetStarted = () => {
               custom={2}
               className="card-process p-8"
             >
-              <h3 className="text-lg font-bold mb-2">Book a Virtual Coffee</h3>
+              <h3 className="text-lg font-bold mb-2">Book a Strategy Session</h3>
               <p className="mb-1" style={{ fontSize: 13, color: "rgba(139,171,184,0.7)", fontWeight: 500 }}>
                 30 minutes · Zero pressure
               </p>
