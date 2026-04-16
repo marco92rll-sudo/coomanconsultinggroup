@@ -38,7 +38,7 @@ const pillars = [
   {
     icon: Crosshair,
     title: "Revenue Positioning Reset",
-    desc: "Clarifies your ICP, messaging, differentiation, and value narrative — so every outbound touchpoint converts.",
+    desc: "Clarifies your ICP, messaging, differentiation, and value narratives that convert outreach into opportunities.",
   },
   {
     icon: Settings,
