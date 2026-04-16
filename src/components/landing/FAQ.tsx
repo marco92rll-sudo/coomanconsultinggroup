@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: "What kind of results can we expect?",
-    a: "Clients typically see a 30–50% increase in qualified pipeline within the first 90 days. But the real value is compounding — the system we build keeps producing after the engagement ends.",
+    a: "Clients typically see a 30–50% increase in qualified pipeline within the first 90 days. But the real value is compounding. The systems we build keep producing for as long as you need them to.",
   },
   {
     q: "How long does an engagement typically last?",
