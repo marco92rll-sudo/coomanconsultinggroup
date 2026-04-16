@@ -153,9 +153,9 @@ const OurProcess = () => {
           custom={0}
           className="text-center mt-28 mb-16"
         >
-          <p className="eyebrow mb-4">The Framework</p>
+          <p className="eyebrow mb-4">THE FOUNDER TO FRAMEWORK PROCESS</p>
           <h3 className="heading-section text-2xl md:text-3xl">
-            Pillars of Sales Architecture<span className="glow-text-sm">™</span>
+            FTF<span className="glow-text-sm">™</span>
           </h3>
           <p
             className="mt-4 max-w-2xl mx-auto"

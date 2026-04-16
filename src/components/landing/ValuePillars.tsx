@@ -10,7 +10,7 @@ const pillars = [
   {
     icon: Repeat,
     title: "Repeatable Systems",
-    desc: "Every framework we build is designed to scale independently of the founder.",
+    desc: "Every framework we build is designed to scale your discovery and conversion rate.",
   },
   {
     icon: Zap,
