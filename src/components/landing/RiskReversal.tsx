@@ -36,7 +36,7 @@ const RiskReversal = () => {
             className="max-w-xl mx-auto"
             style={{ fontSize: 15, color: "rgba(255,255,255,0.55)", lineHeight: 1.8 }}
           >
-            If we don't deliver measurable pipeline growth within 90 days, we keep working until we do — at no extra cost. We only win when you do.
+            If we don't deliver measurable pipeline growth within 90 days, we keep working until we do, at no extra cost. We only win when you do.
           </p>
         </motion.div>
       </div>
