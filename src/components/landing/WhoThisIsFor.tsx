@@ -3,7 +3,7 @@ import { Check, X } from "lucide-react";
 
 const forList = [
   "Founder-led businesses generating revenue but lacking a consistent pipeline",
-  "Offers that already convert — you've closed deals, but it's not repeatable",
+  "Offers that already convert: you've closed deals, but it's not repeatable",
   "Teams stuck between delivery and growth, relying heavily on referrals",
   "Founders who want to step out of day-to-day selling without losing control of revenue",
 ];
