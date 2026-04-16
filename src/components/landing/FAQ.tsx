@@ -9,7 +9,7 @@ import {
 const faqs = [
   {
     q: "How is this different from hiring a sales agency?",
-    a: "Agencies run campaigns. We build the system that makes every campaign — and every rep — more effective. We capture your founder edge, codify it into a repeatable framework, and deploy the infrastructure so growth doesn't depend on any single person.",
+    a: "Agencies run campaigns. We build the blueprint that makes every campaign and every sales leader more effective. We capture your founder edge, codify it into a repeatable framework, and stress test it until it's bulletproof.",
   },
   {
     q: "What kind of results can we expect?",
