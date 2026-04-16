@@ -5,7 +5,7 @@ const pillars = [
   {
     icon: Target,
     title: "Precision Targeting",
-    desc: "We only pursue prospects who match your ideal client profile — no spray and pray.",
+    desc: "We only pursue prospects who match your ideal client profile, no spray and pray.",
   },
   {
     icon: Repeat,
