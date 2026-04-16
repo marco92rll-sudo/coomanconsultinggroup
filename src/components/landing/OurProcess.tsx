@@ -43,7 +43,7 @@ const pillars = [
   {
     icon: Settings,
     title: "Pipeline Infrastructure Build",
-    desc: "Installs outbound systems, CRM architecture, reporting dashboards, and qualification frameworks that run without you.",
+    desc: "Installs proven outbound systems, CRM architecture, reporting dashboards, and qualification frameworks.",
   },
   {
     icon: BookOpen,
