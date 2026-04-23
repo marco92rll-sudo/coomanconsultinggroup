@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: "What kind of results can we expect?",
-    a: "Most clients see a 30 to 50% lift in qualified pipeline inside the first 90 days. The bigger win is that the systems we build keep working long after we're done.",
+    a: "Most clients see a 30% lift in qualified pipeline inside the first 90 days. The bigger win is that the systems we build keep working long after we're done.",
   },
   {
     q: "How long does an engagement typically last?",
