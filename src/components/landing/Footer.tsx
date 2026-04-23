@@ -42,7 +42,7 @@ const Footer = () => {
               ))}
             </nav>
             <a
-              href="https://calendly.com/ccooman-ccg/30min"
+              href="https://PayPal.Me/f2framework"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-5 py-2 font-semibold transition-all duration-200"
@@ -53,7 +53,7 @@ const Footer = () => {
                 borderRadius: 5,
               }}
             >
-              Book a Virtual Coffee
+              Make a Payment
             </a>
           </div>
         </div>
