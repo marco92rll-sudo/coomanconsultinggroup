@@ -126,8 +126,8 @@ const Hero = () => {
           className="mx-auto mt-6"
           style={{ fontSize: 15, color: "rgba(255,255,255,0.5)", maxWidth: 540, opacity: 0 }}
         >
-          We systemize how you sell, to give you more time to focus on delivery and
-          break free from inconsistent referrals or ad hoc selling.
+          We turn how you already sell into a system, so you can focus on delivery
+          instead of chasing referrals or selling on the fly.
         </p>
 
         <div

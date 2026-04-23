@@ -19,7 +19,7 @@ const Footer = () => {
               </span>
             </div>
             <p style={{ fontSize: 13, color: "rgba(255,255,255,0.3)", maxWidth: 360, lineHeight: 1.6 }}>
-              From founder instinct to scalable framework. We build revenue systems that run without you.
+              We turn how founders sell into systems the business can run without them.
             </p>
           </div>
 

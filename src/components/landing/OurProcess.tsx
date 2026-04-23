@@ -15,21 +15,21 @@ const steps = [
     num: "01",
     title: "Strategy Assessment",
     subtitle: "Diagnose & Align",
-    desc: "We audit your current sales motion — ICP, messaging, pipeline health, and close process — to identify exactly where revenue is leaking and what to fix first.",
+    desc: "We sit down and look at how you sell today: who you're going after, what you're saying, the state of your pipeline, and how deals close. From that we agree on what's actually worth fixing first.",
     deliverables: ["ICP & positioning audit", "Pipeline gap analysis", "Prioritized roadmap"],
   },
   {
     num: "02",
     title: "Hyper-personalized Playbook",
     subtitle: "Extract & Systemize",
-    desc: "We capture your founder instincts, winning conversations, and deal patterns, then codify them into a repeatable sales framework your team can run.",
+    desc: "We pull out what already works for you (the conversations you win, the patterns in your best deals) and write it down as a playbook your team can actually follow.",
     deliverables: ["Messaging frameworks", "Outbound sequences", "Objection-handling scripts"],
   },
   {
     num: "03",
     title: "Implement & Optimize",
     subtitle: "Build & Scale",
-    desc: "We deploy the infrastructure — outbound channels, CRM workflows, and automation — then continuously refine until we've achieved desired results.",
+    desc: "We set up the outbound channels, the CRM, the reporting, and stay close while it's running. Then we keep tuning it until the numbers move.",
     deliverables: ["Multichannel outbound", "CRM & pipeline architecture", "Performance dashboards"],
   },
 ];
@@ -38,22 +38,22 @@ const pillars = [
   {
     icon: Crosshair,
     title: "Revenue Positioning Reset",
-    desc: "Clarifies your ICP, messaging, differentiation, and value narratives that convert outreach into opportunities.",
+    desc: "Gets your ICP, messaging and value story sharp enough that outreach actually starts conversations.",
   },
   {
     icon: Settings,
     title: "Pipeline Infrastructure Build",
-    desc: "Installs proven outbound systems, CRM architecture, reporting dashboards, and qualification frameworks.",
+    desc: "Sets up the outbound, CRM, dashboards and qualification you need to run a real pipeline.",
   },
   {
     icon: BookOpen,
     title: "Sales Knowledge Transfer",
-    desc: "Extracts your founder-led sales instincts and turns them into a documented, trainable process your team can execute.",
+    desc: "Captures how you sell and writes it down as a process someone else on your team can pick up and use.",
   },
   {
     icon: TrendingUp,
     title: "Performance Acceleration",
-    desc: "Improves meeting-to-close conversion before you ever need to scale headcount.",
+    desc: "Lifts your meeting-to-close rate before you spend on more headcount.",
   },
 ];
 
@@ -161,7 +161,7 @@ const OurProcess = () => {
             className="mt-4 max-w-2xl mx-auto"
             style={{ fontSize: 15, color: "rgba(255,255,255,0.45)", lineHeight: 1.8 }}
           >
-            Four pillars that transform how you sell — from founder-dependent chaos to a system that scales.
+            Four pillars that take you from a sales motion that lives in the founder's head to one the business can actually run.
           </p>
         </motion.div>
 
