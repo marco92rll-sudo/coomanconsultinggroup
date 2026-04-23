@@ -74,7 +74,7 @@ const Hero = () => {
           className="eyebrow mb-5"
           style={{ letterSpacing: "0.18em", opacity: 0 }}
         >
-          Revenue Operations · Sales Systems · Outbound Infrastructure
+          For founders stuck between delivering work and chasing the next deal
         </p>
 
         <div className="flex justify-center mb-6 relative">
@@ -107,17 +107,18 @@ const Hero = () => {
         >
           <span className="sr-only">Business Consulting Services: </span>
           <span ref={line1Ref} className="inline-block" style={{ opacity: 0 }}>
-            <span style={{ color: "#ffffff" }}>We help translate B2B Founders'</span>
+            <span style={{ color: "#ffffff" }}>A </span>
+            <span className="glow-text">repeatable pipeline</span>
+            <span style={{ color: "#ffffff" }}>,</span>
           </span>
           <br />
           <span ref={line2Ref} className="inline-block" style={{ opacity: 0 }}>
-            <span className="glow-text">Instinct</span>
-            <span style={{ color: "#ffffff" }}> to</span>
+            <span style={{ color: "#ffffff" }}>built from the way</span>
           </span>
           <br />
           <span ref={line3Ref} className="inline-block" style={{ opacity: 0 }}>
-            <span>Scalable </span>
-            <span className="glow-text">Sales Systems.</span>
+            <span style={{ color: "#ffffff" }}>you </span>
+            <span className="glow-text">already sell.</span>
           </span>
         </h1>
 
@@ -126,8 +127,8 @@ const Hero = () => {
           className="mx-auto mt-6"
           style={{ fontSize: 15, color: "rgba(255,255,255,0.5)", maxWidth: 540, opacity: 0 }}
         >
-          We turn how you already sell into a system, so you can focus on delivery
-          instead of chasing referrals or selling on the fly.
+          We take how you already win deals and turn it into a system your business
+          can run, so you can stop being the bottleneck in your own pipeline.
         </p>
 
         <div
@@ -140,19 +141,19 @@ const Hero = () => {
             className="inline-flex items-center justify-center px-8 py-3 font-semibold transition-all duration-200 glow-btn bg-cta text-white"
             style={{ borderRadius: 6, fontSize: 14 }}
           >
-            Free Diagnosis
+            Find My Pipeline Leaks (3 min)
           </a>
           <a
             href="https://calendly.com/ccooman-ccg/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center px-8 py-3 font-semibold transition-all duration-200 glow-btn"
+            className="inline-flex items-center justify-center px-8 py-3 transition-all duration-200"
             style={{
-              background: "rgba(139,171,184,0.04)", color: "#8BAAB8",
-              border: "1px solid rgba(139,171,184,0.35)", borderRadius: 6, fontSize: 14,
+              background: "transparent", color: "rgba(139,171,184,0.75)",
+              border: "1px solid rgba(139,171,184,0.2)", borderRadius: 6, fontSize: 14, fontWeight: 500,
             }}
           >
-            Strategy Session
+            Or book a strategy call
           </a>
         </div>
       </div>
