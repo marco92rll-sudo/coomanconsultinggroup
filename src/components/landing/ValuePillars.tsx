@@ -20,7 +20,7 @@ const pillars = [
   {
     icon: Shield,
     title: "Full Ownership",
-    desc: "You own every asset, platform, and process we build. Nothing is held hostage.",
+    desc: "You keep every asset, account and process we build. Nothing stays with us when we leave.",
   },
 ];
 

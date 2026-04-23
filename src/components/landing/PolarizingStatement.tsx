@@ -28,9 +28,9 @@ const PolarizingStatement = () => {
             className="text-xl md:text-2xl lg:text-3xl font-light leading-relaxed"
             style={{ color: "rgba(255,255,255,0.85)", fontStyle: "italic" }}
           >
-            "Focus is finite; spreading it thin lowers quality.{" "}
+            "You only have so much focus. Spread it across delivery and selling, and both suffer.{" "}
             <span className="glow-text font-medium">
-              We remove that constraint.
+              That's the problem we take off your plate.
             </span>
             "
           </p>

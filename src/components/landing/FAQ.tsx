@@ -9,27 +9,27 @@ import {
 const faqs = [
   {
     q: "How is this different from hiring a sales agency?",
-    a: "Agencies run campaigns. We build the blueprint that makes every campaign and every sales leader more effective. We capture your founder edge, codify it into a repeatable framework, and stress test it until it's bulletproof.",
+    a: "Agencies run campaigns. We build the thing underneath that makes any campaign, and any salesperson, work better. We take what already works for you, write it down as a process, and pressure test it until it holds up without you.",
   },
   {
     q: "What kind of results can we expect?",
-    a: "Clients typically see a 30–50% increase in qualified pipeline within the first 90 days. But the real value is compounding. The systems we build keep producing for as long as you need them to.",
+    a: "Most clients see a 30 to 50% lift in qualified pipeline inside the first 90 days. The bigger win is that the systems we build keep working long after we're done.",
   },
   {
     q: "How long does an engagement typically last?",
-    a: "Most engagements run 90 -180 days, depending on scope. We work in focused 90-day sprints — diagnose, build, deploy so you see traction fast, not months of 'strategy decks.'",
+    a: "Usually 90 to 180 days, depending on scope. We work in 90-day sprints (diagnose, build, deploy) so you see real traction quickly, not months of strategy decks.",
   },
   {
     q: "Do you replace our existing sales team?",
-    a: "No. We make your existing team significantly more effective. We give them the playbook, messaging, and systems to consistently close instead of relying on gut instinct.",
+    a: "No. We make the team you already have a lot more effective. They get the playbook, messaging and systems to close consistently instead of relying on gut instinct.",
   },
   {
     q: "What does the first week look like?",
-    a: "We start with a deep diagnostic — auditing your pipeline, messaging, and conversion data. By the end of week one, you'll have a clear map of where revenue is leaking and a prioritized plan to fix it.",
+    a: "We dig into your pipeline, messaging and conversion data. By the end of week one you'll know exactly where revenue is leaking and what to fix first.",
   },
   {
     q: "Is this only for B2B companies?",
-    a: "Yes. Our frameworks are built for fractional leaders or founder-led firms in complex B2B sales cycles — typically professional services and high-value consulting businesses where relationships and positioning drive revenue.",
+    a: "Yes. We work with fractional leaders and founder-led firms in complex B2B sales, mostly professional services and high-value consulting where relationships and positioning are what actually move deals.",
   },
 ];
 

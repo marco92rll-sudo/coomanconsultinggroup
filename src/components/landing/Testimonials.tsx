@@ -13,14 +13,14 @@ const fadeUp = {
 const testimonials = [
   {
     quote:
-      "I broke through my own glass ceiling of resistance to change. I generated my first real dataset to inform a more refined plan. Sometimes we stay stuck not because we lack capability — but because we don't push past that first uncomfortable barrier. It was hard. And it was absolutely worth it.",
+      "I broke through my own resistance to change and pulled together my first real dataset to build a sharper plan from. Sometimes you're not stuck because you can't do it, you're stuck because you haven't pushed through the uncomfortable bit. It was hard, and it was worth it.",
     name: "J.V",
     role: "Founder, L&D Advisory",
     metric: "LinkedIn Post, 2026",
   },
   {
     quote:
-      "Leone has a unique talent for making complex concepts accessible. His mentorship has been invaluable — he is adept at identifying potential and fostering growth in others. Through his guidance I developed skills that enhanced my performance and confidence. I wholeheartedly recommend Leone for any leadership role.",
+      "Leone has a real knack for making complicated things easy to understand. His mentorship has been a big part of how I've grown, he sees what people are capable of and helps them get there. I'd recommend him for any leadership role without hesitation.",
     name: "Matt.E",
     role: "Senior Analyst",
     metric: "LinkedIn Recommendation, 2024",
@@ -59,7 +59,7 @@ const Testimonials = () => {
               margin: "0 auto",
             }}
           >
-            Real results from real engagements — no fluff, no vanity metrics.
+            What it's actually like to work with us, in our clients' own words.
           </p>
         </motion.div>
 

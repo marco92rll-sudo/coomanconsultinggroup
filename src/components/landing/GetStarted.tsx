@@ -31,7 +31,7 @@ const GetStarted = () => {
               Here's what to do <span className="glow-text-sm">next.</span>
             </h2>
             <p style={{ fontSize: 15, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, maxWidth: 520, margin: "0 auto" }}>
-              Not sure where you stand? Start with a quick diagnostic. Ready to talk? Let's have a conversation.
+              Not sure where you stand? Run the quick diagnostic. Ready to talk it through? Book a call.
             </p>
           </motion.div>
 
@@ -73,7 +73,7 @@ const GetStarted = () => {
                 Takes 3 minutes · 
               </p>
               <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.5)", lineHeight: 1.7 }}>
-                A fast self-assessment that diagnoses exactly where your pipeline is leaking revenue — and what to fix first.
+                A quick self-assessment that shows you where your pipeline is losing revenue, and what to fix first.
               </p>
               <button
                 onClick={() => setAuditOpen(true)}
@@ -98,7 +98,7 @@ const GetStarted = () => {
                 30 minutes · Zero pressure
               </p>
               <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.5)", lineHeight: 1.7 }}>
-                We'll learn about your challenges, experience, and goals — then prescribe the best next move. No pitch, just clarity.
+                We'll talk through where you are, what you've tried, and where you want to get to. No pitch, just a straight answer on the best next step.
               </p>
               <a
                 href="https://calendly.com/ccooman-ccg/30min"

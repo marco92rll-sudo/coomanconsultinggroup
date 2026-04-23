@@ -11,12 +11,12 @@ const fadeUp = {
 };
 
 const items = [
-  { icon: MessageSquare, text: "Clear messaging and offer positioning that convert cold prospects into qualified opportunities" },
-  { icon: Target, text: "Targeting and pipeline strategy to consistently reach the right buyers" },
-  { icon: Mail, text: "Outbound infrastructure (email, LinkedIn, sequencing) designed for scale" },
-  { icon: Database, text: "CRM and process architecture to track, manage, and optimize pipeline" },
-  { icon: Play, text: "Execution frameworks your team can run without relying on you" },
-  { icon: Users, text: "Role definition and sales structure so the right person can step into a working system" },
+  { icon: MessageSquare, text: "Messaging and positioning that turn cold prospects into real conversations" },
+  { icon: Target, text: "A targeting and pipeline approach that gets you in front of the right buyers consistently" },
+  { icon: Mail, text: "Outbound setup across email, LinkedIn and sequencing that holds up at volume" },
+  { icon: Database, text: "A CRM and process built so you can actually track, manage and improve your pipeline" },
+  { icon: Play, text: "Playbooks your team can run day to day without you in every conversation" },
+  { icon: Users, text: "Clear sales roles so the right person can step in and pick up where you left off" },
 ];
 
 const WhatWeDo = () => {
@@ -39,7 +39,7 @@ const WhatWeDo = () => {
           </h2>
           <p className="text-sm font-semibold text-accent mb-4">Business consulting services for B2B founders</p>
           <p className="text-secondary-custom" style={{ fontSize: 15, lineHeight: 1.8 }}>
-            Most founders start as the primary driver of revenue. As the business grows, they get split between closing new deals and delivering on existing ones. Both require full attention. Neither gets it. Growth slows, pipeline becomes inconsistent, and the business becomes dependent on the founder to keep revenue moving. We take how you already sell, your positioning, conversations, and closing approach, and turn them into a structured, repeatable system that runs without your constant involvement.
+            Most founders start out as the person closing every deal. As the business grows, you end up split between winning new work and delivering on what you've already sold. Something has to give, and usually it's the pipeline. We take how you already sell, your positioning, your conversations, the way you close, and turn it into a system the business can run without you sitting in every call.
           </p>
         </motion.div>
 
