@@ -32,43 +32,45 @@ const CookieConsent = () => {
     window.dispatchEvent(new CustomEvent("cookie-consent-change", { detail: choice }));
   };
 
-  if (!visible) return null;
-
   return (
     <div
       role="dialog"
       aria-live="polite"
       aria-label="Cookie consent"
-      className="fixed bottom-4 left-4 right-4 z-[100] md:left-6 md:right-auto md:max-w-md"
+      className={`fixed bottom-4 left-4 right-4 z-[100] md:left-6 md:right-auto md:max-w-sm transition-all duration-500 ease-out ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6 pointer-events-none"
+      }`}
     >
       <div
-        className="rounded-xl p-5 shadow-2xl backdrop-blur-md"
+        className="flex items-center gap-3 rounded-full pl-4 pr-2 py-2 shadow-2xl backdrop-blur-xl"
         style={{
-          background: "rgba(12, 20, 33, 0.95)",
-          border: "1px solid rgba(139,171,184,0.2)",
+          background: "rgba(12, 20, 33, 0.85)",
+          border: "1px solid rgba(139,171,184,0.18)",
+          boxShadow: "0 20px 60px -20px rgba(0,0,0,0.6)",
         }}
       >
-        <h2 className="text-white font-semibold text-base mb-2">We use cookies</h2>
-        <p className="text-sm mb-4" style={{ color: "rgba(220,230,240,0.75)" }}>
-          We use cookies to understand how visitors use the site so we can improve it.
-          Nothing creepy, no ads. You can change your mind anytime.
-        </p>
-        <div className="flex gap-2">
-          <button
-            onClick={() => setChoice("accepted")}
-            className="flex-1 px-4 py-2 rounded-lg text-sm font-medium text-white transition-opacity hover:opacity-90"
-            style={{ background: "hsl(var(--cta, 18 90% 55%))" }}
-          >
-            Accept
-          </button>
+        <span className="text-xl leading-none select-none" aria-hidden="true">🍪</span>
+        <p className="flex-1 text-sm leading-snug" style={{ color: "rgba(220,230,240,0.85)" }}>
+          We use cookies to improve the site.{" "}
           <button
             onClick={() => setChoice("rejected")}
-            className="flex-1 px-4 py-2 rounded-lg text-sm font-medium text-white/80 transition-colors hover:text-white"
-            style={{ background: "transparent", border: "1px solid rgba(139,171,184,0.25)" }}
+            className="underline underline-offset-2 transition-colors hover:text-white"
+            style={{ color: "rgba(220,230,240,0.55)" }}
           >
-            Decline
+            No thanks
           </button>
-        </div>
+        </p>
+        <button
+          onClick={() => setChoice("accepted")}
+          autoFocus
+          className="shrink-0 px-5 py-2 rounded-full text-sm font-semibold text-white transition-transform hover:scale-105 active:scale-95"
+          style={{
+            background: "hsl(var(--cta, 18 90% 55%))",
+            boxShadow: "0 6px 20px -6px hsl(var(--cta, 18 90% 55%) / 0.6)",
+          }}
+        >
+          Sure
+        </button>
       </div>
     </div>
   );
