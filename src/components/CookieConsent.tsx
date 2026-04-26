@@ -23,16 +23,10 @@ const CookieConsent = () => {
     localStorage.setItem(STORAGE_KEY, choice);
     setVisible(false);
 
-    // Update Google Consent Mode
+    // Load Google Analytics on accept; on decline, leave consent denied and never load it.
     const w = window as any;
-    if (typeof w.gtag === "function") {
-      const granted = choice === "accepted" ? "granted" : "denied";
-      w.gtag("consent", "update", {
-        ad_storage: granted,
-        ad_user_data: granted,
-        ad_personalization: granted,
-        analytics_storage: granted,
-      });
+    if (choice === "accepted" && typeof w.__loadGtag === "function") {
+      w.__loadGtag();
     }
 
     window.dispatchEvent(new CustomEvent("cookie-consent-change", { detail: choice }));
