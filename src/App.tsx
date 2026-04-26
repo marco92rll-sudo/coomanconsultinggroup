@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import LeadLeakFinder from "./pages/LeadLeakFinder";
 import NotFound from "./pages/NotFound";
 import CookieConsent from "./components/CookieConsent";
+import CustomCursor from "./components/CustomCursor";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
         <CookieConsent />
+        <CustomCursor />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
