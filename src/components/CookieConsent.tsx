@@ -22,6 +22,19 @@ const CookieConsent = () => {
   const setChoice = (choice: "accepted" | "rejected") => {
     localStorage.setItem(STORAGE_KEY, choice);
     setVisible(false);
+
+    // Update Google Consent Mode
+    const w = window as any;
+    if (typeof w.gtag === "function") {
+      const granted = choice === "accepted" ? "granted" : "denied";
+      w.gtag("consent", "update", {
+        ad_storage: granted,
+        ad_user_data: granted,
+        ad_personalization: granted,
+        analytics_storage: granted,
+      });
+    }
+
     window.dispatchEvent(new CustomEvent("cookie-consent-change", { detail: choice }));
   };
 

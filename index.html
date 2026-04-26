@@ -1,6 +1,36 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-72Q47KBV91"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Default to denied until the visitor accepts cookies
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied'
+      });
+
+      // Honor stored choice on subsequent visits
+      try {
+        var stored = localStorage.getItem('ccg_cookie_consent');
+        if (stored === 'accepted') {
+          gtag('consent', 'update', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted'
+          });
+        }
+      } catch (e) {}
+
+      gtag('config', 'G-72Q47KBV91');
+    </script>
     <meta charset="UTF-8" />
     <link rel="icon" href="/logo.png" type="image/png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
