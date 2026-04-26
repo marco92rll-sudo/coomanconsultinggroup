@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-72Q47KBV91"></script>
+    <!-- Google tag (gtag.js) — loaded only after cookie consent -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
       gtag('js', new Date());
 
-      // Default to denied until the visitor accepts cookies
+      // Default everything to denied; nothing is sent until consent is granted.
       gtag('consent', 'default', {
         ad_storage: 'denied',
         ad_user_data: 'denied',
@@ -16,20 +16,28 @@
         analytics_storage: 'denied'
       });
 
-      // Honor stored choice on subsequent visits
+      window.__loadGtag = function () {
+        if (window.__gtagLoaded) return;
+        window.__gtagLoaded = true;
+        gtag('consent', 'update', {
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted',
+          analytics_storage: 'granted'
+        });
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-72Q47KBV91';
+        document.head.appendChild(s);
+        gtag('config', 'G-72Q47KBV91');
+      };
+
+      // Auto-load on returning visitors who already accepted
       try {
-        var stored = localStorage.getItem('ccg_cookie_consent');
-        if (stored === 'accepted') {
-          gtag('consent', 'update', {
-            ad_storage: 'granted',
-            ad_user_data: 'granted',
-            ad_personalization: 'granted',
-            analytics_storage: 'granted'
-          });
+        if (localStorage.getItem('ccg_cookie_consent') === 'accepted') {
+          window.__loadGtag();
         }
       } catch (e) {}
-
-      gtag('config', 'G-72Q47KBV91');
     </script>
     <meta charset="UTF-8" />
     <link rel="icon" href="/logo.png" type="image/png" />
