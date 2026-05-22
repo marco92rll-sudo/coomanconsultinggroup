@@ -1077,37 +1077,44 @@
         var c = (answers.c1 || 0) + (answers.c2 || 0);
         var total = v + m + c;
 
-        var scoreLabels = ['Rarely/never','Inconsistently','1-2x per week','Daily'];
-        var targetLabels = ['Very general','Somewhat relevant','Speaks to pain','Magnetic'];
-        var balanceLabels = ['100% referral','Mostly one channel','Both, reactive','Balanced'];
-        var clarityLabels = ['Vague','Partially clear','Mostly clear','Crystal clear'];
-        var ctaLabels = ['No CTA','Generic CTA','One clear step','Strong lead path'];
-        var followLabels = ['Slow/none','Inconsistent','Prompt, no script','Fast + systematic'];
-        var structureLabels = ['No process','Rough idea','Sequence exists','Defined + consistent'];
+        var scoreLabels    = ['Rarely/never','Inconsistently','1-2x per week','Daily'];
+        var targetLabels   = ['Very general','Somewhat relevant','Speaks to pain','Magnetic'];
+        var balanceLabels  = ['100% referral','Mostly one channel','Both, reactive','Balanced'];
+        var clarityLabels  = ['Vague','Partially clear','Mostly clear','Crystal clear'];
+        var ctaLabels      = ['No CTA','Generic CTA','One clear step','Strong lead path'];
+        var followLabels   = ['Slow/none','Inconsistent','Prompt, no script','Fast + systematic'];
+        var convLabels     = ['No process','Rough idea only','Sequence exists, patchy','Defined + consistent'];
 
-        var form = document.getElementById('leadLeakCaptureForm');
-        var formData = new FormData(form);
+        var tier = total <= 7 ? 'Major leaks — fix the foundation first'
+                 : total <= 13 ? 'Partial system — needs structural repair'
+                 : total <= 17 ? 'Good bones — a few key gaps to close'
+                 : 'Strong engine — optimise and scale';
 
-        formData.set('name', userData.name);
-        formData.set('email', userData.email);
-        formData.set('_replyto', userData.email);
-        formData.set('score', total + '/21');
-        formData.set('visibility_score', v + '/9');
-        formData.set('messaging_score', m + '/6');
-        formData.set('conversion_score', c + '/6');
-        formData.set('q1_consistency', scoreLabels[answers.v1 || 0]);
-        formData.set('q2_targeting', targetLabels[answers.v2 || 0]);
-        formData.set('q2b_lead_balance', balanceLabels[answers.v3 || 0]);
-        formData.set('q3_clarity', clarityLabels[answers.m1 || 0]);
-        formData.set('q4_cta', ctaLabels[answers.m2 || 0]);
-        formData.set('q5_followthrough', followLabels[answers.c1 || 0]);
-        formData.set('q6_conversion_structure', structureLabels[answers.c2 || 0]);
-        formData.set('completed_at', new Date().toLocaleString());
+        var payload = {
+          _subject: 'New Lead Leak Finder submission — ' + (userData.name || 'Anonymous'),
+          Name:               userData.name,
+          Email:              userData.email,
+          Business_Type:      userData.bizType,
+          Growth_Blocker:     userData.blocker,
+          Overall_Score:      total + ' / 21',
+          Result_Tier:        tier,
+          Visibility_Score:   v + ' / 9',
+          Messaging_Score:    m + ' / 6',
+          Conversion_Score:   c + ' / 6',
+          Q1_Consistency:     scoreLabels[answers.v1 || 0],
+          Q2_Targeting:       targetLabels[answers.v2 || 0],
+          Q2b_Lead_Balance:   balanceLabels[answers.v3 || 0],
+          Q3_Clarity:         clarityLabels[answers.m1 || 0],
+          Q4_CTA:             ctaLabels[answers.m2 || 0],
+          Q5_Follow_Through:  followLabels[answers.c1 || 0],
+          Q6_Conversion:      convLabels[answers.c2 || 0],
+          Submitted_At:       new Date().toLocaleString()
+        };
 
         fetch(FORMSPREE_URL, {
           method: 'POST',
-          headers: { 'Accept': 'application/json' },
-          body: formData
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
         }).catch(function() {});
       }
 
