@@ -1180,6 +1180,9 @@
         document.querySelectorAll('.step').forEach(function(s, i) {
           s.classList.toggle('active', i === 0);
         });
+        var btn = document.querySelector('#leadLeakCaptureForm button[type="submit"]');
+        if (btn) { btn.disabled = false; btn.textContent = 'See my results →'; }
+        document.getElementById('submitSuccess').classList.remove('visible');
         updateProgress(1);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
