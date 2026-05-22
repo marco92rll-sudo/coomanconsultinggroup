@@ -98,7 +98,18 @@
         margin-bottom: 1.5rem;
         line-height: 1.6;
       }
-      .input-row {
+      .success-banner {
+        display: none;
+        background: #e8f5ee;
+        border: 1px solid #9ecfb4;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-bottom: 1.5rem;
+        font-size: 14px;
+        color: #0f6e56;
+        text-align: center;
+      }
+      .success-banner.visible { display: block; }
         display: flex;
         flex-direction: column;
         gap: 10px;
@@ -812,6 +823,7 @@
 
       <!-- RESULTS -->
       <div id="resultsArea">
+        <div id="submitSuccess" class="success-banner">Your results have been saved. Check your inbox shortly.</div>
         <div class="score-hero">
           <div class="score-num" id="rScore">0</div>
           <div class="score-denom">out of 21 — your lead engine score</div>
@@ -909,6 +921,7 @@
         var name = document.getElementById('userName').value.trim();
         var email = document.getElementById('userEmail').value.trim().toLowerCase();
         var msg = document.getElementById('gateMsg');
+        var btn = document.querySelector('#leadLeakCaptureForm button[type="submit"]');
 
         if (!name) { msg.textContent = 'Please enter your first name.'; return; }
         if (!email || !email.includes('@')) { msg.textContent = 'Please enter a valid email.'; return; }
@@ -916,6 +929,9 @@
         userData.name = name;
         userData.email = email;
         msg.textContent = '';
+
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
 
         document.getElementById('emailGate').style.display = 'none';
         document.getElementById('resultsArea').style.display = 'block';
@@ -1145,6 +1161,8 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(payload)
+        }).then(function() {
+          document.getElementById('submitSuccess').classList.add('visible');
         }).catch(function() {});
       }
 
@@ -1162,6 +1180,9 @@
         document.querySelectorAll('.step').forEach(function(s, i) {
           s.classList.toggle('active', i === 0);
         });
+        var btn = document.querySelector('#leadLeakCaptureForm button[type="submit"]');
+        if (btn) { btn.disabled = false; btn.textContent = 'See my results →'; }
+        document.getElementById('submitSuccess').classList.remove('visible');
         updateProgress(1);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
