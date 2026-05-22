@@ -1277,7 +1277,23 @@
           + '<div style="padding:12px 24px;text-align:center;font-size:11px;color:rgba(255,255,255,0.25);">Cooman Consulting Group · Lead Leak Finder</div>'
           + '</div>';
 
-        // 1. Admin email — full styled results view
+        // 1. Admin email — clean plain-text notification
+        var adminPlain = ''
+          + 'Name: ' + userData.name + '\n'
+          + 'Email: ' + userData.email + '\n'
+          + 'Business Type: ' + bizType + '\n'
+          + 'Growth Blocker: ' + blocker + '\n'
+          + 'Score: ' + total + ' / 21 — ' + verdict + '\n'
+          + 'Visibility: ' + v + '/9 | Messaging: ' + m + '/6 | Conversion: ' + c + '/6\n'
+          + 'Q1 Consistency: ' + scoreLabels[answers.v1 || 0] + '\n'
+          + 'Q2 Targeting: ' + targetLabels[answers.v2 || 0] + '\n'
+          + 'Q2b Lead Balance: ' + balanceLabels[answers.v3 || 0] + '\n'
+          + 'Q3 Clarity: ' + clarityLabels[answers.m1 || 0] + '\n'
+          + 'Q4 CTA: ' + ctaLabels[answers.m2 || 0] + '\n'
+          + 'Q5 Follow-through: ' + followLabels[answers.c1 || 0] + '\n'
+          + 'Q6 Structure: ' + structureLabels[answers.c2 || 0] + '\n'
+          + 'Submitted: ' + new Date().toLocaleString();
+
         fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -1288,7 +1304,7 @@
             cc: 'ccooman.ccg@gmail.com',
             from_name: 'Lead Leak Finder',
             replyto: userData.email,
-            message: adminHtml
+            message: adminPlain
           })
         }).catch(function(e) { console.error('Web3Forms admin email error:', e); });
 
