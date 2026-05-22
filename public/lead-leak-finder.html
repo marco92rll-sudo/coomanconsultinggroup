@@ -921,6 +921,7 @@
         var name = document.getElementById('userName').value.trim();
         var email = document.getElementById('userEmail').value.trim().toLowerCase();
         var msg = document.getElementById('gateMsg');
+        var btn = document.querySelector('#leadLeakCaptureForm button[type="submit"]');
 
         if (!name) { msg.textContent = 'Please enter your first name.'; return; }
         if (!email || !email.includes('@')) { msg.textContent = 'Please enter a valid email.'; return; }
@@ -928,6 +929,9 @@
         userData.name = name;
         userData.email = email;
         msg.textContent = '';
+
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
 
         document.getElementById('emailGate').style.display = 'none';
         document.getElementById('resultsArea').style.display = 'block';
@@ -1157,6 +1161,8 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(payload)
+        }).then(function() {
+          document.getElementById('submitSuccess').classList.add('visible');
         }).catch(function() {});
       }
 
