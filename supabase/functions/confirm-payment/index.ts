@@ -10,7 +10,7 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { id, payment_method, payment_reference } = await req.json();
+    const { id, payment_method, payment_reference, bypass_code } = await req.json();
     if (!id || !payment_method) {
       return new Response(JSON.stringify({ error: "Missing id or payment_method" }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -20,6 +20,16 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ error: "Invalid payment_method" }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
+    }
+
+    // Server-side bypass-code gate. The code never leaves the server.
+    if (payment_method === "test") {
+      const expected = Deno.env.get("ASSESSMENT_BYPASS_CODE");
+      if (!expected || !bypass_code || String(bypass_code) !== expected) {
+        return new Response(JSON.stringify({ error: "Invalid access code" }), {
+          status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
     }
 
     const supabase = createClient(
@@ -35,11 +45,15 @@ Deno.serve(async (req) => {
       });
     }
 
+    const storedRef = payment_method === "test"
+      ? "bypass (test)"
+      : (payment_reference ? String(payment_reference).slice(0, 300) : null);
+
     if (row.status === "pending_payment") {
       await supabase.from("assessments").update({
         status: "paid",
         payment_method,
-        payment_reference: payment_reference ? String(payment_reference).slice(0, 300) : null,
+        payment_reference: storedRef,
         payment_confirmed_at: new Date().toISOString(),
       }).eq("id", id);
     }
