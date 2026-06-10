@@ -12,7 +12,6 @@ import usdtQr from "@/assets/usdt-qr.jpeg.asset.json";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-const TEST_MODE = import.meta.env.VITE_TEST_MODE === "true";
 const PRICE = "$489";
 const PAYPAL_LINK = "https://www.paypal.com/paypalme/f2framework/489";
 const USDT_ADDRESS = "TUSDTwalletAddressGoesHereReplaceMe";
@@ -83,6 +82,9 @@ export default function Assessment() {
   const [paymentRef, setPaymentRef] = useState("");
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [bypassOpen, setBypassOpen] = useState(false);
+  const [bypassCode, setBypassCode] = useState("");
+  const [bypassError, setBypassError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => { window.scrollTo(0, 0); }, [step]);
@@ -126,21 +128,32 @@ export default function Assessment() {
     } finally { setBusy(false); }
   };
 
-  const confirmPayment = async (method: "paypal" | "monzo" | "usdt" | "test") => {
+  const confirmPayment = async (method: "paypal" | "monzo" | "usdt" | "test", code?: string) => {
     if (!assessmentId) return;
     if (method !== "test" && !paymentRef.trim()) {
       alert("Please enter your payment reference (your PayPal/Monzo email or USDT TX hash) so we can match it.");
       return;
     }
+    if (method === "test") setBypassError(null);
     setBusy(true);
     try {
+      const body: Record<string, unknown> = { id: assessmentId, payment_method: method };
+      if (method === "test") {
+        body.bypass_code = code ?? bypassCode;
+      } else {
+        body.payment_reference = paymentRef;
+      }
       const resp = await fetch(`${SUPABASE_URL}/functions/v1/confirm-payment`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${SUPABASE_KEY}`, apikey: SUPABASE_KEY },
-        body: JSON.stringify({ id: assessmentId, payment_method: method, payment_reference: paymentRef || `(test) ${form.email}` }),
+        body: JSON.stringify(body),
       });
       if (!resp.ok) {
         const d = await resp.json().catch(() => ({}));
+        if (method === "test" && resp.status === 401) {
+          setBypassError("Invalid access code.");
+          return;
+        }
         throw new Error(d.error || "Failed");
       }
       navigate(`/assessment/results/${assessmentId}`);
@@ -176,6 +189,11 @@ export default function Assessment() {
                   busy={busy}
                   copied={copied}
                   setCopied={setCopied}
+                  bypassOpen={bypassOpen}
+                  setBypassOpen={setBypassOpen}
+                  bypassCode={bypassCode}
+                  setBypassCode={setBypassCode}
+                  bypassError={bypassError}
                 />
               )}
               {step < 4 && (
@@ -200,13 +218,6 @@ export default function Assessment() {
                 </div>
               )}
             </div>
-            {step === 4 && TEST_MODE && (
-              <div className="mt-4 text-center">
-                <button onClick={() => confirmPayment("test")} className="text-xs text-white/40 underline">
-                  [dev] Skip payment
-                </button>
-              </div>
-            )}
           </div>
         )}
       </main>
@@ -363,7 +374,7 @@ function Step3({ form, update, toggle }: any) {
   );
 }
 
-function PaymentStep({ paymentTab, setPaymentTab, paymentRef, setPaymentRef, onConfirm, busy, copied, setCopied }: any) {
+function PaymentStep({ paymentTab, setPaymentTab, paymentRef, setPaymentRef, onConfirm, busy, copied, setCopied, bypassOpen, setBypassOpen, bypassCode, setBypassCode, bypassError }: any) {
   const copy = async () => {
     await navigator.clipboard.writeText(USDT_ADDRESS);
     setCopied(true);
@@ -453,6 +464,48 @@ function PaymentStep({ paymentTab, setPaymentTab, paymentRef, setPaymentRef, onC
         <p className="mt-3 text-center text-xs text-white/40">
           By clicking above, you confirm you've sent ${"489"}. We verify every payment manually; misuse forfeits the guarantee.
         </p>
+      </div>
+
+      <div className="text-center">
+        {!bypassOpen ? (
+          <button
+            type="button"
+            onClick={() => setBypassOpen(true)}
+            className="text-xs text-white/40 underline-offset-2 hover:text-white/70 hover:underline"
+          >
+            Have an access code?
+          </button>
+        ) : (
+          <div className="mx-auto max-w-md rounded-xl border border-white/10 bg-[#0A1422] p-4 text-left">
+            <label className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8BAAB8]">
+              Access code
+            </label>
+            <div className="flex gap-2">
+              <Input
+                value={bypassCode}
+                onChange={(e) => setBypassCode(e.target.value)}
+                placeholder="Enter your code"
+                className="bg-[#121E2C] border-white/10 text-white"
+                onKeyDown={(e) => { if (e.key === "Enter" && bypassCode.trim()) onConfirm("test", bypassCode.trim()); }}
+              />
+              <Button
+                onClick={() => bypassCode.trim() && onConfirm("test", bypassCode.trim())}
+                disabled={busy || !bypassCode.trim()}
+                className="bg-[#E2735A] text-white hover:bg-[#EC8A73] active:bg-[#C95A42] uppercase tracking-wider font-semibold"
+              >
+                {busy ? "…" : "Unlock"}
+              </Button>
+            </div>
+            {bypassError && <div className="mt-2 text-xs text-[#E2735A]">{bypassError}</div>}
+            <button
+              type="button"
+              onClick={() => { setBypassOpen(false); setBypassCode(""); }}
+              className="mt-3 text-[11px] text-white/40 hover:text-white/70"
+            >
+              Cancel
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

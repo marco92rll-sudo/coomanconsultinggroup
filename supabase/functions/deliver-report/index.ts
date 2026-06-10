@@ -89,12 +89,17 @@ Deno.serve(async (req) => {
     });
 
     // 2) Internal CCG email — lead details + PAYMENT VERIFICATION FLAG
+    const isTest = row.payment_method === "test";
     const internalText = [
-      `🔔 NEW PAID ASSESSMENT — VERIFY PAYMENT BEFORE REPLYING`,
+      isTest
+        ? `🧪 BYPASS (TEST) ASSESSMENT — DO NOT INVOICE`
+        : `🔔 NEW PAID ASSESSMENT — VERIFY PAYMENT BEFORE REPLYING`,
       ``,
-      `PAYMENT METHOD: ${(row.payment_method || "unknown").toUpperCase()}`,
+      isTest
+        ? `PAYMENT METHOD: bypass (test) — DO NOT INVOICE`
+        : `PAYMENT METHOD: ${(row.payment_method || "unknown").toUpperCase()}`,
       `PAYMENT REFERENCE: ${row.payment_reference || "(none provided)"}`,
-      `Amount: $489 USD`,
+      `Amount: ${isTest ? "$0 (bypass)" : "$489 USD"}`,
       ``,
       `--- LEAD ---`,
       `Name: ${row.contact_name}`,
@@ -115,7 +120,9 @@ Deno.serve(async (req) => {
     ].join("\n");
 
     await sendWeb3Forms({
-      subject: `[VERIFY ${(row.payment_method || "?").toUpperCase()}] New AI Assessment — ${row.company}`,
+      subject: isTest
+        ? `[BYPASS-TEST] AI Assessment — ${row.company}`
+        : `[VERIFY ${(row.payment_method || "?").toUpperCase()}] New AI Assessment — ${row.company}`,
       from_name: "CCG Assessment Bot",
       email: "lcooman.ccg@gmail.com",
       message: internalText,
