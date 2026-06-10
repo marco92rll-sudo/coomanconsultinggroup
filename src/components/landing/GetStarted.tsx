@@ -35,7 +35,7 @@ const GetStarted = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {/* Card A - Pipeline Fix (Featured) */}
             <motion.div
               initial="hidden"
@@ -65,12 +65,12 @@ const GetStarted = () => {
                   boxShadow: "0 0 16px rgba(226,114,91,0.5)",
                 }}
               >
-                Start Here
+                Start Here · Free
               </span>
 
               <h3 className="text-lg font-bold mb-2 mt-2">The 3-Minute Lead Leak Finder</h3>
               <p className="mb-1" style={{ fontSize: 13, color: "rgba(139,171,184,0.7)", fontWeight: 500 }}>
-                Takes 3 minutes · 
+                3 minutes · Free
               </p>
               <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.5)", lineHeight: 1.7 }}>
                 A quick self-assessment that shows you where your pipeline is losing revenue, and what to fix first.
@@ -84,13 +84,59 @@ const GetStarted = () => {
               </button>
             </motion.div>
 
-            {/* Card B - Virtual Coffee */}
+            {/* Card B - AI Tools Assessment (NEW) */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
               variants={fadeUp}
               custom={2}
+              className="relative card-process p-8"
+            >
+              <span
+                className="absolute -top-3 left-8"
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  padding: "4px 12px",
+                  borderRadius: 4,
+                  background: "#8BAAB8",
+                  color: "#090f1a",
+                }}
+              >
+                New · $489
+              </span>
+              <h3 className="text-lg font-bold mb-2 mt-2">AI Tools Assessment</h3>
+              <p className="mb-1" style={{ fontSize: 13, color: "rgba(139,171,184,0.7)", fontWeight: 500 }}>
+                4 minutes · Delivered instantly
+              </p>
+              <p className="mb-6" style={{ fontSize: 14, color: "rgba(255,255,255,0.5)", lineHeight: 1.7 }}>
+                A personalized AI stack, 4-day rollout plan, and projected monthly ROI — built for your team, focus, and tools.
+              </p>
+              <a
+                href="/assessment"
+                className="inline-flex items-center gap-2 px-6 py-2.5 font-semibold transition-all duration-200"
+                style={{
+                  background: "rgba(139,171,184,0.04)",
+                  color: "#8BAAB8",
+                  border: "1px solid rgba(139,171,184,0.35)",
+                  borderRadius: 6,
+                  fontSize: 13,
+                }}
+              >
+                Run My Assessment <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+            </motion.div>
+
+            {/* Card C - Strategy Session */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={fadeUp}
+              custom={3}
               className="card-process p-8"
             >
               <h3 className="text-lg font-bold mb-2">Book a Strategy Session</h3>
