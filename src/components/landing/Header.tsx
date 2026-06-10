@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
 const navItems = [
-  { label: "Our Offer & Who We Serve", href: "#services" },
-  { label: "Process", href: "#process" },
-  { label: "Fit Assessment", href: "#fit" },
-  { label: "Get Started", href: "#get-started" },
-  { label: "FAQs", href: "#faq" },
+  { label: "Our Offer & Who We Serve", href: "/#services" },
+  { label: "Process", href: "/#process" },
+  { label: "AI Assessment", href: "/assessment" },
+  { label: "Get Started", href: "/#get-started" },
+  { label: "FAQs", href: "/#faq" },
 ];
 
 const Header = () => {
