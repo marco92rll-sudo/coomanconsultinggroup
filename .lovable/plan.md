@@ -1,96 +1,37 @@
+## Goal
+Add a secret bypass code so you (or collaborators) can unlock the full assessment report without paying $489. Safe to leave live in production; revocable any time by changing the code.
 
-# AI Tools Assessment — Build Plan (v2)
+## How it works
+1. On the payment step, a small "Have an access code?" link appears below the three payment tabs.
+2. Clicking it reveals an input + "Unlock" button.
+3. Entering the correct code calls `confirm-payment` with `payment_method: "test"` and the code itself as the reference.
+4. `confirm-payment` validates the code server-side against the `ASSESSMENT_BYPASS_CODE` secret. Match → flips to `paid`, kicks off `generate-report`, same as a real payment. Mismatch → 401.
+5. The internal lead email is flagged `PAYMENT METHOD: bypass (test) — DO NOT INVOICE` so you can tell test runs apart from real ones in your inbox.
 
-A new paid lead-gen flow on the site. Visitor lands on `/assessment`, completes a 3-step form, chooses a payment method (PayPal.me, Monzo, or USDT), pays $489, then clicks "I've completed payment" to unlock a personalized AI report on screen plus a branded PDF emailed to them and to you (lcooman.ccg@gmail.com).
+## Why a server-side secret (not a hard-coded string)
+If the code lived in the frontend, anyone viewing the bundle could find it and claim a free report. Storing it as a Lovable Cloud secret keeps it invisible to the browser, and you can rotate it without a redeploy.
 
-## Important note on payment verification
+## Changes
 
-None of the three payment options you've picked support automated webhook verification — they're all manual/honor-system:
+**Backend — `supabase/functions/confirm-payment/index.ts`**
+- Accept an optional `bypass_code` field on the request.
+- If `payment_method === "test"`: require `bypass_code` to equal `Deno.env.get("ASSESSMENT_BYPASS_CODE")`. Reject with 401 otherwise. Strip the code from what gets stored — save `payment_reference` as `"bypass (test)"`.
+- Existing `paypal` / `monzo` / `usdt` paths untouched.
 
-- **PayPal.me** — link with amount pre-filled, no callback.
-- **Monzo** — QR code to your Monzo.me page, no callback.
-- **USDT (TRC20)** — QR code to your wallet address, on-chain but we're not polling it.
+**Frontend — `src/pages/Assessment.tsx`**
+- Under the payment tabs, add a subtle "Have an access code?" toggle.
+- When open: code input + "Unlock report" button (coral, same style as the main confirm).
+- On submit: POST to `confirm-payment` with `{ id, payment_method: "test", bypass_code }`. On 401 show "Invalid code"; on success route to `/results/:id` just like the paid flow.
+- Remove the old `VITE_TEST_MODE`-gated dev link (replaced by this).
 
-So the flow is: user picks a method, sees the link/QR, pays in their app, comes back and clicks "I've completed payment" with the transaction reference / their PayPal/Monzo email. That triggers the report.
+**Internal email — `supabase/functions/deliver-report/index.ts`**
+- When `payment_method === "test"`, change the flag line to `PAYMENT METHOD: bypass (test) — DO NOT INVOICE` so test runs are unmistakable.
 
-To protect you:
-- Every internal lead email to lcooman.ccg@gmail.com is flagged `PAYMENT METHOD: {paypal|monzo|usdt} — VERIFY BEFORE REPLYING`, with the reference they entered so you can match it against your inbox/wallet in 30 seconds.
-- AI cost per report is a few cents, so freeloader exposure is small.
-- When you're ready I'll swap in built-in Stripe (auto webhook verification) as a focused upgrade — no rewrite of the form, report, or delivery.
-
-## Payment step UI
-
-A single "Choose how to pay" screen with three tabs/cards, all showing $489 USD:
-
-1. **PayPal** — coral button "Pay $489 with PayPal" opening `paypal.me/f2framework/489` in a new tab.
-2. **Monzo** — embeds your Monzo QR (the colorful one). Soft white rounded card behind it so the QR isn't distorted, no recoloring. "Open in Monzo" link beneath for mobile users.
-3. **USDT (TRC20)** — embeds the USDT QR. Same clean white card treatment. Wallet address shown below with a copy button. Small note: "Send exactly $489 in USDT on the TRON network."
-
-Below the tabs: a "Payment reference / your PayPal or Monzo email" input + "I've completed payment — generate my report" coral button. That fires `confirm-payment`.
-
-QR images will be uploaded via Lovable Assets (CDN, no codebase bloat) and rendered at a fixed size on a clean white rounded panel — the QR itself untouched so scanners read it perfectly.
-
-## Scope (full build, one shot)
-
-1. `/assessment` landing page — premium dark, matches existing site brand (Dark Navy / Blue-Grey / Coral tokens — not the spec's new palette, so it feels native).
-2. 3-step assessment form (Business / Time / Stack) with validation.
-3. Submission writes a row to a new `assessments` table.
-4. Payment step with all three options + manual confirmation.
-5. AI report generation via Lovable AI Gateway (Gemini), saved as JSON.
-6. `/results/:id` renders the 9-section report on-brand, polling until ready.
-7. PDF generated server-side, stored in Supabase Storage, attached to two emails (client + CCG) via Lovable Emails.
-8. Entry points: CTA on Lead Leak Finder results + nav link + section on homepage.
-
-## Pages & routes
-
-- `/assessment` — landing + 3-step form + payment chooser.
-- `/results/:id` — gated results view, polls until `status = ready`.
-- Existing routes untouched except for nav link + Lead Leak Finder CTA injection.
-
-## Visual style
-
-Reuse existing project tokens (Dark Navy bg, Blue-Grey `#8BAAB8` eyebrows, Coral `#E2735A` CTAs, Inter font). Single H1 per page. Coral used sparingly for primary CTAs and headline ROI stat, matching site conventions.
-
-## Backend (Lovable Cloud)
-
-**New table `assessments`** (RLS on; anon can insert only; reads via edge functions with service role):
-
-- contact + company fields, business_type, team_size, primary_focus
-- pains text[], tools text[], hours_per_week int, goal text
-- status: `pending_payment` → `paid` → `generating` → `ready` → `delivered`
-- payment_method (`paypal` | `monzo` | `usdt`), payment_reference text, payment_confirmed_at
-- report jsonb, pdf_url, delivered_at
-
-**Edge functions**
-
-- `confirm-payment` — flips status to `paid`, stores method + reference, invokes `generate-report`.
-- `generate-report` — loads row, calls Lovable AI (`google/gemini-3-flash-preview`) with the system prompt from Appendix C and the Brightwave example from Appendix G as a one-shot anchor (match voice/structure, not content). Validates JSON shape, retries once on malformed output. Saves to `report`, sets `ready`, invokes `deliver`.
-- `deliver` — renders report HTML, generates PDF, uploads to a new `reports` storage bucket, sends two emails via Lovable Emails: branded client email (PDF + results link) and internal lead notification (all answers + payment flag + PDF). Sets `delivered`.
-- `get-assessment-status` — small read function the results page polls so the front end never has direct SELECT on the table.
-
-**Secrets** — none required from you. `LOVABLE_API_KEY` already present. Lovable Emails domain setup dialog will trigger when delivery is wired; emails work on the default sender meanwhile.
-
-## Report content
-
-- Schema from Appendix B (9 sections, exact counts: 6 quick wins, 6 solutions, 4-day plan, 3 phase-2 items, 2 next steps).
-- System prompt from Appendix C with Brightwave example as one-shot.
-- Financial math: conservative "cost of time saved" headline (`hours × 4.33 × $75 − tool cost`), revenue-upside framing in caption.
-
-## Entry points
-
-- **Lead Leak Finder results**: coral CTA block under the score — "Now find the hours AI gives back to your team → Run my AI Assessment ($489)" → `/assessment`.
-- **Homepage**: nav link in header + compact section/CTA placed near `GetStarted` so it complements the existing consulting CTA.
-
-## Test / go-live
-
-- `VITE_TEST_MODE` flag adds a "Skip payment (dev)" button for full-flow QA without paying.
-- I'll walk it end-to-end and confirm both emails land.
-- Upgrade path to real Stripe is a focused swap of the payment step + a webhook function.
+**Secret**
+- Add one Lovable Cloud secret: `ASSESSMENT_BYPASS_CODE`. You'll set its value (e.g. `CCG-INTERNAL-2026`) via the secret prompt. To rotate later: update the secret — no code change needed.
 
 ## Out of scope
+- Multi-use codes / per-collaborator codes / expiry. Single shared code is enough for testing; can grow later if needed.
+- Real Stripe integration (still deferred).
 
-- Stripe/Paddle (deferred).
-- Custom email domain verification (can add any time).
-- Admin dashboard (use Supabase table view + your inbox).
-
-Ready to build, or want changes to the payment UX / scope first?
+Ready to build? On approval I'll request the `ASSESSMENT_BYPASS_CODE` secret from you, then ship the three file changes.
