@@ -374,7 +374,7 @@ function Step3({ form, update, toggle }: any) {
   );
 }
 
-function PaymentStep({ paymentTab, setPaymentTab, paymentRef, setPaymentRef, onConfirm, busy, copied, setCopied }: any) {
+function PaymentStep({ paymentTab, setPaymentTab, paymentRef, setPaymentRef, onConfirm, busy, copied, setCopied, bypassOpen, setBypassOpen, bypassCode, setBypassCode, bypassError }: any) {
   const copy = async () => {
     await navigator.clipboard.writeText(USDT_ADDRESS);
     setCopied(true);
@@ -464,6 +464,48 @@ function PaymentStep({ paymentTab, setPaymentTab, paymentRef, setPaymentRef, onC
         <p className="mt-3 text-center text-xs text-white/40">
           By clicking above, you confirm you've sent ${"489"}. We verify every payment manually; misuse forfeits the guarantee.
         </p>
+      </div>
+
+      <div className="text-center">
+        {!bypassOpen ? (
+          <button
+            type="button"
+            onClick={() => setBypassOpen(true)}
+            className="text-xs text-white/40 underline-offset-2 hover:text-white/70 hover:underline"
+          >
+            Have an access code?
+          </button>
+        ) : (
+          <div className="mx-auto max-w-md rounded-xl border border-white/10 bg-[#0A1422] p-4 text-left">
+            <label className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8BAAB8]">
+              Access code
+            </label>
+            <div className="flex gap-2">
+              <Input
+                value={bypassCode}
+                onChange={(e) => setBypassCode(e.target.value)}
+                placeholder="Enter your code"
+                className="bg-[#121E2C] border-white/10 text-white"
+                onKeyDown={(e) => { if (e.key === "Enter" && bypassCode.trim()) onConfirm("test", bypassCode.trim()); }}
+              />
+              <Button
+                onClick={() => bypassCode.trim() && onConfirm("test", bypassCode.trim())}
+                disabled={busy || !bypassCode.trim()}
+                className="bg-[#E2735A] text-white hover:bg-[#EC8A73] active:bg-[#C95A42] uppercase tracking-wider font-semibold"
+              >
+                {busy ? "…" : "Unlock"}
+              </Button>
+            </div>
+            {bypassError && <div className="mt-2 text-xs text-[#E2735A]">{bypassError}</div>}
+            <button
+              type="button"
+              onClick={() => { setBypassOpen(false); setBypassCode(""); }}
+              className="mt-3 text-[11px] text-white/40 hover:text-white/70"
+            >
+              Cancel
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
