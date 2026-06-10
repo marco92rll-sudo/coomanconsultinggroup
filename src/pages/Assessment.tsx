@@ -12,7 +12,6 @@ import usdtQr from "@/assets/usdt-qr.jpeg.asset.json";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-const TEST_MODE = import.meta.env.VITE_TEST_MODE === "true";
 const PRICE = "$489";
 const PAYPAL_LINK = "https://www.paypal.com/paypalme/f2framework/489";
 const USDT_ADDRESS = "TUSDTwalletAddressGoesHereReplaceMe";
@@ -83,6 +82,9 @@ export default function Assessment() {
   const [paymentRef, setPaymentRef] = useState("");
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [bypassOpen, setBypassOpen] = useState(false);
+  const [bypassCode, setBypassCode] = useState("");
+  const [bypassError, setBypassError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => { window.scrollTo(0, 0); }, [step]);
@@ -126,21 +128,32 @@ export default function Assessment() {
     } finally { setBusy(false); }
   };
 
-  const confirmPayment = async (method: "paypal" | "monzo" | "usdt" | "test") => {
+  const confirmPayment = async (method: "paypal" | "monzo" | "usdt" | "test", code?: string) => {
     if (!assessmentId) return;
     if (method !== "test" && !paymentRef.trim()) {
       alert("Please enter your payment reference (your PayPal/Monzo email or USDT TX hash) so we can match it.");
       return;
     }
+    if (method === "test") setBypassError(null);
     setBusy(true);
     try {
+      const body: Record<string, unknown> = { id: assessmentId, payment_method: method };
+      if (method === "test") {
+        body.bypass_code = code ?? bypassCode;
+      } else {
+        body.payment_reference = paymentRef;
+      }
       const resp = await fetch(`${SUPABASE_URL}/functions/v1/confirm-payment`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${SUPABASE_KEY}`, apikey: SUPABASE_KEY },
-        body: JSON.stringify({ id: assessmentId, payment_method: method, payment_reference: paymentRef || `(test) ${form.email}` }),
+        body: JSON.stringify(body),
       });
       if (!resp.ok) {
         const d = await resp.json().catch(() => ({}));
+        if (method === "test" && resp.status === 401) {
+          setBypassError("Invalid access code.");
+          return;
+        }
         throw new Error(d.error || "Failed");
       }
       navigate(`/assessment/results/${assessmentId}`);
