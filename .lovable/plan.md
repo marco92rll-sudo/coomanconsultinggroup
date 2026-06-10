@@ -1,37 +1,46 @@
-## Goal
-Add a secret bypass code so you (or collaborators) can unlock the full assessment report without paying $489. Safe to leave live in production; revocable any time by changing the code.
+## Three fixes
 
-## How it works
-1. On the payment step, a small "Have an access code?" link appears below the three payment tabs.
-2. Clicking it reveals an input + "Unlock" button.
-3. Entering the correct code calls `confirm-payment` with `payment_method: "test"` and the code itself as the reference.
-4. `confirm-payment` validates the code server-side against the `ASSESSMENT_BYPASS_CODE` secret. Match → flips to `paid`, kicks off `generate-report`, same as a real payment. Mismatch → 401.
-5. The internal lead email is flagged `PAYMENT METHOD: bypass (test) — DO NOT INVOICE` so you can tell test runs apart from real ones in your inbox.
+### 1. Client never receives the report email
+Web3Forms is a contact-form relay — it always routes to the form-owner's inbox no matter what `email` field you set. That's why you only saw the internal CCG-bound email and the client got nothing.
 
-## Why a server-side secret (not a hard-coded string)
-If the code lived in the frontend, anyone viewing the bundle could find it and claim a free report. Storing it as a Lovable Cloud secret keeps it invisible to the browser, and you can rotate it without a redeploy.
+**Fix:** Switch to **Lovable Emails** (built-in transactional, sends from your own subdomain).
+- Set up an email subdomain (one-time, ~5 min DNS via the in-product setup dialog).
+- Scaffold app-email infrastructure + a branded `assessment-ready` React Email template that renders the full report (mirrors the current on-screen sections: executive summary, hours-reclaimed hero, quick wins, stack, 4-day plan, what comes after, financial impact, next steps, CTA to view full report).
+- Rewrite `deliver-report` to:
+  - Invoke `send-transactional-email` with `templateName: "assessment-ready"`, `recipientEmail: row.email`, `idempotencyKey: "assessment-ready-<id>"`, and the report data.
+  - Continue to fire the existing Web3Forms call **only for the internal CCG notification** (that one works fine for an inbox alert).
+- Keep `lcooman.ccg@gmail.com` as reply-to so client replies still reach you.
 
-## Changes
+### 2. Stop asking for email twice
+On the payment step you currently re-ask for "Your PayPal email / Monzo name / USDT TXID" as `payment_reference`.
 
-**Backend — `supabase/functions/confirm-payment/index.ts`**
-- Accept an optional `bypass_code` field on the request.
-- If `payment_method === "test"`: require `bypass_code` to equal `Deno.env.get("ASSESSMENT_BYPASS_CODE")`. Reject with 401 otherwise. Strip the code from what gets stored — save `payment_reference` as `"bypass (test)"`.
-- Existing `paypal` / `monzo` / `usdt` paths untouched.
+**Fix:** Pre-fill the reference field with the email captured in Step 1 for PayPal and Monzo tabs (still ask for the TXID on the USDT tab — different shape of data). Show it as "We'll match against `jane@acme.co` — change if you paid from a different account." That removes the duplicate ask while keeping the matching ability intact.
 
-**Frontend — `src/pages/Assessment.tsx`**
-- Under the payment tabs, add a subtle "Have an access code?" toggle.
-- When open: code input + "Unlock report" button (coral, same style as the main confirm).
-- On submit: POST to `confirm-payment` with `{ id, payment_method: "test", bypass_code }`. On 401 show "Invalid code"; on success route to `/results/:id` just like the paid flow.
-- Remove the old `VITE_TEST_MODE`-gated dev link (replaced by this).
+### 3. PDF download looks cheap (window.print)
+Replace `window.print()` with a real on-demand PDF generator that produces a premium, paginated A4 document.
 
-**Internal email — `supabase/functions/deliver-report/index.ts`**
-- When `payment_method === "test"`, change the flag line to `PAYMENT METHOD: bypass (test) — DO NOT INVOICE` so test runs are unmistakable.
+**Approach (client-side, no extra backend):**
+- Add `jspdf` + `html2canvas`.
+- Tag each report section (`<Section>`) with `data-pdf-section` and add a hidden, print-optimized `#pdf-root` clone styled for paper (white bg, dark text, generous margins, brand accent retained on numbers/CTA only).
+- New `handleExportPDF`:
+  - A4 portrait, 15 mm margins, 4 mm gap between sections.
+  - Loop sections → `html2canvas(section, { scale: 2, backgroundColor: '#ffffff' })` → scale to fit content width → check remaining page space → add page if needed.
+  - Add a branded cover page (CCG logo wordmark, "AI Tools Assessment", client company, prepared date) and a header/footer band on every page with `Cooman Consulting Group · Prepared for {company} · Page X of Y`.
+  - File name: `CCG-AI-Assessment-{company-slug}.pdf`.
+- Keep the "Print / Save as PDF" button but relabel it **Download PDF** and run the new generator. Show a spinner while rendering.
 
-**Secret**
-- Add one Lovable Cloud secret: `ASSESSMENT_BYPASS_CODE`. You'll set its value (e.g. `CCG-INTERNAL-2026`) via the secret prompt. To rotate later: update the secret — no code change needed.
+### Technical notes (for me)
+- Files touched:
+  - `supabase/functions/_shared/transactional-email-templates/assessment-ready.tsx` (new)
+  - `supabase/functions/_shared/transactional-email-templates/registry.ts` (register)
+  - `supabase/functions/deliver-report/index.ts` (use `send-transactional-email`, keep Web3Forms only for internal)
+  - `src/pages/Assessment.tsx` (pre-fill `paymentRef` from `form.email` when entering payment step; copy update)
+  - `src/pages/AssessmentResults.tsx` (jsPDF generator, section markers, cover page, footer)
+  - `package.json` (add `jspdf`, `html2canvas`)
+- Email infra prerequisites are handled by the email-domain setup dialog + `setup_email_infra` + `scaffold_transactional_email` before writing the template.
 
-## Out of scope
-- Multi-use codes / per-collaborator codes / expiry. Single shared code is enough for testing; can grow later if needed.
-- Real Stripe integration (still deferred).
+### Out of scope
+- Replacing PayPal/Monzo/USDT with a real Stripe checkout (still on the deferred list).
+- Server-side PDF rendering (overkill; client-side jsPDF is fast and looks great when laid out per-section).
 
-Ready to build? On approval I'll request the `ASSESSMENT_BYPASS_CODE` secret from you, then ship the three file changes.
+Approve and I'll kick off email-domain setup, then build everything.
