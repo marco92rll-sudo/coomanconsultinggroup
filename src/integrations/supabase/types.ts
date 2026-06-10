@@ -14,7 +14,75 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      assessments: {
+        Row: {
+          business_type: string | null
+          company: string | null
+          contact_name: string | null
+          created_at: string
+          delivered_at: string | null
+          email: string | null
+          goal: string | null
+          hours_per_week: number | null
+          id: string
+          pains: string[] | null
+          payment_confirmed_at: string | null
+          payment_method: string | null
+          payment_reference: string | null
+          pdf_url: string | null
+          primary_focus: string | null
+          report: Json | null
+          status: string
+          team_size: string | null
+          tools: string[] | null
+          updated_at: string
+        }
+        Insert: {
+          business_type?: string | null
+          company?: string | null
+          contact_name?: string | null
+          created_at?: string
+          delivered_at?: string | null
+          email?: string | null
+          goal?: string | null
+          hours_per_week?: number | null
+          id?: string
+          pains?: string[] | null
+          payment_confirmed_at?: string | null
+          payment_method?: string | null
+          payment_reference?: string | null
+          pdf_url?: string | null
+          primary_focus?: string | null
+          report?: Json | null
+          status?: string
+          team_size?: string | null
+          tools?: string[] | null
+          updated_at?: string
+        }
+        Update: {
+          business_type?: string | null
+          company?: string | null
+          contact_name?: string | null
+          created_at?: string
+          delivered_at?: string | null
+          email?: string | null
+          goal?: string | null
+          hours_per_week?: number | null
+          id?: string
+          pains?: string[] | null
+          payment_confirmed_at?: string | null
+          payment_method?: string | null
+          payment_reference?: string | null
+          pdf_url?: string | null
+          primary_focus?: string | null
+          report?: Json | null
+          status?: string
+          team_size?: string | null
+          tools?: string[] | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
