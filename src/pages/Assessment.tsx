@@ -189,6 +189,11 @@ export default function Assessment() {
                   busy={busy}
                   copied={copied}
                   setCopied={setCopied}
+                  bypassOpen={bypassOpen}
+                  setBypassOpen={setBypassOpen}
+                  bypassCode={bypassCode}
+                  setBypassCode={setBypassCode}
+                  bypassError={bypassError}
                 />
               )}
               {step < 4 && (
@@ -213,13 +218,6 @@ export default function Assessment() {
                 </div>
               )}
             </div>
-            {step === 4 && TEST_MODE && (
-              <div className="mt-4 text-center">
-                <button onClick={() => confirmPayment("test")} className="text-xs text-white/40 underline">
-                  [dev] Skip payment
-                </button>
-              </div>
-            )}
           </div>
         )}
       </main>
