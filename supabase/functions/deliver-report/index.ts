@@ -43,33 +43,44 @@ Deno.serve(async (req) => {
     const c = r.client || {};
 
     // 1) Client email — branded Lovable transactional email
-    try {
-      const { error: emailErr } = await supabase.functions.invoke("send-transactional-email", {
-        body: {
-          templateName: "assessment-ready",
-          recipientEmail: row.email,
-          idempotencyKey: `assessment-ready-${id}`,
-          templateData: {
-            company: row.company,
-            contactName: row.contact_name,
-            date: c.date || new Date().toLocaleString("en-US", { month: "long", year: "numeric" }),
-            businessType: row.business_type,
-            primaryFocus: r.primaryFocus || row.primary_focus,
-            hoursReclaimed: r.hoursReclaimed || 0,
-            resultsUrl,
-            summary: r.summary || {},
-            quickWins: r.quickWins || [],
-            solutions: r.solutions || [],
-            plan: r.plan || [],
-            comesAfter: r.comesAfter || [],
-            financial: r.financial || {},
-            nextSteps: r.nextSteps || [],
+    // Also send copies to CCG inboxes so they receive the same branded report.
+    const templateData = {
+      company: row.company,
+      contactName: row.contact_name,
+      date: c.date || new Date().toLocaleString("en-US", { month: "long", year: "numeric" }),
+      businessType: row.business_type,
+      primaryFocus: r.primaryFocus || row.primary_focus,
+      hoursReclaimed: r.hoursReclaimed || 0,
+      resultsUrl,
+      summary: r.summary || {},
+      quickWins: r.quickWins || [],
+      solutions: r.solutions || [],
+      plan: r.plan || [],
+      comesAfter: r.comesAfter || [],
+      financial: r.financial || {},
+      nextSteps: r.nextSteps || [],
+    };
+
+    const clientRecipients = [
+      { email: row.email, tag: "client" },
+      { email: "lcooman.ccg@gmail.com", tag: "ccg-lcooman" },
+      { email: "ccooman.ccg@gmail.com", tag: "ccg-ccooman" },
+    ];
+
+    for (const r2 of clientRecipients) {
+      try {
+        const { error: emailErr } = await supabase.functions.invoke("send-transactional-email", {
+          body: {
+            templateName: "assessment-ready",
+            recipientEmail: r2.email,
+            idempotencyKey: `assessment-ready-${id}-${r2.tag}`,
+            templateData,
           },
-        },
-      });
-      if (emailErr) console.error("send-transactional-email error", emailErr);
-    } catch (e) {
-      console.error("client email failed", e);
+        });
+        if (emailErr) console.error("send-transactional-email error", r2.tag, emailErr);
+      } catch (e) {
+        console.error("client email failed", r2.tag, e);
+      }
     }
 
     // 2) Internal CCG email — lead details + PAYMENT VERIFICATION FLAG
