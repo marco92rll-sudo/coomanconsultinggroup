@@ -455,6 +455,11 @@ function PaymentStep({ paymentTab, setPaymentTab, paymentRef, setPaymentRef, onC
           placeholder={paymentTab === "usdt" ? "0x… or TRC20 tx hash" : "name@email.com"}
           className="bg-[#0A1422] border-white/10 text-white"
         />
+        {paymentTab !== "usdt" && (
+          <p className="mt-2 text-xs text-white/45">
+            Pre-filled with the email from step 1 — change it only if you paid from a different account.
+          </p>
+        )}
         <Button
           onClick={() => onConfirm(paymentTab)}
           disabled={busy}
