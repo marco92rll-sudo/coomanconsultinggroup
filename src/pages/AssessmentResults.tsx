@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Loader2, Printer, ArrowRight } from "lucide-react";
+import { CheckCircle2, Loader2, Download, ArrowRight } from "lucide-react";
 import Header from "@/components/landing/Header";
 import Footer from "@/components/landing/Footer";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
@@ -103,6 +105,123 @@ export default function AssessmentResults() {
 
 function ReportView({ data }: { data: StatusResp }) {
   const r = data.report;
+  const reportRef = useRef<HTMLDivElement>(null);
+  const [downloading, setDownloading] = useState(false);
+
+  const slug = (data.company || "report").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "report";
+  const today = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+
+  const handleDownloadPDF = async () => {
+    if (!reportRef.current) return;
+    setDownloading(true);
+    try {
+      const pdf = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait" });
+      const pageW = pdf.internal.pageSize.getWidth();
+      const pageH = pdf.internal.pageSize.getHeight();
+      const margin = 15;
+      const contentW = pageW - margin * 2;
+      const contentH = pageH - margin * 2;
+
+      // --- Cover page ---
+      pdf.setFillColor(10, 20, 34); // #0A1422
+      pdf.rect(0, 0, pageW, pageH, "F");
+      pdf.setFillColor(226, 115, 90); // #E2735A accent strip
+      pdf.rect(0, 0, pageW, 4, "F");
+
+      pdf.setTextColor(139, 170, 184); // #8BAAB8
+      pdf.setFontSize(10);
+      pdf.setFont("helvetica", "bold");
+      pdf.text("COOMAN CONSULTING GROUP", margin, 30);
+
+      pdf.setTextColor(139, 170, 184);
+      pdf.setFontSize(9);
+      pdf.text("AI TOOLS ASSESSMENT", margin, 36);
+
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFontSize(28);
+      pdf.setFont("helvetica", "bold");
+      pdf.text("Prepared for", margin, pageH / 2 - 12);
+      pdf.setFontSize(34);
+      pdf.setTextColor(226, 115, 90);
+      const company = data.company || "Your Company";
+      pdf.text(company, margin, pageH / 2 + 2);
+
+      pdf.setFontSize(11);
+      pdf.setTextColor(216, 226, 236);
+      pdf.setFont("helvetica", "normal");
+      pdf.text(`Focus: ${r.primaryFocus || ""}`, margin, pageH / 2 + 14);
+      pdf.text(today, margin, pageH / 2 + 21);
+
+      pdf.setFontSize(9);
+      pdf.setTextColor(110, 132, 147);
+      pdf.text("Confidential — prepared exclusively for the named client.", margin, pageH - margin);
+
+      // --- Content pages: section by section ---
+      const sections = Array.from(reportRef.current.querySelectorAll<HTMLElement>("[data-pdf-section]"));
+      let cursorY = margin;
+      pdf.addPage();
+      drawHeaderFooter(pdf, pageW, pageH, margin, company, today);
+      cursorY = margin + 8;
+
+      for (const sectionEl of sections) {
+        const canvas = await html2canvas(sectionEl, {
+          backgroundColor: "#0A1422",
+          scale: 2,
+          useCORS: true,
+          logging: false,
+        });
+        const imgW = contentW;
+        const imgH = (canvas.height * imgW) / canvas.width;
+        const usableH = contentH - 8; // leave room for footer header band
+
+        if (imgH <= usableH) {
+          // Fits in remaining space of current page?
+          if (cursorY + imgH > pageH - margin) {
+            pdf.addPage();
+            drawHeaderFooter(pdf, pageW, pageH, margin, company, today);
+            cursorY = margin + 8;
+          }
+          pdf.addImage(canvas.toDataURL("image/jpeg", 0.92), "JPEG", margin, cursorY, imgW, imgH);
+          cursorY += imgH + 4;
+        } else {
+          // Section taller than a page — slice it
+          const pxPerMm = canvas.width / imgW;
+          const sliceHpx = usableH * pxPerMm;
+          let offsetPx = 0;
+          while (offsetPx < canvas.height) {
+            const remaining = canvas.height - offsetPx;
+            const thisSlicePx = Math.min(sliceHpx, remaining);
+            const slice = document.createElement("canvas");
+            slice.width = canvas.width;
+            slice.height = thisSlicePx;
+            const ctx = slice.getContext("2d")!;
+            ctx.fillStyle = "#0A1422";
+            ctx.fillRect(0, 0, slice.width, slice.height);
+            ctx.drawImage(canvas, 0, offsetPx, canvas.width, thisSlicePx, 0, 0, canvas.width, thisSlicePx);
+            const sliceImgH = (thisSlicePx / canvas.width) * imgW;
+
+            if (cursorY + sliceImgH > pageH - margin) {
+              pdf.addPage();
+              drawHeaderFooter(pdf, pageW, pageH, margin, company, today);
+              cursorY = margin + 8;
+            }
+            pdf.addImage(slice.toDataURL("image/jpeg", 0.92), "JPEG", margin, cursorY, imgW, sliceImgH);
+            cursorY += sliceImgH + 2;
+            offsetPx += thisSlicePx;
+          }
+          cursorY += 4;
+        }
+      }
+
+      pdf.save(`CCG-AI-Assessment-${slug}.pdf`);
+    } catch (e) {
+      console.error("PDF generation failed", e);
+      alert("Sorry — PDF generation failed. Please try again.");
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   return (
     <div className="mx-auto max-w-4xl">
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4 print:hidden">
@@ -115,12 +234,13 @@ function ReportView({ data }: { data: StatusResp }) {
           </h1>
           <p className="mt-1 text-sm text-white/50">A copy was emailed to {data.email}.</p>
         </div>
-        <Button onClick={() => window.print()} variant="outline" className="border-white/15 text-white hover:bg-white/5">
-          <Printer className="mr-2 h-4 w-4" /> Print / Save as PDF
+        <Button onClick={handleDownloadPDF} disabled={downloading} variant="outline" className="border-white/15 text-white hover:bg-white/5">
+          {downloading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}
+          {downloading ? "Building PDF…" : "Download PDF"}
         </Button>
       </div>
 
-      <div className="space-y-6 print:space-y-4" id="report">
+      <div ref={reportRef} className="space-y-6 print:space-y-4" id="report">
         <Section eyebrow="Executive Summary" title="The Outcome">
           <p className="text-white/80 leading-relaxed">{r.summary?.pain}</p>
           <p className="mt-3 text-white/80 leading-relaxed">{r.summary?.outcome}</p>
@@ -209,27 +329,38 @@ function ReportView({ data }: { data: StatusResp }) {
               </div>
             ))}
           </div>
-          <div className="mt-6 text-center">
+          <div className="mt-6 text-center print:hidden">
             <a href="mailto:lcooman.ccg@gmail.com?subject=Implementation%20Review" className="inline-flex items-center gap-2 rounded-lg bg-[#E2735A] px-8 py-4 font-semibold uppercase tracking-wider text-white shadow-[0_0_30px_rgba(226,114,91,0.4)] hover:bg-[#EC8A73]">
               Schedule Your Review Call <ArrowRight className="h-4 w-4" />
             </a>
           </div>
         </Section>
       </div>
-
-      <style>{`@media print { body, [class*="bg-["] { background: white !important; color: black !important; } header, footer, nav { display: none !important; } #report * { color: #000 !important; } #report .text-\\[\\#E2735A\\], #report .text-\\[\\#8BAAB8\\] { color: #C95A42 !important; } }`}</style>
     </div>
   );
 }
 
-function Section({ eyebrow, title, children }: { eyebrow: string; title: string; children: React.ReactNode }) {
-  return (
-    <section className="rounded-2xl border border-white/10 bg-[#121E2C] p-6 md:p-8">
-      <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8BAAB8]">{eyebrow}</div>
-      <h2 className="mt-2 text-2xl font-bold uppercase tracking-tight text-white">{title}</h2>
-      <div className="mt-5">{children}</div>
-    </section>
-  );
+function drawHeaderFooter(pdf: jsPDF, pageW: number, pageH: number, margin: number, company: string, date: string) {
+  // Background
+  pdf.setFillColor(10, 20, 34);
+  pdf.rect(0, 0, pageW, pageH, "F");
+  // Top accent
+  pdf.setFillColor(226, 115, 90);
+  pdf.rect(0, 0, pageW, 2, "F");
+  // Header text
+  pdf.setFontSize(8);
+  pdf.setTextColor(139, 170, 184);
+  pdf.setFont("helvetica", "bold");
+  pdf.text("CCG · AI TOOLS ASSESSMENT", margin, 10);
+  pdf.setFont("helvetica", "normal");
+  pdf.setTextColor(110, 132, 147);
+  pdf.text(company.toUpperCase(), pageW - margin, 10, { align: "right" });
+  // Footer
+  const page = (pdf as any).internal.getCurrentPageInfo().pageNumber;
+  pdf.setFontSize(8);
+  pdf.setTextColor(110, 132, 147);
+  pdf.text(`coomanconsultinggroup.com · ${date}`, margin, pageH - 6);
+  pdf.text(`Page ${page}`, pageW - margin, pageH - 6, { align: "right" });
 }
 
 function Stat({ label, value, caption, accent }: { label: string; value: string; caption?: string; accent?: boolean }) {
