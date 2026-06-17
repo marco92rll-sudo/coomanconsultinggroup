@@ -363,6 +363,16 @@ function drawHeaderFooter(pdf: jsPDF, pageW: number, pageH: number, margin: numb
   pdf.text(`Page ${page}`, pageW - margin, pageH - 6, { align: "right" });
 }
 
+function Section({ eyebrow, title, children }: { eyebrow: string; title: string; children: React.ReactNode }) {
+  return (
+    <section data-pdf-section className="rounded-2xl border border-white/10 bg-[#121E2C] p-6 md:p-8">
+      <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8BAAB8]">{eyebrow}</div>
+      <h2 className="mt-2 text-2xl font-bold uppercase tracking-tight text-white">{title}</h2>
+      <div className="mt-5">{children}</div>
+    </section>
+  );
+}
+
 function Stat({ label, value, caption, accent }: { label: string; value: string; caption?: string; accent?: boolean }) {
   return (
     <div className="rounded-xl border border-white/10 bg-[#0A1422] p-5 text-center">
