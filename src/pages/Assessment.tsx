@@ -122,6 +122,8 @@ export default function Assessment() {
       const data = await resp.json();
       if (!resp.ok) throw new Error(data.error || "Failed to submit");
       setAssessmentId(data.id);
+      // Pre-fill payment reference with their email so they don't have to re-enter it
+      if (!paymentRef) setPaymentRef(form.email);
       setStep(4);
     } catch (e) {
       alert((e as Error).message);
