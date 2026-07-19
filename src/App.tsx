@@ -7,6 +7,8 @@ import Index from "./pages/Index";
 import LeadLeakFinder from "./pages/LeadLeakFinder";
 import Assessment from "./pages/Assessment";
 import AssessmentResults from "./pages/AssessmentResults";
+import Login from "./pages/Login";
+import OAuthConsent from "./pages/OAuthConsent";
 import NotFound from "./pages/NotFound";
 import CookieConsent from "./components/CookieConsent";
 
@@ -23,6 +25,8 @@ const App = () => (
           <Route path="/lead-leak-finder" element={<LeadLeakFinder />} />
           <Route path="/assessment" element={<Assessment />} />
           <Route path="/assessment/results/:id" element={<AssessmentResults />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
